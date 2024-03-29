@@ -11,7 +11,6 @@
 		FC1110592B932EAA00F4E65C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1110582B932EAA00F4E65C /* ContentView.swift */; };
 		FC11105D2B932EAB00F4E65C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC11105C2B932EAB00F4E65C /* Assets.xcassets */; };
 		FC1110602B932EAB00F4E65C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC11105F2B932EAB00F4E65C /* Preview Assets.xcassets */; };
-		FC1110892B93361D00F4E65C /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1110882B93361D00F4E65C /* TripView.swift */; };
 		FC1110912B933A5A00F4E65C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC11106F2B9330FD00F4E65C /* WidgetKit.framework */; };
 		FC1110922B933A5A00F4E65C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1110712B9330FD00F4E65C /* SwiftUI.framework */; };
 		FC1110952B933A5A00F4E65C /* hippoWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1110942B933A5A00F4E65C /* hippoWidgetBundle.swift */; };
@@ -60,7 +59,6 @@
 		FC1110622B932EAB00F4E65C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC11106F2B9330FD00F4E65C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		FC1110712B9330FD00F4E65C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		FC1110882B93361D00F4E65C /* TripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
 		FC1110902B933A5A00F4E65C /* hippoWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = hippoWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC1110942B933A5A00F4E65C /* hippoWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hippoWidgetBundle.swift; sourceTree = "<group>"; };
 		FC1110962B933A5A00F4E65C /* hippoWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hippoWidgetLiveActivity.swift; sourceTree = "<group>"; };
@@ -117,7 +115,6 @@
 				FC1110562B932EAA00F4E65C /* hippoApp.swift */,
 				FC1110582B932EAA00F4E65C /* ContentView.swift */,
 				FC1110A82B9359C500F4E65C /* NetworkService.swift */,
-				FC1110882B93361D00F4E65C /* TripView.swift */,
 				FCCCB8252BB305B90077D4EF /* AppBackgroundTaskManager.swift */,
 				FC85BFFD2B96A5B10094E2F3 /* TripTips.wav */,
 				FC11105C2B932EAB00F4E65C /* Assets.xcassets */,
@@ -262,7 +259,6 @@
 				FC1110A52B933CF100F4E65C /* hippoWidget.swift in Sources */,
 				FC1110592B932EAA00F4E65C /* ContentView.swift in Sources */,
 				FC1110A92B9359C500F4E65C /* NetworkService.swift in Sources */,
-				FC1110892B93361D00F4E65C /* TripView.swift in Sources */,
 				FC1110572B932EAA00F4E65C /* hippoApp.swift in Sources */,
 				FCCCB8262BB305B90077D4EF /* AppBackgroundTaskManager.swift in Sources */,
 				FC1110A42B933CED00F4E65C /* hippoWidgetLiveActivity.swift in Sources */,
