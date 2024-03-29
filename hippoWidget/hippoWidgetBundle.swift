@@ -9,6 +9,8 @@ import WidgetKit
 import SwiftUI
 
 @main
+
+
 struct hippoWidgetBundle: WidgetBundle {
     var body: some Widget {
         hippoWidget()
