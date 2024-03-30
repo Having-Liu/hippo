@@ -19,23 +19,6 @@ struct HippoApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(GlobalData.shared) // 传递 GlobalData 为环境对象
-//                .environmentObject(backgroundTaskStatus) // 传递 BackgroundTaskStatus 为环境对象
-        }
-        .onChange(of: scenePhase) {
-            switch scenePhase {
-            case .background:
-                print("App is in background")
-                if globalData.shouldStartBackgroundTask {
-                    backgroundTaskManager.startBackgroundTask()
-                }
-            case .active:
-                print("App is active")
-                backgroundTaskManager.stopBackgroundTask()
-            case .inactive:
-                print("App is inactive")
-            default:
-                break
-            }
         }
 
     }

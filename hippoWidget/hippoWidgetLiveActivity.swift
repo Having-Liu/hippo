@@ -19,25 +19,10 @@ struct hippoWidgetAttributes: ActivityAttributes {
         var iconName: String
         var time: String
     }
-
-    // 静态数据
+    
+    // 静态数据，不知道干啥的，一删除就报错
     var name: String
 }
-
-//struct hippoWidgetAttributes: ActivityAttributes {
-//    public struct ContentState: Codable, Hashable {
-//        // Dynamic stateful properties about your activity go here!
-//        var progress = 0.05
-//        var distance: String
-//        var title: String
-//        var destination:String
-//        var iconName:String
-//        var time:String
-//    }
-//    
-//    // Fixed non-changing properties about your activity go here!
-//    var name: String
-//}
 
 
 struct hippoWidgetLiveActivity: Widget {
@@ -122,45 +107,11 @@ struct hippoWidgetLiveActivity: Widget {
                 // Expanded UI goes here.  Compose the expanded UI through
                 // various regions, like leading/trailing/center/bottom
                 DynamicIslandExpandedRegion(.leading) {
-                    //                    VStack{
-                    //                        Text(context.state.distance)
-                    //                            .multilineTextAlignment(.center)
-                    //                            .frame(width: 40)
-                    //                            .font(.caption2)
-                    //                        Text("公里")
-                    //                            .multilineTextAlignment(.center)
-                    //                            .frame(width: 40)
-                    //                            .font(.system(size: 8))
-                    //                    }
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    //                    VStack{
-                    //                        Text(context.state.time)
-                    //                            .multilineTextAlignment(.center)
-                    //                            .frame(width: 40)
-                    //                            .font(.caption2)
-                    //                        if context.state.destination == "上车点" {
-                    //                              Text("分钟上车")
-                    //                                  .multilineTextAlignment(.center)
-                    //                                  .frame(width: 40)
-                    //                                  .font(.system(size: 8))
-                    //                          } else if context.state.destination == "目的地" {
-                    //                              Text("分钟到达")
-                    //                                  .multilineTextAlignment(.center)
-                    //                                  .frame(width: 40)
-                    //                                  .font(.system(size: 8))
-                    //                          }
-                    //                    }
                 }
                 
                 DynamicIslandExpandedRegion(.center) {
-                    //                    VStack{
-                    //                        Spacer().frame(height: 10)
-                    //                        Text("center progress：\(context.state.distance)")
-                    //                        Spacer().frame(height: 10)
-                    //                    }
-                    
-                    
                     //内容展示区
                     VStack (alignment: .leading) {
                         //预计时间
@@ -256,16 +207,6 @@ struct hippoWidgetLiveActivity: Widget {
                 }
                 
             } minimal: {
-                //                VStack{
-                //                    Text(context.state.time)
-                //                        .multilineTextAlignment(.center)
-                //                        .frame(width: 40)
-                //                        .font(.caption2)
-                //                    Text("分钟上车")
-                //                        .multilineTextAlignment(.center)
-                //                        .frame(width: 40)
-                //
-                //                }
                 VStack{
                     Text(context.state.time)
                         .multilineTextAlignment(.center)
@@ -289,77 +230,3 @@ struct hippoWidgetLiveActivity: Widget {
         }
     }
 }
-
-
-
-
-
-//struct hippoWidgetAttributes: ActivityAttributes {
-//    public struct ContentState: Codable, Hashable {
-//        // Dynamic stateful properties about your activity go here!
-//        var emoji: String
-//    }
-//
-//    // Fixed non-changing properties about your activity go here!
-//    var name: String
-//}
-//
-//struct hippoWidgetLiveActivity: Widget {
-//    var body: some WidgetConfiguration {
-//        ActivityConfiguration(for: hippoWidgetAttributes.self) { context in
-//            // Lock screen/banner UI goes here
-//            VStack {
-//                Text("Hello \(context.state.emoji)")
-//            }
-//            .activityBackgroundTint(Color.cyan)
-//            .activitySystemActionForegroundColor(Color.black)
-//
-//        } dynamicIsland: { context in
-//            DynamicIsland {
-//                // Expanded UI goes here.  Compose the expanded UI through
-//                // various regions, like leading/trailing/center/bottom
-//                DynamicIslandExpandedRegion(.leading) {
-//                    Text("Leading")
-//                }
-//                DynamicIslandExpandedRegion(.trailing) {
-//                    Text("Trailing")
-//                }
-//                DynamicIslandExpandedRegion(.bottom) {
-//                    Text("Bottom \(context.state.emoji)")
-//                    // more content
-//                }
-//            } compactLeading: {
-//                Text("L")
-//            } compactTrailing: {
-//                Text("T \(context.state.emoji)")
-//            } minimal: {
-//                Text(context.state.emoji)
-//            }
-//            .widgetURL(URL(string: "http://www.apple.com"))
-//            .keylineTint(Color.red)
-//        }
-//    }
-//}
-//
-//extension hippoWidgetAttributes {
-//    fileprivate static var preview: hippoWidgetAttributes {
-//        hippoWidgetAttributes(name: "World")
-//    }
-//}
-//
-//extension hippoWidgetAttributes.ContentState {
-//    fileprivate static var smiley: hippoWidgetAttributes.ContentState {
-//        hippoWidgetAttributes.ContentState(emoji: "😀")
-//     }
-//
-//     fileprivate static var starEyes: hippoWidgetAttributes.ContentState {
-//         hippoWidgetAttributes.ContentState(emoji: "🤩")
-//     }
-//}
-//
-//#Preview("Notification", as: .content, using: hippoWidgetAttributes.preview) {
-//   hippoWidgetLiveActivity()
-//} contentStates: {
-//    hippoWidgetAttributes.ContentState.smiley
-//    hippoWidgetAttributes.ContentState.starEyes
-//}
