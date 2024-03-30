@@ -13,7 +13,6 @@ import SwiftUI
 
 struct hippoWidgetBundle: WidgetBundle {
     var body: some Widget {
-        hippoWidget()
         hippoWidgetLiveActivity()
     }
 }
