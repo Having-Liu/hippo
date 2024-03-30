@@ -21,6 +21,7 @@ public class GlobalData: ObservableObject {
     @Published var destination:String?//根据不同状态传不同的名字：未上车：上车点 / 在路上：目的地 / 已到达：目的地 。 拼起来的时候就是：距离目的地几公里
     @Published var iconName:String?//根据不同状态传不同的 icon 名字，未上车：figure.wave.circle.fill / 在路上：house.circle.fill / 已到达：house.circle.fill
     @Published var time:String?//剩余时间
+    var sentTokens = Set<String>() // 用于存储已发送的Token
     
 }
 
@@ -154,7 +155,7 @@ struct ContentView: View {
     func startActivity(){
         Task{
             print("NetworkService开启灵动岛--------------------")
-            let attributes = hippoWidgetAttributes(name:"我是名字")
+            let attributes = hippoWidgetAttributes(name:"不知道干啥的")
             let initialContentState = hippoWidgetAttributes.ContentState(
                 progress: globalData.progress,
                 distance: globalData.distance ?? "0",
@@ -180,12 +181,31 @@ struct ContentView: View {
                     for await tokenData in myActivity.pushTokenUpdates {
                         let token = tokenData.map { String(format: "%02x", $0) }.joined()
                         print("获取到实时活动的推送Token: \(token)")
-//MARK: 这里要处理把链接和实时活动 token 给后端的逻辑
-                        // 将Token发送给后端服务器
-                        sendTokenToServer(token: token)
+
+                        // 检查Token是否已经发送过
+                        if !GlobalData.shared.sentTokens.contains(token) {
+                            // 如果没有发送过，将Token发送给后端服务器
+                            sendTokenToServer(token: token)
+                            // 将Token添加到已发送集合中
+                            GlobalData.shared.sentTokens.insert(token)
+                        } else {
+                            // 如果Token已经发送过，可以在这里处理（例如什么都不做或打印日志）
+                            print("Token已经发送过，不再重复发送")
+                        }
                     }
-                    
                 }
+
+//                Task {
+//                    // 获取实时活动的唯一推送Token
+//                    for await tokenData in myActivity.pushTokenUpdates {
+//                        let token = tokenData.map { String(format: "%02x", $0) }.joined()
+//                        print("获取到实时活动的推送Token: \(token)")
+////MARK: 这里要处理把链接和实时活动 token 给后端的逻辑
+//                        // 将Token发送给后端服务器
+//                        sendTokenToServer(token: token)
+//                    }
+//                    
+//                }
             } catch (let error) {
                 print("创建实时活动失败，原因： \(error.localizedDescription)")
             }
