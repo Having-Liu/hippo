@@ -22,7 +22,6 @@
 		FC1110A52B933CF100F4E65C /* hippoWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1110982B933A5A00F4E65C /* hippoWidget.swift */; };
 		FC1110A92B9359C500F4E65C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1110A82B9359C500F4E65C /* NetworkService.swift */; };
 		FC85BFFE2B96A5B10094E2F3 /* TripTips.wav in Resources */ = {isa = PBXBuildFile; fileRef = FC85BFFD2B96A5B10094E2F3 /* TripTips.wav */; };
-		FCCCB8262BB305B90077D4EF /* AppBackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCCB8252BB305B90077D4EF /* AppBackgroundTaskManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +66,6 @@
 		FC11109C2B933A5B00F4E65C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC1110A82B9359C500F4E65C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		FC85BFFD2B96A5B10094E2F3 /* TripTips.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = TripTips.wav; sourceTree = "<group>"; };
-		FCCCB8252BB305B90077D4EF /* AppBackgroundTaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBackgroundTaskManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +113,6 @@
 				FC1110562B932EAA00F4E65C /* hippoApp.swift */,
 				FC1110582B932EAA00F4E65C /* ContentView.swift */,
 				FC1110A82B9359C500F4E65C /* NetworkService.swift */,
-				FCCCB8252BB305B90077D4EF /* AppBackgroundTaskManager.swift */,
 				FC85BFFD2B96A5B10094E2F3 /* TripTips.wav */,
 				FC11105C2B932EAB00F4E65C /* Assets.xcassets */,
 				FC1110612B932EAB00F4E65C /* hippo.entitlements */,
@@ -260,7 +257,6 @@
 				FC1110592B932EAA00F4E65C /* ContentView.swift in Sources */,
 				FC1110A92B9359C500F4E65C /* NetworkService.swift in Sources */,
 				FC1110572B932EAA00F4E65C /* hippoApp.swift in Sources */,
-				FCCCB8262BB305B90077D4EF /* AppBackgroundTaskManager.swift in Sources */,
 				FC1110A42B933CED00F4E65C /* hippoWidgetLiveActivity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
