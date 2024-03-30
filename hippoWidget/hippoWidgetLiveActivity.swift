@@ -201,32 +201,52 @@ struct hippoWidgetLiveActivity: Widget {
                     //                    // more content
                 }
             } compactLeading: {
-                VStack{
-                    Text(context.state.distance)
-                        .multilineTextAlignment(.center)
-                        .frame(width: 40)
-                        .font(.caption2)
-                    Text("公里")
-                        .multilineTextAlignment(.center)
-                        .frame(width: 40)
-                        .font(.system(size: 8))
+                if context.state.title != "行程查询中"{
+                    VStack{
+                        Text(context.state.distance)
+                            .multilineTextAlignment(.center)
+                            .frame(width: 40)
+                            .font(.caption2)
+                        Text("公里")
+                            .multilineTextAlignment(.center)
+                            .frame(width: 40)
+                            .font(.system(size: 8))
+                    }
+                } else {
+                    // car.rear.fill图标
+                    Image(systemName: "car.rear.fill")
+                        .font(.system(size: 12)) // 调整图标大小
+                        .foregroundColor(.pink) // 图标颜色
+                    
+                    
                 }
+                
             } compactTrailing: {
-                VStack{
-                    Text(context.state.time)
-                        .multilineTextAlignment(.center)
-                        .frame(width: 40)
-                        .font(.caption2)
-                    if context.state.destination == "上车点" {
-                        Text("分钟上车")
+                if context.state.title != "行程查询中"{
+                    VStack{
+                        Text(context.state.time)
                             .multilineTextAlignment(.center)
                             .frame(width: 40)
-                            .font(.system(size: 8))
-                    } else if context.state.destination == "目的地" {
-                        Text("分钟到达")
-                            .multilineTextAlignment(.center)
-                            .frame(width: 40)
-                            .font(.system(size: 8))
+                            .font(.caption2)
+                        if context.state.destination == "上车点" {
+                            Text("分钟上车")
+                                .multilineTextAlignment(.center)
+                                .frame(width: 40)
+                                .font(.system(size: 8))
+                        } else if context.state.destination == "目的地" {
+                            Text("分钟到达")
+                                .multilineTextAlignment(.center)
+                                .frame(width: 40)
+                                .font(.system(size: 8))
+                        }
+                    }
+
+                } else {
+                    VStack{
+                        Text("行程")
+                        .font(.system(size: 9))
+                        Text("查询中")
+                            .font(.system(size: 9))
                     }
                 }
                 
