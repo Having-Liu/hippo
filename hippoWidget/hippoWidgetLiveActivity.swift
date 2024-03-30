@@ -231,24 +231,31 @@ struct hippoWidgetLiveActivity: Widget {
                 }
                 
             } minimal: {
-                VStack{
-                    Text(context.state.time)
-                        .multilineTextAlignment(.center)
-                        .frame(width: 40)
-                        .font(.caption2)
-                    if context.state.destination == "上车点" {
-                        Text("分钟上车")
-                            .multilineTextAlignment(.center)
-                            .frame(width: 40)
-                            .font(.system(size: 8))
-                    } else if context.state.destination == "目的地" {
-                        Text("分钟到达")
-                            .multilineTextAlignment(.center)
-                            .frame(width: 40)
-                            .font(.system(size: 8))
-                    }
+                
+                ZStack {
+                    
+                    // 背景色
+                    Circle()
+                        .stroke(style: StrokeStyle(lineWidth: 2.0, lineCap: .round))
+                        .rotationEffect(Angle(degrees: -90)) // 从顶部开始
+                        .foregroundColor(.white) // 进度条颜色
+                        .opacity(0.15) // 设置图标的透明度为50%
+                    
+                    // 圆环进度条
+                    Circle()
+                        .trim(from: 0.0, to: CGFloat(min(context.state.progress, 1.0)))
+                        .stroke(style: StrokeStyle(lineWidth: 2.0, lineCap: .round))
+                        .rotationEffect(Angle(degrees: -90)) // 从顶部开始
+                        .foregroundColor(.pink) // 进度条颜色
+                    
+                    // car.rear.fill图标
+                    Image(systemName: "car.rear.fill")
+                        .font(.system(size: 8)) // 调整图标大小
+                        .foregroundColor(.pink) // 图标颜色
                 }
+                .frame(width: 20, height: 20) // 调整整个ZStack的大小
             }
+            
             //                            .widgetURL(URL(string: "http://www.apple.com"))
             .keylineTint(Color.pink)
         }

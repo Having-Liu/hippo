@@ -15,7 +15,7 @@ import WebKit
 public class GlobalData: ObservableObject {
     public static let shared = GlobalData()
     
-    @Published var progress = 0.05//灵动到进度条
+    @Published var progress = 0.0//灵动岛进度条
     @Published var distance: String?//给灵动岛的距离
     @Published var title: String?//根据不同状态传不同的title：未上车：预计几分钟上车 / 在路上：预计几分钟到达 / 已到达：已到达目的地
     @Published var destination:String?//根据不同状态传不同的名字：未上车：上车点 / 在路上：目的地 / 已到达：目的地 。 拼起来的时候就是：距离目的地几公里
