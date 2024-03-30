@@ -215,7 +215,7 @@ struct hippoWidgetLiveActivity: Widget {
                 } else {
                     // car.rear.fill图标
                     Image(systemName: "car.rear.fill")
-                        .font(.system(size: 12)) // 调整图标大小
+//                        .font(.system(size: 12)) // 调整图标大小
                         .foregroundColor(.pink) // 图标颜色
                     
                     
