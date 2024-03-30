@@ -22,6 +22,8 @@ public class GlobalData: ObservableObject {
     @Published var iconName:String?//根据不同状态传不同的 icon 名字，未上车：figure.wave.circle.fill / 在路上：house.circle.fill / 已到达：house.circle.fill
     @Published var time:String?//剩余时间
     var sentTokens = Set<String>() // 用于存储已发送的Token
+    var currentToken: String? // 存储当前活动的token
+    var currentUrl: String? // 存储当前活动的token
     
 }
 
@@ -173,84 +175,101 @@ struct ContentView: View {
                     attributes: attributes,
                     content: content, // 使用 content 而不是 initialContentState
                     pushType: .token
-//                    pushType: nil
+                    //                    pushType: nil
                 )
                 print("创建了实时活动，id： \(myActivity.id)")
                 Task {
                     // 获取实时活动的唯一推送Token
-                    for await tokenData in myActivity.pushTokenUpdates {
-                        let token = tokenData.map { String(format: "%02x", $0) }.joined()
-                        print("获取到实时活动的推送Token: \(token)")
-
-                        // 检查Token是否已经发送过
-                        if !GlobalData.shared.sentTokens.contains(token) {
-                            // 如果没有发送过，将Token发送给后端服务器
-                            sendTokenToServer(token: token)
-                            // 将Token添加到已发送集合中
-                            GlobalData.shared.sentTokens.insert(token)
-                        } else {
-                            // 如果Token已经发送过，可以在这里处理（例如什么都不做或打印日志）
-                            print("Token已经发送过，不再重复发送")
+                        for await tokenData in myActivity.pushTokenUpdates {
+                            let token = tokenData.map { String(format: "%02x", $0) }.joined()
+                            print("获取到实时活动的推送Token: \(token)")
+                            
+                            // 检查Token是否已经发送过
+                            if !GlobalData.shared.sentTokens.contains(token) {
+                                // 如果没有发送过，将Token发送给后端服务器
+                                NetworkService.shared.notifyServer(token: token, url: urlString, type: 0) { success in
+                                    DispatchQueue.main.async {
+                                        if success {
+                                            // Token发送成功，显示TripView
+                                            self.showTripview = true
+                                        } else {
+                                            // Token发送失败，处理错误
+                                            self.alertMessage = "无法发送Token，请稍后重试。"
+                                            self.showAlert = true
+                                        }
+                                        self.ButtomLoading = false
+                                    }
+                                }
+                                // 将Token添加到已发送集合中
+                                GlobalData.shared.sentTokens.insert(token)
+                                GlobalData.shared.currentToken = token
+                            } else {
+                                // 如果Token已经发送过，可以在这里处理（例如什么都不做或打印日志）
+                                print("Token已经发送过，不再重复发送")
+                            }
                         }
-                    }
-                }
-
-//                Task {
-//                    // 获取实时活动的唯一推送Token
 //                    for await tokenData in myActivity.pushTokenUpdates {
 //                        let token = tokenData.map { String(format: "%02x", $0) }.joined()
 //                        print("获取到实时活动的推送Token: \(token)")
-////MARK: 这里要处理把链接和实时活动 token 给后端的逻辑
-//                        // 将Token发送给后端服务器
-//                        sendTokenToServer(token: token)
+//                        
+//                        // 检查Token是否已经发送过
+//                        if !GlobalData.shared.sentTokens.contains(token) {
+//                            // 如果没有发送过，将Token发送给后端服务器
+//                            NetworkService.shared.notifyServer(token: token,url:urlString,type:0)
+//                            // 将Token添加到已发送集合中
+//                            GlobalData.shared.sentTokens.insert(token)
+//                            GlobalData.shared.currentToken = token
+//                        } else {
+//                            // 如果Token已经发送过，可以在这里处理（例如什么都不做或打印日志）
+//                            print("Token已经发送过，不再重复发送")
+//                        }
 //                    }
-//                    
-//                }
+                }
             } catch (let error) {
                 print("创建实时活动失败，原因： \(error.localizedDescription)")
             }
         }
     }
-        
-
     
     
-    func sendTokenToServer(token: String) {
-        // 构建请求的URL
-        let baseURL = "https://api2.pushdeer.com/message/push"
-        let pushkey = "PDU26873Twau9PEPWaMC81CXZAFd0lYbOAmGjtP6S"
-        let text = "获取到的token: \(token)"
-        
-        // 对text进行URL编码
-        guard let encodedText = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            print("无法编码text")
-            return
-        }
-        
-        // 拼接完整的URL
-        let urlString = "\(baseURL)?pushkey=\(pushkey)&text=\(encodedText)"
-        
-        // 确保URL有效
-        guard let url = URL(string: urlString) else {
-            print("无效的URL")
-            return
-        }
-        
-        // 创建URLRequest对象
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        
-        // 发起网络请求
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            // 在这里处理响应
-            if let error = error {
-                print("请求失败: \(error.localizedDescription)")
-            } else if let data = data, let responseString = String(data: data, encoding: .utf8) {
-                print("收到响应: \(responseString)")
-            }
-        }
-        task.resume()
-    }
+    
+    
+//    func notifyServer(token: String,url:String?,type:Int) {
+//        // 构建请求的URL
+//        let baseURL = "https://api2.pushdeer.com/message/push"
+//        let pushkey = "PDU26873Twau9PEPWaMC81CXZAFd0lYbOAmGjtP6S"
+//        let text = "获取到的token: \(token)"
+//        
+//        // 对text进行URL编码
+//        guard let encodedText = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+//            print("无法编码text")
+//            return
+//        }
+//        
+//        // 拼接完整的URL
+//        let urlString = "\(baseURL)?pushkey=\(pushkey)&text=\(encodedText)"
+//        
+//        // 确保URL有效
+//        guard let url = URL(string: urlString) else {
+//            print("无效的URL")
+//            return
+//        }
+//        
+//        // 创建URLRequest对象
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "GET"
+//        
+//        // 发起网络请求
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//            // 在这里处理响应
+//            if let error = error {
+//                print("请求失败: \(error.localizedDescription)")
+//            } else if let data = data, let responseString = String(data: data, encoding: .utf8) {
+//                print("收到响应: \(responseString)")
+//            }
+//        }
+//        task.resume()
+//    }
 }
 
 
@@ -269,7 +288,18 @@ struct TripView: View {
                 print("已关闭灵动岛显示")
             }
         }
+        
+        // 检查 currentToken 是否为 nil，避免强制解包导致的崩溃
+        if let token = GlobalData.shared.currentToken {
+            // 调用 notifyServer 方法，并提供一个空的闭包作为 completion 参数
+            NetworkService.shared.notifyServer(token: token, url: GlobalData.shared.currentUrl, type: 1, completion: { success in
+                // 这里不需要执行任何代码
+            })
+        } else {
+            print("没有可用的 token 来通知服务器")
+        }
     }
+
     
     var body: some View {
         VStack(spacing:0) {
@@ -278,15 +308,15 @@ struct TripView: View {
                 .edgesIgnoringSafeArea(.all)
             HStack (alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
-                        Text("已登陆灵动岛✨")
-                            .font(
-                                Font.custom("PingFang SC", size: 18)
-                                    .weight(.medium)
-                            )
-                            .foregroundColor(.primary)
-                        Text("可以实时关注宝宝行程啦")
-                            .font(Font.custom("PingFang SC", size: 12))
-                            .foregroundColor(.secondary)
+                    Text("已登陆灵动岛✨")
+                        .font(
+                            Font.custom("PingFang SC", size: 18)
+                                .weight(.medium)
+                        )
+                        .foregroundColor(.primary)
+                    Text("可以实时关注宝宝行程啦")
+                        .font(Font.custom("PingFang SC", size: 12))
+                        .foregroundColor(.secondary)
                 }
                 .padding(.leading, 24)
                 Spacer()
@@ -352,3 +382,58 @@ struct WebView: UIViewRepresentable {
 }
 
 
+class NetworkService {
+    static let shared = NetworkService()
+
+    private init() {}
+
+    func notifyServer(token: String, url: String?, type: Int, completion: @escaping (Bool) -> Void) {
+        // 构建请求的URL
+        let baseURL = "https://yourserver.com/api/activity/ended"
+        let parameters: [String: Any] = [
+            "token": token,
+            "url": url ?? "",
+            "type": type
+        ]
+        
+        // 创建URLRequest对象
+        guard let url = URL(string: baseURL) else {
+            print("无效的URL")
+            return
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // 将参数转换为JSON数据
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+        } catch {
+            print("编码参数时出错: \(error)")
+            return
+        }
+        
+        // 发起网络请求
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            // 在这里处理响应
+            if let error = error {
+                print("请求失败: \(error.localizedDescription)")
+                completion(false)
+            } else if let data = data, let responseString = String(data: data, encoding: .utf8) {
+                print("收到响应: \(responseString)")
+                GlobalData.shared.currentUrl = "\(url)"
+                
+                //MARK: 在这里需要处理各种情况
+                
+                
+                
+                
+                
+                completion(true)
+            }else {
+                completion(false)
+            }
+        }
+        task.resume()
+    }
+}
