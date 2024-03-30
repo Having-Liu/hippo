@@ -254,3 +254,4 @@ struct hippoWidgetLiveActivity: Widget {
         }
     }
 }
+
