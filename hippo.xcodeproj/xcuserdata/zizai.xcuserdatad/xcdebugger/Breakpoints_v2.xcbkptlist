@@ -3,4 +3,84 @@
    uuid = "3844E581-3433-4FF0-98E5-A856B0FB34FC"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BF3C028E-7149-4A09-AFC8-EFF9AD61FA61"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "hippo/NetworkService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "BF3C028E-7149-4A09-AFC8-EFF9AD61FA61 - 51ad8e60167b7ea2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "hippo.GlobalData.__allocating_init() -&gt; hippo.GlobalData"
+                  moduleName = "hippo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zizai/Documents/apple%20dev/hippo/hippo/NetworkService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "BF3C028E-7149-4A09-AFC8-EFF9AD61FA61 - 83a337978896d1fa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "hippo.GlobalData.deinit"
+                  moduleName = "hippo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zizai/Documents/apple%20dev/hippo/hippo/NetworkService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "BF3C028E-7149-4A09-AFC8-EFF9AD61FA61 - f8339a4999387b4f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "hippo.GlobalData.__deallocating_deinit"
+                  moduleName = "hippo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zizai/Documents/apple%20dev/hippo/hippo/NetworkService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "BF3C028E-7149-4A09-AFC8-EFF9AD61FA61 - 65b0fd0c1b451a0a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "hippo.GlobalData.init() -&gt; hippo.GlobalData"
+                  moduleName = "hippo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zizai/Documents/apple%20dev/hippo/hippo/NetworkService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "248">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

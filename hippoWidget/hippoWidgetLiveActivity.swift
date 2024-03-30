@@ -44,17 +44,28 @@ struct hippoWidgetLiveActivity: Widget {
                         .font(.title2)
                         .bold()
                     //剩余路程,加个判断：
-                    //                    if context.state.title != "宝宝已到达"{
-                    HStack (alignment: .lastTextBaseline,spacing: 0){
-                        Text("距离\(context.state.destination)")
-                            .font(.caption)
-                        Text(context.state.distance)
-                            .font(.title3)
-                            .monospaced()
-                        Text("公里")
-                            .font(.caption)
-                    }.padding(.bottom, 12)
-                    //                    }
+                    if context.state.title != "行程查询中"{
+                        HStack (alignment: .lastTextBaseline,spacing: 0){
+                            Text("距离\(context.state.destination)")
+                                .font(.caption)
+                            Text(context.state.distance)
+                                .font(.title3)
+                                .monospaced()
+                            Text("公里")
+                                .font(.caption)
+                        }.padding(.bottom, 12)
+                    } else {
+                        HStack (alignment: .lastTextBaseline,spacing: 0){
+                            Text("稍等哦")
+                                .font(.caption)
+                            Text(" ")
+                                .font(.title3)
+                                .monospaced()
+                            
+                        }.padding(.bottom, 12)
+                        
+                        
+                    }
                     //进度条
                     ZStack(alignment: .leading) {
                         RoundedRectangle(cornerRadius: 15)
@@ -118,16 +129,29 @@ struct hippoWidgetLiveActivity: Widget {
                         Text("\(context.state.title)")
                             .font(.title2)
                             .bold()
-                        //剩余路程
-                        HStack (alignment: .lastTextBaseline,spacing: 0){
-                            Text("距离\(context.state.destination)")
-                                .font(.caption)
-                            Text(context.state.distance)
-                                .font(.title3)
-                                .monospaced()
-                            Text("公里")
-                                .font(.caption)
-                        }.padding(.bottom, 12)
+                        //剩余路程,加个判断：
+                        if context.state.title != "行程查询中"{
+                            HStack (alignment: .lastTextBaseline,spacing: 0){
+                                Text("距离\(context.state.destination)")
+                                    .font(.caption)
+                                Text(context.state.distance)
+                                    .font(.title3)
+                                    .monospaced()
+                                Text("公里")
+                                    .font(.caption)
+                            }.padding(.bottom, 12)
+                        } else {
+                            HStack (alignment: .lastTextBaseline,spacing: 0){
+                                Text("稍等哦")
+                                    .font(.caption)
+                                Text(" ")
+                                    .font(.title3)
+                                    .monospaced()
+                                
+                            }.padding(.bottom, 12)
+                            
+                            
+                        }
                         //进度条
                         ZStack(alignment: .leading) {
                             RoundedRectangle(cornerRadius: 15)
