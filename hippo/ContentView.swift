@@ -381,59 +381,96 @@ struct WebView: UIViewRepresentable {
     }
 }
 
-
 class NetworkService {
     static let shared = NetworkService()
 
     private init() {}
 
     func notifyServer(token: String, url: String?, type: Int, completion: @escaping (Bool) -> Void) {
-        // 构建请求的URL
-        let baseURL = "https://yourserver.com/api/activity/ended"
-        let parameters: [String: Any] = [
-            "token": token,
-            "url": url ?? "",
-            "type": type
-        ]
-        
-        // 创建URLRequest对象
-        guard let url = URL(string: baseURL) else {
-            print("无效的URL")
+        // 构建请求的URL，包括url和token作为查询参数
+        guard let encodedUrl = url?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let requestUrl = URL(string: "http://139.9.142.254:10009/hippo/v1/apple/apns/pushUrl?url=\(encodedUrl)&token=\(token)") else {
+            print("构建URL失败")
+            completion(false)
             return
         }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "GET"
+        request.addValue("Apifox/1.0.0 (https://apifox.com)", forHTTPHeaderField: "User-Agent")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        // 将参数转换为JSON数据
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
-        } catch {
-            print("编码参数时出错: \(error)")
-            return
-        }
-        
+
         // 发起网络请求
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            // 在这里处理响应
             if let error = error {
+                // 请求失败
                 print("请求失败: \(error.localizedDescription)")
                 completion(false)
             } else if let data = data, let responseString = String(data: data, encoding: .utf8) {
+                // 请求成功
                 print("收到响应: \(responseString)")
-                GlobalData.shared.currentUrl = "\(url)"
-                
-                //MARK: 在这里需要处理各种情况
-                
-                
-                
-                
-                
                 completion(true)
-            }else {
+            } else {
+                // 其他情况
                 completion(false)
             }
         }
         task.resume()
     }
 }
+
+//class NetworkService {
+//    static let shared = NetworkService()
+//
+//    private init() {}
+//
+//    func notifyServer(token: String, url: String?, type: Int, completion: @escaping (Bool) -> Void) {
+//        // 构建请求的URL
+//        let baseURL = "https://yourserver.com/api/activity/ended"
+//        let parameters: [String: Any] = [
+//            "token": token,
+//            "url": url ?? "",
+//            "type": type
+//        ]
+//        
+//        // 创建URLRequest对象
+//        guard let url = URL(string: baseURL) else {
+//            print("无效的URL")
+//            return
+//        }
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        
+//        // 将参数转换为JSON数据
+//        do {
+//            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+//        } catch {
+//            print("编码参数时出错: \(error)")
+//            return
+//        }
+//        
+//        // 发起网络请求
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//            // 在这里处理响应
+//            if let error = error {
+//                print("请求失败: \(error.localizedDescription)")
+//                completion(false)
+//            } else if let data = data, let responseString = String(data: data, encoding: .utf8) {
+//                print("收到响应: \(responseString)")
+//                GlobalData.shared.currentUrl = "\(url)"
+//                
+//                //MARK: 在这里需要处理各种情况
+//                
+//                
+//                
+//                
+//                
+//                completion(true)
+//            }else {
+//                completion(false)
+//            }
+//        }
+//        task.resume()
+//    }
+//}
