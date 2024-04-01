@@ -81,8 +81,17 @@ struct ContentView: View {
                             self.urlString = urlString
                             
                             //这里要加逻辑：把链接给后端，创建一个灵动岛，把 token 给后端，后端返回数据了，才进入tripview
-                            startActivity()
-                            self.showTripview = true
+//                            startActivity()
+                            startActivity { success in
+                                if success {
+                                    self.showTripview = true
+                                }else {
+                                    // 如果失败，显示错误信息
+                                    self.alertMessage = "遇到了网络问题，请稍后重试。"
+                                    self.showAlert = true
+                                }
+                                self.ButtomLoading = false
+                            }
                         }
                         
                     } else {
@@ -154,7 +163,7 @@ struct ContentView: View {
     }
     // MARK: 灵动岛相关的所有方法
     //开启灵动岛显示功能
-    func startActivity(){
+    func startActivity(completion: @escaping (Bool) -> Void){
         Task{
             print("NetworkService开启灵动岛--------------------")
             let attributes = hippoWidgetAttributes(name:"不知道干啥的")
@@ -203,30 +212,19 @@ struct ContentView: View {
                                 // 将Token添加到已发送集合中
                                 GlobalData.shared.sentTokens.insert(token)
                                 GlobalData.shared.currentToken = token
+                                completion(true)
                             } else {
                                 // 如果Token已经发送过，可以在这里处理（例如什么都不做或打印日志）
                                 print("Token已经发送过，不再重复发送")
+                                completion(true)
                             }
                         }
-//                    for await tokenData in myActivity.pushTokenUpdates {
-//                        let token = tokenData.map { String(format: "%02x", $0) }.joined()
-//                        print("获取到实时活动的推送Token: \(token)")
-//                        
-//                        // 检查Token是否已经发送过
-//                        if !GlobalData.shared.sentTokens.contains(token) {
-//                            // 如果没有发送过，将Token发送给后端服务器
-//                            NetworkService.shared.notifyServer(token: token,url:urlString,type:0)
-//                            // 将Token添加到已发送集合中
-//                            GlobalData.shared.sentTokens.insert(token)
-//                            GlobalData.shared.currentToken = token
-//                        } else {
-//                            // 如果Token已经发送过，可以在这里处理（例如什么都不做或打印日志）
-//                            print("Token已经发送过，不再重复发送")
-//                        }
-//                    }
+
                 }
             } catch (let error) {
                 print("创建实时活动失败，原因： \(error.localizedDescription)")
+                completion(false)
+
             }
         }
     }
@@ -290,14 +288,14 @@ struct TripView: View {
         }
         
         // 检查 currentToken 是否为 nil，避免强制解包导致的崩溃
-        if let token = GlobalData.shared.currentToken {
-            // 调用 notifyServer 方法，并提供一个空的闭包作为 completion 参数
-            NetworkService.shared.notifyServer(token: token, url: GlobalData.shared.currentUrl, type: 1, completion: { success in
-                // 这里不需要执行任何代码
-            })
-        } else {
-            print("没有可用的 token 来通知服务器")
-        }
+//        if let token = GlobalData.shared.currentToken {
+//            // 调用 notifyServer 方法，并提供一个空的闭包作为 completion 参数
+//            NetworkService.shared.notifyServer(token: token, url: GlobalData.shared.currentUrl, type: 1, completion: { success in
+//                // 这里不需要执行任何代码
+//            })
+//        } else {
+//            print("没有可用的 token 来通知服务器")
+//        }
     }
 
     
