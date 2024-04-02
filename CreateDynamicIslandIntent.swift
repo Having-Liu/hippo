@@ -95,50 +95,7 @@ struct CreateDynamicIslandIntent: AppIntent, CustomIntentMigratedAppIntent, Pred
         return token ?? "default_token" // 如果没有获取到 token，则返回默认值
     }
 
-//    private func createDynamicIsland() async -> String {
-//        // 这里添加创建灵动岛的代码，并获取更新 token
-//        // 假设创建成功，并获取到了 token
-//        let token = "some_token"
-//        // 这里应该是创建灵动岛并获取 token 的逻辑
-//            Task{
-//                print("快捷指令NetworkService开启灵动岛--------------------")
-//                let attributes = hippoWidgetAttributes(name:"不知道干啥的")
-//                let initialContentState = hippoWidgetAttributes.ContentState(
-//                    progress:  0.05,
-//                    distance:  "0",
-//                    title:"行程查询中",
-//                    destination:"查询中",
-//                    iconName:"heart.circle.fill",
-//                    time: "0"
-//                )
-//                do {
-//                    // 创建 ActivityContent 实例
-//                    let content = ActivityContent(state: initialContentState, staleDate: Date().addingTimeInterval(10800))
-//                    
-//                    // 使用 ActivityContent 实例调用 request 方法
-//                    let myActivity = try Activity<hippoWidgetAttributes>.request(
-//                        attributes: attributes,
-//                        content: content, // 使用 content 而不是 initialContentState
-//                        pushType: .token
-//                    )
-//                    print("创建了实时活动，id： \(myActivity.id)")
-//                    Task {
-//                        // 获取实时活动的唯一推送Token
-//                            for await tokenData in myActivity.pushTokenUpdates {
-//                                let token = tokenData.map { String(format: "%02x", $0) }.joined()
-//                                print("获取到实时活动的推送Token: \(token)")
-//                                
-//                            }
-//
-//                    }
-//                } catch (let error) {
-//                    print("创建实时活动失败，原因： \(error.localizedDescription)")
-//
-//                }
-//            }
-//        
-//        return token
-//    }
+
     
     private func notifyServer(token: String, url: String) async -> Bool {
         // 构建请求的URL，包括url和token作为查询参数
