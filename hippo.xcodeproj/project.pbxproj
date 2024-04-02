@@ -26,7 +26,7 @@
 		FC46D6022BBBFCCD003EB82E /* hippoWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1110942B933A5A00F4E65C /* hippoWidgetBundle.swift */; };
 		FC46D6032BBBFCD8003EB82E /* hippoWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1110962B933A5A00F4E65C /* hippoWidgetLiveActivity.swift */; };
 		FC46D6042BBC0161003EB82E /* CreateDynamicIslandIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46D6002BBBF363003EB82E /* CreateDynamicIslandIntent.swift */; };
-		FC46D6052BBC0162003EB82E /* CreateDynamicIslandIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46D6002BBBF363003EB82E /* CreateDynamicIslandIntent.swift */; };
+		FC46D6072BBC1C92003EB82E /* CreateDynamicIslandIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46D6002BBBF363003EB82E /* CreateDynamicIslandIntent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -316,7 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC46D6052BBC0162003EB82E /* CreateDynamicIslandIntent.swift in Sources */,
+				FC46D6072BBC1C92003EB82E /* CreateDynamicIslandIntent.swift in Sources */,
 				FC1110592B932EAA00F4E65C /* ContentView.swift in Sources */,
 				FC1110572B932EAA00F4E65C /* hippoApp.swift in Sources */,
 				FC1110A42B933CED00F4E65C /* hippoWidgetLiveActivity.swift in Sources */,
