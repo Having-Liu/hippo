@@ -18,6 +18,15 @@
 		FC11109B2B933A5B00F4E65C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC11109A2B933A5B00F4E65C /* Assets.xcassets */; };
 		FC11109F2B933A5B00F4E65C /* hippoWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FC1110902B933A5A00F4E65C /* hippoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FC1110A42B933CED00F4E65C /* hippoWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1110962B933A5A00F4E65C /* hippoWidgetLiveActivity.swift */; };
+		FC46D5F12BBBE665003EB82E /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC46D5F02BBBE665003EB82E /* Intents.framework */; };
+		FC46D5F42BBBE665003EB82E /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46D5F32BBBE665003EB82E /* IntentHandler.swift */; };
+		FC46D5F82BBBE665003EB82E /* hippoIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FC46D5EF2BBBE665003EB82E /* hippoIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FC46D5FD2BBBED45003EB82E /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = FC46D5FC2BBBED45003EB82E /* Intents.intentdefinition */; };
+		FC46D6012BBBF363003EB82E /* CreateDynamicIslandIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46D6002BBBF363003EB82E /* CreateDynamicIslandIntent.swift */; };
+		FC46D6022BBBFCCD003EB82E /* hippoWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1110942B933A5A00F4E65C /* hippoWidgetBundle.swift */; };
+		FC46D6032BBBFCD8003EB82E /* hippoWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1110962B933A5A00F4E65C /* hippoWidgetLiveActivity.swift */; };
+		FC46D6042BBC0161003EB82E /* CreateDynamicIslandIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46D6002BBBF363003EB82E /* CreateDynamicIslandIntent.swift */; };
+		FC46D6052BBC0162003EB82E /* CreateDynamicIslandIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46D6002BBBF363003EB82E /* CreateDynamicIslandIntent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +36,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = FC11108F2B933A5A00F4E65C;
 			remoteInfo = hippoWidgetExtension;
+		};
+		FC46D5F62BBBE665003EB82E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FC11104B2B932EAA00F4E65C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FC46D5EE2BBBE665003EB82E;
+			remoteInfo = hippoIntents;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -38,6 +54,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				FC11109F2B933A5B00F4E65C /* hippoWidgetExtension.appex in Embed Foundation Extensions */,
+				FC46D5F82BBBE665003EB82E /* hippoIntents.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,6 +76,12 @@
 		FC1110962B933A5A00F4E65C /* hippoWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hippoWidgetLiveActivity.swift; sourceTree = "<group>"; };
 		FC11109A2B933A5B00F4E65C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC11109C2B933A5B00F4E65C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC46D5EF2BBBE665003EB82E /* hippoIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = hippoIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC46D5F02BBBE665003EB82E /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		FC46D5F32BBBE665003EB82E /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		FC46D5F52BBBE665003EB82E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC46D5FC2BBBED45003EB82E /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
+		FC46D6002BBBF363003EB82E /* CreateDynamicIslandIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDynamicIslandIntent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,14 +101,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC46D5EC2BBBE665003EB82E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC46D5F12BBBE665003EB82E /* Intents.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		FC11104A2B932EAA00F4E65C = {
 			isa = PBXGroup;
 			children = (
+				FC46D6002BBBF363003EB82E /* CreateDynamicIslandIntent.swift */,
 				FC1110552B932EAA00F4E65C /* hippo */,
 				FC1110932B933A5A00F4E65C /* hippoWidget */,
+				FC46D5F22BBBE665003EB82E /* hippoIntents */,
 				FC11106E2B9330FD00F4E65C /* Frameworks */,
 				FC1110542B932EAA00F4E65C /* Products */,
 			);
@@ -96,6 +129,7 @@
 			children = (
 				FC1110532B932EAA00F4E65C /* hippo.app */,
 				FC1110902B933A5A00F4E65C /* hippoWidgetExtension.appex */,
+				FC46D5EF2BBBE665003EB82E /* hippoIntents.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,6 +160,7 @@
 			children = (
 				FC11106F2B9330FD00F4E65C /* WidgetKit.framework */,
 				FC1110712B9330FD00F4E65C /* SwiftUI.framework */,
+				FC46D5F02BBBE665003EB82E /* Intents.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -139,6 +174,16 @@
 				FC11109C2B933A5B00F4E65C /* Info.plist */,
 			);
 			path = hippoWidget;
+			sourceTree = "<group>";
+		};
+		FC46D5F22BBBE665003EB82E /* hippoIntents */ = {
+			isa = PBXGroup;
+			children = (
+				FC46D5F32BBBE665003EB82E /* IntentHandler.swift */,
+				FC46D5FC2BBBED45003EB82E /* Intents.intentdefinition */,
+				FC46D5F52BBBE665003EB82E /* Info.plist */,
+			);
+			path = hippoIntents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +202,7 @@
 			);
 			dependencies = (
 				FC11109E2B933A5B00F4E65C /* PBXTargetDependency */,
+				FC46D5F72BBBE665003EB82E /* PBXTargetDependency */,
 			);
 			name = hippo;
 			productName = hippo;
@@ -180,6 +226,23 @@
 			productReference = FC1110902B933A5A00F4E65C /* hippoWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		FC46D5EE2BBBE665003EB82E /* hippoIntents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC46D5FB2BBBE665003EB82E /* Build configuration list for PBXNativeTarget "hippoIntents" */;
+			buildPhases = (
+				FC46D5EB2BBBE665003EB82E /* Sources */,
+				FC46D5EC2BBBE665003EB82E /* Frameworks */,
+				FC46D5ED2BBBE665003EB82E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = hippoIntents;
+			productName = hippoIntents;
+			productReference = FC46D5EF2BBBE665003EB82E /* hippoIntents.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -194,6 +257,9 @@
 						CreatedOnToolsVersion = 15.2;
 					};
 					FC11108F2B933A5A00F4E65C = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					FC46D5EE2BBBE665003EB82E = {
 						CreatedOnToolsVersion = 15.2;
 					};
 				};
@@ -213,6 +279,7 @@
 			targets = (
 				FC1110522B932EAA00F4E65C /* hippo */,
 				FC11108F2B933A5A00F4E65C /* hippoWidgetExtension */,
+				FC46D5EE2BBBE665003EB82E /* hippoIntents */,
 			);
 		};
 /* End PBXProject section */
@@ -235,6 +302,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC46D5ED2BBBE665003EB82E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -242,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC46D6052BBC0162003EB82E /* CreateDynamicIslandIntent.swift in Sources */,
 				FC1110592B932EAA00F4E65C /* ContentView.swift in Sources */,
 				FC1110572B932EAA00F4E65C /* hippoApp.swift in Sources */,
 				FC1110A42B933CED00F4E65C /* hippoWidgetLiveActivity.swift in Sources */,
@@ -254,6 +329,19 @@
 			files = (
 				FC1110952B933A5A00F4E65C /* hippoWidgetBundle.swift in Sources */,
 				FC1110972B933A5A00F4E65C /* hippoWidgetLiveActivity.swift in Sources */,
+				FC46D6042BBC0161003EB82E /* CreateDynamicIslandIntent.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC46D5EB2BBBE665003EB82E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC46D6022BBBFCCD003EB82E /* hippoWidgetBundle.swift in Sources */,
+				FC46D6012BBBF363003EB82E /* CreateDynamicIslandIntent.swift in Sources */,
+				FC46D6032BBBFCD8003EB82E /* hippoWidgetLiveActivity.swift in Sources */,
+				FC46D5FD2BBBED45003EB82E /* Intents.intentdefinition in Sources */,
+				FC46D5F42BBBE665003EB82E /* IntentHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +352,11 @@
 			isa = PBXTargetDependency;
 			target = FC11108F2B933A5A00F4E65C /* hippoWidgetExtension */;
 			targetProxy = FC11109D2B933A5B00F4E65C /* PBXContainerItemProxy */;
+		};
+		FC46D5F72BBBE665003EB82E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FC46D5EE2BBBE665003EB82E /* hippoIntents */;
+			targetProxy = FC46D5F62BBBE665003EB82E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -513,6 +606,56 @@
 			};
 			name = Release;
 		};
+		FC46D5F92BBBE665003EB82E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MXHBUQH27V;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = hippoIntents/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = hippoIntents;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = zizai.hippo.hippoIntents;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FC46D5FA2BBBE665003EB82E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MXHBUQH27V;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = hippoIntents/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = hippoIntents;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = zizai.hippo.hippoIntents;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -539,6 +682,15 @@
 			buildConfigurations = (
 				FC1110A12B933A5B00F4E65C /* Debug */,
 				FC1110A22B933A5B00F4E65C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FC46D5FB2BBBE665003EB82E /* Build configuration list for PBXNativeTarget "hippoIntents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC46D5F92BBBE665003EB82E /* Debug */,
+				FC46D5FA2BBBE665003EB82E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
