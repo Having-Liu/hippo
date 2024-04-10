@@ -27,6 +27,11 @@
 		FC46D6012BBBF363003EB82E /* CreateDynamicIslandIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46D6002BBBF363003EB82E /* CreateDynamicIslandIntent.swift */; };
 		FC46D6042BBC0161003EB82E /* CreateDynamicIslandIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46D6002BBBF363003EB82E /* CreateDynamicIslandIntent.swift */; };
 		FC46D6072BBC1C92003EB82E /* CreateDynamicIslandIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46D6002BBBF363003EB82E /* CreateDynamicIslandIntent.swift */; };
+		FCA4E84E2BC69B720010690D /* hippowatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA4E84D2BC69B720010690D /* hippowatchApp.swift */; };
+		FCA4E8502BC69B720010690D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA4E84F2BC69B720010690D /* ContentView.swift */; };
+		FCA4E8522BC69B740010690D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCA4E8512BC69B740010690D /* Assets.xcassets */; };
+		FCA4E8552BC69B740010690D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCA4E8542BC69B740010690D /* Preview Assets.xcassets */; };
+		FCA4E8582BC69B740010690D /* hippowatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = FCA4E84B2BC69B720010690D /* hippowatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +49,13 @@
 			remoteGlobalIDString = FC46D5EE2BBBE665003EB82E;
 			remoteInfo = hippoIntents;
 		};
+		FCA4E8562BC69B740010690D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FC11104B2B932EAA00F4E65C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FCA4E84A2BC69B720010690D;
+			remoteInfo = "hippowatch Watch App";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,6 +69,17 @@
 				FC46D5F82BBBE665003EB82E /* hippoIntents.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCA4E8592BC69B740010690D /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				FCA4E8582BC69B740010690D /* hippowatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -82,6 +105,11 @@
 		FC46D5F52BBBE665003EB82E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC46D5FC2BBBED45003EB82E /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
 		FC46D6002BBBF363003EB82E /* CreateDynamicIslandIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDynamicIslandIntent.swift; sourceTree = "<group>"; };
+		FCA4E84B2BC69B720010690D /* hippowatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "hippowatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCA4E84D2BC69B720010690D /* hippowatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hippowatchApp.swift; sourceTree = "<group>"; };
+		FCA4E84F2BC69B720010690D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FCA4E8512BC69B740010690D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FCA4E8542BC69B740010690D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +137,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FCA4E8482BC69B720010690D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -119,6 +154,7 @@
 				FC1110552B932EAA00F4E65C /* hippo */,
 				FC1110932B933A5A00F4E65C /* hippoWidget */,
 				FC46D5F22BBBE665003EB82E /* hippoIntents */,
+				FCA4E84C2BC69B720010690D /* hippowatch Watch App */,
 				FC11106E2B9330FD00F4E65C /* Frameworks */,
 				FC1110542B932EAA00F4E65C /* Products */,
 			);
@@ -130,6 +166,7 @@
 				FC1110532B932EAA00F4E65C /* hippo.app */,
 				FC1110902B933A5A00F4E65C /* hippoWidgetExtension.appex */,
 				FC46D5EF2BBBE665003EB82E /* hippoIntents.appex */,
+				FCA4E84B2BC69B720010690D /* hippowatch Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -186,6 +223,25 @@
 			path = hippoIntents;
 			sourceTree = "<group>";
 		};
+		FCA4E84C2BC69B720010690D /* hippowatch Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				FCA4E84D2BC69B720010690D /* hippowatchApp.swift */,
+				FCA4E84F2BC69B720010690D /* ContentView.swift */,
+				FCA4E8512BC69B740010690D /* Assets.xcassets */,
+				FCA4E8532BC69B740010690D /* Preview Content */,
+			);
+			path = "hippowatch Watch App";
+			sourceTree = "<group>";
+		};
+		FCA4E8532BC69B740010690D /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				FCA4E8542BC69B740010690D /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -197,12 +253,14 @@
 				FC1110502B932EAA00F4E65C /* Frameworks */,
 				FC1110512B932EAA00F4E65C /* Resources */,
 				FC1110852B9330FF00F4E65C /* Embed Foundation Extensions */,
+				FCA4E8592BC69B740010690D /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				FC11109E2B933A5B00F4E65C /* PBXTargetDependency */,
 				FC46D5F72BBBE665003EB82E /* PBXTargetDependency */,
+				FCA4E8572BC69B740010690D /* PBXTargetDependency */,
 			);
 			name = hippo;
 			productName = hippo;
@@ -243,6 +301,23 @@
 			productReference = FC46D5EF2BBBE665003EB82E /* hippoIntents.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		FCA4E84A2BC69B720010690D /* hippowatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCA4E85C2BC69B740010690D /* Build configuration list for PBXNativeTarget "hippowatch Watch App" */;
+			buildPhases = (
+				FCA4E8472BC69B720010690D /* Sources */,
+				FCA4E8482BC69B720010690D /* Frameworks */,
+				FCA4E8492BC69B720010690D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "hippowatch Watch App";
+			productName = "hippowatch Watch App";
+			productReference = FCA4E84B2BC69B720010690D /* hippowatch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -260,6 +335,9 @@
 						CreatedOnToolsVersion = 15.2;
 					};
 					FC46D5EE2BBBE665003EB82E = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					FCA4E84A2BC69B720010690D = {
 						CreatedOnToolsVersion = 15.2;
 					};
 				};
@@ -280,6 +358,7 @@
 				FC1110522B932EAA00F4E65C /* hippo */,
 				FC11108F2B933A5A00F4E65C /* hippoWidgetExtension */,
 				FC46D5EE2BBBE665003EB82E /* hippoIntents */,
+				FCA4E84A2BC69B720010690D /* hippowatch Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -307,6 +386,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC0014B42BC2B3FF00C96DB2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCA4E8492BC69B720010690D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCA4E8552BC69B740010690D /* Preview Assets.xcassets in Resources */,
+				FCA4E8522BC69B740010690D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +433,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FCA4E8472BC69B720010690D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCA4E8502BC69B720010690D /* ContentView.swift in Sources */,
+				FCA4E84E2BC69B720010690D /* hippowatchApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -357,6 +454,11 @@
 			isa = PBXTargetDependency;
 			target = FC46D5EE2BBBE665003EB82E /* hippoIntents */;
 			targetProxy = FC46D5F62BBBE665003EB82E /* PBXContainerItemProxy */;
+		};
+		FCA4E8572BC69B740010690D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FCA4E84A2BC69B720010690D /* hippowatch Watch App */;
+			targetProxy = FCA4E8562BC69B740010690D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -656,6 +758,66 @@
 			};
 			name = Release;
 		};
+		FCA4E85A2BC69B740010690D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"hippowatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = MXHBUQH27V;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = hippowatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = zizai.hippo;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = zizai.hippo.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.2;
+			};
+			name = Debug;
+		};
+		FCA4E85B2BC69B740010690D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"hippowatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = MXHBUQH27V;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = hippowatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = zizai.hippo;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = zizai.hippo.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -691,6 +853,15 @@
 			buildConfigurations = (
 				FC46D5F92BBBE665003EB82E /* Debug */,
 				FC46D5FA2BBBE665003EB82E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FCA4E85C2BC69B740010690D /* Build configuration list for PBXNativeTarget "hippowatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCA4E85A2BC69B740010690D /* Debug */,
+				FCA4E85B2BC69B740010690D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
