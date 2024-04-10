@@ -387,7 +387,7 @@ class NetworkService {
     func notifyServer(token: String, url: String?, type: Int, completion: @escaping (Bool) -> Void) {
         // 构建请求的URL，包括url和token作为查询参数
         guard let encodedUrl = url?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let requestUrl = URL(string: "https://apre-d.quandashi.com/hippo/v1/apple/apns/pushUrl?url=\(encodedUrl)&token=\(token)") else {
+              let requestUrl = URL(string: "https://d.quandashi.com/hippo/v1/apple/apns/pushUrl?url=\(encodedUrl)&token=\(token)") else {
             print("构建URL失败")
             completion(false)
             return

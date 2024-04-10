@@ -12,10 +12,10 @@
 			<array/>
 			<key>IntentsSupported</key>
 			<array>
+				<string>CreateDynamicIslandIntentIntent</string>
 				<string>INSearchForMessagesIntent</string>
 				<string>INSendMessageIntent</string>
 				<string>INSetMessageAttributeIntent</string>
-				<string>IntentIntent</string>
 			</array>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
