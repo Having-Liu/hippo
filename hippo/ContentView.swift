@@ -203,7 +203,7 @@ struct ContentView: View {
                                             self.showTripview = true
                                         } else {
                                             // Token发送失败，处理错误
-                                            self.alertMessage = "无法发送Token，请稍后重试。"
+                                            self.alertMessage = "遇到了一些问题，请稍后重试。"
                                             self.showAlert = true
                                         }
                                         self.ButtomLoading = false
