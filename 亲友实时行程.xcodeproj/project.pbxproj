@@ -18,11 +18,11 @@
 		FC1110922B933A5A00F4E65C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1110712B9330FD00F4E65C /* SwiftUI.framework */; };
 		FC1110972B933A5A00F4E65C /* hippoWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1110962B933A5A00F4E65C /* hippoWidgetLiveActivity.swift */; };
 		FC11109B2B933A5B00F4E65C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC11109A2B933A5B00F4E65C /* Assets.xcassets */; };
-		FC11109F2B933A5B00F4E65C /* hippoWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FC1110902B933A5A00F4E65C /* hippoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FC11109F2B933A5B00F4E65C /* 亲友实时行程WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FC1110902B933A5A00F4E65C /* 亲友实时行程WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FC1110A42B933CED00F4E65C /* hippoWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1110962B933A5A00F4E65C /* hippoWidgetLiveActivity.swift */; };
 		FC46D5F12BBBE665003EB82E /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC46D5F02BBBE665003EB82E /* Intents.framework */; };
 		FC46D5F42BBBE665003EB82E /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46D5F32BBBE665003EB82E /* IntentHandler.swift */; };
-		FC46D5F82BBBE665003EB82E /* hippoIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FC46D5EF2BBBE665003EB82E /* hippoIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FC46D5F82BBBE665003EB82E /* 亲友实时行程Intents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FC46D5EF2BBBE665003EB82E /* 亲友实时行程Intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FC46D5FD2BBBED45003EB82E /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = FC46D5FC2BBBED45003EB82E /* Intents.intentdefinition */; };
 		FC46D6012BBBF363003EB82E /* CreateDynamicIslandIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46D6002BBBF363003EB82E /* CreateDynamicIslandIntent.swift */; };
 		FC46D6042BBC0161003EB82E /* CreateDynamicIslandIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46D6002BBBF363003EB82E /* CreateDynamicIslandIntent.swift */; };
@@ -53,8 +53,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				FC11109F2B933A5B00F4E65C /* hippoWidgetExtension.appex in Embed Foundation Extensions */,
-				FC46D5F82BBBE665003EB82E /* hippoIntents.appex in Embed Foundation Extensions */,
+				FC11109F2B933A5B00F4E65C /* 亲友实时行程WidgetExtension.appex in Embed Foundation Extensions */,
+				FC46D5F82BBBE665003EB82E /* 亲友实时行程Intents.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,7 +62,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		FC1110532B932EAA00F4E65C /* hippo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hippo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC1110532B932EAA00F4E65C /* 亲友实时行程.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "亲友实时行程.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC1110562B932EAA00F4E65C /* hippoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hippoApp.swift; sourceTree = "<group>"; };
 		FC1110582B932EAA00F4E65C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FC11105C2B932EAB00F4E65C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -71,12 +71,12 @@
 		FC1110622B932EAB00F4E65C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC11106F2B9330FD00F4E65C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		FC1110712B9330FD00F4E65C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		FC1110902B933A5A00F4E65C /* hippoWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = hippoWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC1110902B933A5A00F4E65C /* 亲友实时行程WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "亲友实时行程WidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC1110942B933A5A00F4E65C /* hippoWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hippoWidgetBundle.swift; sourceTree = "<group>"; };
 		FC1110962B933A5A00F4E65C /* hippoWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hippoWidgetLiveActivity.swift; sourceTree = "<group>"; };
 		FC11109A2B933A5B00F4E65C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC11109C2B933A5B00F4E65C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FC46D5EF2BBBE665003EB82E /* hippoIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = hippoIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC46D5EF2BBBE665003EB82E /* 亲友实时行程Intents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "亲友实时行程Intents.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC46D5F02BBBE665003EB82E /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		FC46D5F32BBBE665003EB82E /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		FC46D5F52BBBE665003EB82E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -127,9 +127,9 @@
 		FC1110542B932EAA00F4E65C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FC1110532B932EAA00F4E65C /* hippo.app */,
-				FC1110902B933A5A00F4E65C /* hippoWidgetExtension.appex */,
-				FC46D5EF2BBBE665003EB82E /* hippoIntents.appex */,
+				FC1110532B932EAA00F4E65C /* 亲友实时行程.app */,
+				FC1110902B933A5A00F4E65C /* 亲友实时行程WidgetExtension.appex */,
+				FC46D5EF2BBBE665003EB82E /* 亲友实时行程Intents.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -189,9 +189,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FC1110522B932EAA00F4E65C /* hippo */ = {
+		FC1110522B932EAA00F4E65C /* 亲友实时行程 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FC1110652B932EAB00F4E65C /* Build configuration list for PBXNativeTarget "hippo" */;
+			buildConfigurationList = FC1110652B932EAB00F4E65C /* Build configuration list for PBXNativeTarget "亲友实时行程" */;
 			buildPhases = (
 				FC11104F2B932EAA00F4E65C /* Sources */,
 				FC1110502B932EAA00F4E65C /* Frameworks */,
@@ -204,14 +204,14 @@
 				FC11109E2B933A5B00F4E65C /* PBXTargetDependency */,
 				FC46D5F72BBBE665003EB82E /* PBXTargetDependency */,
 			);
-			name = hippo;
+			name = "亲友实时行程";
 			productName = hippo;
-			productReference = FC1110532B932EAA00F4E65C /* hippo.app */;
+			productReference = FC1110532B932EAA00F4E65C /* 亲友实时行程.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FC11108F2B933A5A00F4E65C /* hippoWidgetExtension */ = {
+		FC11108F2B933A5A00F4E65C /* 亲友实时行程WidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FC1110A02B933A5B00F4E65C /* Build configuration list for PBXNativeTarget "hippoWidgetExtension" */;
+			buildConfigurationList = FC1110A02B933A5B00F4E65C /* Build configuration list for PBXNativeTarget "亲友实时行程WidgetExtension" */;
 			buildPhases = (
 				FC11108C2B933A5A00F4E65C /* Sources */,
 				FC11108D2B933A5A00F4E65C /* Frameworks */,
@@ -221,14 +221,14 @@
 			);
 			dependencies = (
 			);
-			name = hippoWidgetExtension;
+			name = "亲友实时行程WidgetExtension";
 			productName = hippoWidgetExtension;
-			productReference = FC1110902B933A5A00F4E65C /* hippoWidgetExtension.appex */;
+			productReference = FC1110902B933A5A00F4E65C /* 亲友实时行程WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		FC46D5EE2BBBE665003EB82E /* hippoIntents */ = {
+		FC46D5EE2BBBE665003EB82E /* 亲友实时行程Intents */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FC46D5FB2BBBE665003EB82E /* Build configuration list for PBXNativeTarget "hippoIntents" */;
+			buildConfigurationList = FC46D5FB2BBBE665003EB82E /* Build configuration list for PBXNativeTarget "亲友实时行程Intents" */;
 			buildPhases = (
 				FC46D5EB2BBBE665003EB82E /* Sources */,
 				FC46D5EC2BBBE665003EB82E /* Frameworks */,
@@ -238,9 +238,9 @@
 			);
 			dependencies = (
 			);
-			name = hippoIntents;
+			name = "亲友实时行程Intents";
 			productName = hippoIntents;
-			productReference = FC46D5EF2BBBE665003EB82E /* hippoIntents.appex */;
+			productReference = FC46D5EF2BBBE665003EB82E /* 亲友实时行程Intents.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -264,7 +264,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FC11104E2B932EAA00F4E65C /* Build configuration list for PBXProject "hippo" */;
+			buildConfigurationList = FC11104E2B932EAA00F4E65C /* Build configuration list for PBXProject "亲友实时行程" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -277,9 +277,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FC1110522B932EAA00F4E65C /* hippo */,
-				FC11108F2B933A5A00F4E65C /* hippoWidgetExtension */,
-				FC46D5EE2BBBE665003EB82E /* hippoIntents */,
+				FC1110522B932EAA00F4E65C /* 亲友实时行程 */,
+				FC11108F2B933A5A00F4E65C /* 亲友实时行程WidgetExtension */,
+				FC46D5EE2BBBE665003EB82E /* 亲友实时行程Intents */,
 			);
 		};
 /* End PBXProject section */
@@ -350,12 +350,12 @@
 /* Begin PBXTargetDependency section */
 		FC11109E2B933A5B00F4E65C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FC11108F2B933A5A00F4E65C /* hippoWidgetExtension */;
+			target = FC11108F2B933A5A00F4E65C /* 亲友实时行程WidgetExtension */;
 			targetProxy = FC11109D2B933A5B00F4E65C /* PBXContainerItemProxy */;
 		};
 		FC46D5F72BBBE665003EB82E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FC46D5EE2BBBE665003EB82E /* hippoIntents */;
+			target = FC46D5EE2BBBE665003EB82E /* 亲友实时行程Intents */;
 			targetProxy = FC46D5F62BBBE665003EB82E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -667,7 +667,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FC11104E2B932EAA00F4E65C /* Build configuration list for PBXProject "hippo" */ = {
+		FC11104E2B932EAA00F4E65C /* Build configuration list for PBXProject "亲友实时行程" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC1110632B932EAB00F4E65C /* Debug */,
@@ -676,7 +676,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FC1110652B932EAB00F4E65C /* Build configuration list for PBXNativeTarget "hippo" */ = {
+		FC1110652B932EAB00F4E65C /* Build configuration list for PBXNativeTarget "亲友实时行程" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC1110662B932EAB00F4E65C /* Debug */,
@@ -685,7 +685,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FC1110A02B933A5B00F4E65C /* Build configuration list for PBXNativeTarget "hippoWidgetExtension" */ = {
+		FC1110A02B933A5B00F4E65C /* Build configuration list for PBXNativeTarget "亲友实时行程WidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC1110A12B933A5B00F4E65C /* Debug */,
@@ -694,7 +694,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FC46D5FB2BBBE665003EB82E /* Build configuration list for PBXNativeTarget "hippoIntents" */ = {
+		FC46D5FB2BBBE665003EB82E /* Build configuration list for PBXNativeTarget "亲友实时行程Intents" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC46D5F92BBBE665003EB82E /* Debug */,

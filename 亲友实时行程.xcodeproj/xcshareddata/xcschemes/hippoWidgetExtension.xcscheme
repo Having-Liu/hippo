@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FC11108F2B933A5A00F4E65C"
-               BuildableName = "hippoWidgetExtension.appex"
-               BlueprintName = "hippoWidgetExtension"
-               ReferencedContainer = "container:hippo.xcodeproj">
+               BuildableName = "&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;WidgetExtension.appex"
+               BlueprintName = "&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;WidgetExtension"
+               ReferencedContainer = "container:&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -30,9 +30,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FC1110522B932EAA00F4E65C"
-               BuildableName = "hippo.app"
-               BlueprintName = "hippo"
-               ReferencedContainer = "container:hippo.xcodeproj">
+               BuildableName = "&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;.app"
+               BlueprintName = "&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;"
+               ReferencedContainer = "container:&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -62,18 +62,18 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FC11108F2B933A5A00F4E65C"
-            BuildableName = "hippoWidgetExtension.appex"
-            BlueprintName = "hippoWidgetExtension"
-            ReferencedContainer = "container:hippo.xcodeproj">
+            BuildableName = "&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;WidgetExtension.appex"
+            BlueprintName = "&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;WidgetExtension"
+            ReferencedContainer = "container:&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FC1110522B932EAA00F4E65C"
-            BuildableName = "hippo.app"
-            BlueprintName = "hippo"
-            ReferencedContainer = "container:hippo.xcodeproj">
+            BuildableName = "&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;.app"
+            BlueprintName = "&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;"
+            ReferencedContainer = "container:&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <EnvironmentVariables>
@@ -107,9 +107,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FC1110522B932EAA00F4E65C"
-            BuildableName = "hippo.app"
-            BlueprintName = "hippo"
-            ReferencedContainer = "container:hippo.xcodeproj">
+            BuildableName = "&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;.app"
+            BlueprintName = "&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;"
+            ReferencedContainer = "container:&#x4eb2;&#x53cb;&#x5b9e;&#x65f6;&#x884c;&#x7a0b;.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
