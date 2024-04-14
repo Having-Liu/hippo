@@ -6,6 +6,8 @@
 	<array>
 		<string>zizai.hippo.refresh</string>
 	</array>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>processing</string>
