@@ -37,19 +37,22 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing:0) {
-            Image("hippo")
+//MARK: 需要切换
+            Image("ditrip")//线上版
+//            Image("hippo") //个人版
                 .resizable() // 如果需要的话，让图片可缩放
                 .scaledToFit() // 保持图片的宽高比适应内容
                 .edgesIgnoringSafeArea(.all)
             
             VStack{
-                Spacer()
-                Text("粘贴分享链接，即可登岛查看宝宝行程")
+                Text("粘贴分享链接\n即可在灵动岛和实时活动查看亲友行程")//线上版
+//                Text("粘贴分享链接\n即可在灵动岛和实时活动查看宝宝行程")//个人版
                     .font(
-                        Font.custom("PingFang SC", size: 16)
+                        Font.custom("PingFang SC", size: 18)
                             .weight(.medium)
                     )
-                    .foregroundColor(.primary)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.black)
                 Spacer()
                 Button(action: {
                     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
@@ -109,12 +112,26 @@ struct ContentView: View {
                                 .progressViewStyle(CircularProgressViewStyle())
                                 .scaleEffect(0.5)  // 根据需要调整大小
                         }
-                        Text(ButtomLoading ? "" : "粘贴分享链接并登岛")
-                            .foregroundColor(.primary)
+                        Text(ButtomLoading ? "" : "粘贴并创建实时活动")
+//                            .foregroundColor(.primary)//个人版
+                            .foregroundColor(.white)//线上版
                     }
                     .foregroundColor(.primary)
-                    .padding(EdgeInsets(top: 15, leading: 25, bottom: 15, trailing: 25))
-                    .background(Color.gray.opacity(0.25)) // 先设置背景颜色，然后设置透明度
+                    .padding(EdgeInsets(top: 16, leading: 32, bottom: 16, trailing: 32))
+// 个人版
+//                    .background(Color.gray.opacity(0.25))
+// 线上版
+                    .background(
+                    LinearGradient(
+                    stops: [
+                    Gradient.Stop(color: Color(red: 1, green: 0.46, blue: 0.29), location: 0.00),
+                    Gradient.Stop(color: Color(red: 1, green: 0.55, blue: 0.25), location: 1.00),
+                    ],
+                    startPoint: UnitPoint(x: 0, y: 0.5),
+                    endPoint: UnitPoint(x: 1, y: 0.5)
+                    )
+                    )
+                    
                     .clipShape(Capsule()) // 裁剪背景为胶囊形状
                 }
                 .disabled(ButtomLoading)  // 如果正在加载，则禁用按钮
@@ -125,11 +142,23 @@ struct ContentView: View {
             }
             .frame(maxWidth: .infinity)
             .edgesIgnoringSafeArea(.all)
+//个人版
+//            .background(
+//                LinearGradient(
+//                    stops: [
+//                        Gradient.Stop(color: Color(red: 0.97, green: 0.76, blue: 0.8), location: 0.00),
+//                        Gradient.Stop(color: Color(red: 1, green: 0.91, blue: 0.94), location: 1.00),
+//                    ],
+//                    startPoint: UnitPoint(x: 0.5, y: 0),
+//                    endPoint: UnitPoint(x: 0.5, y: 1)
+//                )
+//            )
+//线上版
             .background(
                 LinearGradient(
                     stops: [
-                        Gradient.Stop(color: Color(red: 0.97, green: 0.76, blue: 0.8), location: 0.00),
-                        Gradient.Stop(color: Color(red: 1, green: 0.91, blue: 0.94), location: 1.00),
+                        Gradient.Stop(color: Color(red: 1, green: 0.96, blue: 0.92), location: 0.00),
+                        Gradient.Stop(color: .white, location: 1.00),
                     ],
                     startPoint: UnitPoint(x: 0.5, y: 0),
                     endPoint: UnitPoint(x: 0.5, y: 1)
@@ -228,46 +257,6 @@ struct ContentView: View {
             }
         }
     }
-    
-    
-    
-    
-//    func notifyServer(token: String,url:String?,type:Int) {
-//        // 构建请求的URL
-//        let baseURL = "https://api2.pushdeer.com/message/push"
-//        let pushkey = "PDU26873Twau9PEPWaMC81CXZAFd0lYbOAmGjtP6S"
-//        let text = "获取到的token: \(token)"
-//        
-//        // 对text进行URL编码
-//        guard let encodedText = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-//            print("无法编码text")
-//            return
-//        }
-//        
-//        // 拼接完整的URL
-//        let urlString = "\(baseURL)?pushkey=\(pushkey)&text=\(encodedText)"
-//        
-//        // 确保URL有效
-//        guard let url = URL(string: urlString) else {
-//            print("无效的URL")
-//            return
-//        }
-//        
-//        // 创建URLRequest对象
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "GET"
-//        
-//        // 发起网络请求
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            // 在这里处理响应
-//            if let error = error {
-//                print("请求失败: \(error.localizedDescription)")
-//            } else if let data = data, let responseString = String(data: data, encoding: .utf8) {
-//                print("收到响应: \(responseString)")
-//            }
-//        }
-//        task.resume()
-//    }
 }
 
 
@@ -286,16 +275,6 @@ struct TripView: View {
                 print("已关闭灵动岛显示")
             }
         }
-        
-        // 检查 currentToken 是否为 nil，避免强制解包导致的崩溃
-//        if let token = GlobalData.shared.currentToken {
-//            // 调用 notifyServer 方法，并提供一个空的闭包作为 completion 参数
-//            NetworkService.shared.notifyServer(token: token, url: GlobalData.shared.currentUrl, type: 1, completion: { success in
-//                // 这里不需要执行任何代码
-//            })
-//        } else {
-//            print("没有可用的 token 来通知服务器")
-//        }
     }
 
     
@@ -312,7 +291,8 @@ struct TripView: View {
                                 .weight(.medium)
                         )
                         .foregroundColor(.primary)
-                    Text("可以实时关注宝宝行程啦")
+//                    Text("可以实时关注宝宝行程啦")//个人版
+                    Text("可以实时关注亲友行程啦")//线上版
                         .font(Font.custom("PingFang SC", size: 12))
                         .foregroundColor(.secondary)
                 }
@@ -346,7 +326,8 @@ struct TripView: View {
                 LinearGradient(
                     stops: [
                         Gradient.Stop(color: Color(red: 0.98, green: 0.98, blue: 0.98), location: 0.00),
-                        Gradient.Stop(color: Color(red: 1, green: 0.91, blue: 0.94), location: 1.00),
+//                        Gradient.Stop(color: Color(red: 1, green: 0.91, blue: 0.94), location: 1.00),//个人版
+                        Gradient.Stop(color: Color(red: 1, green: 0.96, blue: 0.92), location: 1.00),//线上版
                     ],
                     startPoint: UnitPoint(x: 0.5, y: 0),
                     endPoint: UnitPoint(x: 0.5, y: 1)

@@ -30,19 +30,17 @@ struct hippoWidgetLiveActivity: Widget {
         ActivityConfiguration(for: hippoWidgetAttributes.self) { context in
             // Lock screen/banner UI goes here
             // MARK: - 实时活动样式
-            ZStack{
+            ZStack(alignment: .top) {
                 //背景
-                Image("background")
-//                    .resizable() // 使图片可以缩放
-//                    .aspectRatio(contentMode: .fill) // 保持图片的宽高比
-//                    .frame(height: 136) // 设置图片的框架大小为宽100点，高100点
-                    .resizable() // 使图片可以缩放
-                    .aspectRatio(contentMode: .fill) // 保持图片的宽高比
-                    .alignmentGuide(.top) { d in d[.top] }
-                    .alignmentGuide(.trailing) { d in d[.trailing] }
-                // 如果需要在容器小的时候优先显示右上角的内容，可以使用 clipped() 方法
-                    .clipped()
-                
+                HStack{
+                    Spacer()
+                    //                    Image("background")//个人版
+                    Image("ditripbackground")//线上版
+                        .frame(width: 140, height: 100) // 设置图片的框架大小为宽100点，高100点
+                        .alignmentGuide(.top) { d in d[.top] }
+                        .alignmentGuide(.trailing) { d in d[.trailing] }
+                }
+                //                .border(Color.blue, width: /* 边框宽度 */ 1)
                 //内容展示区
                 VStack (alignment: .leading) {
                     //预计时间
@@ -88,9 +86,10 @@ struct hippoWidgetLiveActivity: Widget {
                             ZStack(alignment: .leading) {
                                 RoundedRectangle(cornerRadius: 15)
                                 //                                          .fill(Color.blue)
-                                    .fill(Color.pink)
+                                //                                    .fill(Color.pink)//个人版
+                                    .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
                                     .frame(width: progressBarWidth, height: 6)
-                                    .opacity(0.5)
+                                //                                    .opacity(0.5)//个人版才需要
                                 
                                 // 小汽车图标的位置也根据进度动态调整
                                 // 确保小汽车图标不会超出父视图的范围
@@ -105,16 +104,20 @@ struct hippoWidgetLiveActivity: Widget {
                         HStack {
                             Spacer()
                             Image(systemName: "\(context.state.iconName)")
-                                .foregroundColor(.pink)
+                            //                                .foregroundColor(.pink)//个人版
+                                .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
                                 .background(.white)
                                 .clipShape(Circle())
                         }
                         .padding(.trailing, -2)
                     }
                     .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
+                    .padding(.top, 8) // 这里设置了20点的上边距
+                    .padding(.bottom, 8) // 这里设置了20点的上边距
                 }
                 .padding(15)
             }
+            
             
             // MARK: - 灵动岛样式
             
@@ -129,16 +132,17 @@ struct hippoWidgetLiveActivity: Widget {
                 }
                 
                 DynamicIslandExpandedRegion(.center) {
-                    ZStack{
+                    ZStack(alignment: .top){
                         //背景
-                        Image("background")
-                            .resizable() // 使图片可以缩放
-                            .aspectRatio(contentMode: .fill) // 保持图片的宽高比
-                            .alignmentGuide(.top) { d in d[.top] }
-                            .alignmentGuide(.trailing) { d in d[.trailing] }
-                        // 如果需要在容器小的时候优先显示右上角的内容，可以使用 clipped() 方法
-                            .clipped()
-                        //内容展示区
+                        HStack{
+                            Spacer()
+                            //                    Image("background")//个人版
+                            Image("ditripbackground")//线上版
+                                .frame(width: 140, height: 100) // 设置图片的框架大小为宽100点，高100点
+                                .alignmentGuide(.top) { d in d[.top] }
+                                .alignmentGuide(.trailing) { d in d[.trailing] }
+                        }
+
                         VStack (alignment: .leading) {
                             //预计时间
                             Text("\(context.state.title)")
@@ -183,7 +187,8 @@ struct hippoWidgetLiveActivity: Widget {
                                     ZStack(alignment: .leading) {
                                         RoundedRectangle(cornerRadius: 15)
                                         //                                          .fill(Color.blue)
-                                            .fill(Color.pink)
+                                        //                                            .fill(Color.pink)//个人版
+                                            .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
                                             .frame(width: progressBarWidth, height: 6)
                                             .opacity(0.5)
                                         
@@ -200,7 +205,8 @@ struct hippoWidgetLiveActivity: Widget {
                                 HStack {
                                     Spacer()
                                     Image(systemName: "\(context.state.iconName)")
-                                        .foregroundColor(.pink)
+                                    //                                        .foregroundColor(.pink)//个人版
+                                        .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
                                         .background(.white)
                                         .clipShape(Circle())
                                 }
@@ -232,7 +238,8 @@ struct hippoWidgetLiveActivity: Widget {
                     // car.rear.fill图标
                     Image(systemName: "car.rear.fill")
                     //                        .font(.system(size: 12)) // 调整图标大小
-                        .foregroundColor(.pink) // 图标颜色
+                    //                        .foregroundColor(.pink) // 个人版
+                        .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2)) // 线上版
                     
                     
                 }
@@ -282,12 +289,14 @@ struct hippoWidgetLiveActivity: Widget {
                         .trim(from: 0.0, to: CGFloat(min(context.state.progress, 1.0)))
                         .stroke(style: StrokeStyle(lineWidth: 2.0, lineCap: .round))
                         .rotationEffect(Angle(degrees: -90)) // 从顶部开始
-                        .foregroundColor(.pink) // 进度条颜色
+                    //                        .foregroundColor(.pink) // 个人版
+                        .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2)) // 线上版
                     
                     // car.rear.fill图标
                     Image(systemName: "car.rear.fill")
                         .font(.system(size: 8)) // 调整图标大小
-                        .foregroundColor(.pink) // 图标颜色
+                    //                        .foregroundColor(.pink) // 个人版
+                        .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2)) // 线上版
                 }
                 .frame(width: 20, height: 20) // 调整整个ZStack的大小
             }
