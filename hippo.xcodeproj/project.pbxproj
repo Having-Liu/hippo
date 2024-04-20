@@ -494,7 +494,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = hippo/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "宝宝到哪啦";
+				INFOPLIST_KEY_CFBundleDisplayName = "亲友到哪啦";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
@@ -534,7 +534,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = hippo/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "宝宝到哪啦";
+				INFOPLIST_KEY_CFBundleDisplayName = "亲友到哪啦";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;

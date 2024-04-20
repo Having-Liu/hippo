@@ -38,22 +38,22 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing:0) {
 //MARK: 需要切换
-            Image("ditrip")//线上版
-//            Image("hippo") //个人版
-                .resizable() // 如果需要的话，让图片可缩放
-                .scaledToFit() // 保持图片的宽高比适应内容
-                .edgesIgnoringSafeArea(.all)
-            
+                Image("ditrip")//线上版
+                //            Image("hippo") //个人版
+                    .resizable() // 如果需要的话，让图片可缩放
+                    .scaledToFill() // 保持图片的宽高比适应内容
+                    .edgesIgnoringSafeArea(.all)
             VStack{
                 Text("粘贴分享链接\n即可在灵动岛和实时活动查看亲友行程")//线上版
 //                Text("粘贴分享链接\n即可在灵动岛和实时活动查看宝宝行程")//个人版
                     .font(
-                        Font.custom("PingFang SC", size: 18)
+                        Font.custom("PingFang SC", size: 16)
                             .weight(.medium)
                     )
                     .multilineTextAlignment(.center)
                     .foregroundColor(.black)
-                Spacer()
+                    .padding(.bottom,50)
+//                Spacer()
                 Button(action: {
                     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                         if success {
