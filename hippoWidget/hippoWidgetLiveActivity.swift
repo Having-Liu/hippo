@@ -14,10 +14,12 @@ struct hippoWidgetAttributes: ActivityAttributes {
         // 动态数据
         var progress: Double
         var distance: String
-        var title: String
-        var destination: String
-        var iconName: String
         var time: String
+        var orderStatus:String
+//        var title: String
+//        var destination: String
+//        var iconName: String
+
     }
     
     // 静态数据，不知道干啥的，一删除就报错
@@ -30,7 +32,7 @@ struct hippoWidgetLiveActivity: Widget {
         ActivityConfiguration(for: hippoWidgetAttributes.self) { context in
             // Lock screen/banner UI goes here
             
-            if context.state.title == "行程查询中"{  //等待后台返回时
+            if context.state.orderStatus == "查询中"{  //等待后台返回时
                 ZStack(alignment: .topLeading) {
                     //背景
                     HStack{
@@ -56,7 +58,7 @@ struct hippoWidgetLiveActivity: Widget {
                     }
                     .padding(15)
                 }
-            } else if context.state.title == "宝宝已到达"{  //状态 2
+            } else if context.state.orderStatus == "2"{
                 ZStack(alignment: .topLeading) {
                     //背景
                     HStack{
@@ -82,7 +84,7 @@ struct hippoWidgetLiveActivity: Widget {
                     }
                     .padding(15)
                 }
-            }else {  //状态 0 或 1
+            }else if context.state.orderStatus == "1"{
                 ZStack(alignment: .top) {
                     //背景
                     HStack{
@@ -95,11 +97,11 @@ struct hippoWidgetLiveActivity: Widget {
                     }
                     VStack (alignment: .leading) {
                         //预计时间
-                        Text("\(context.state.title)")
+                        Text("预计\(context.state.time)分钟到达")
                             .font(.title2)
                             .bold()
                         HStack (alignment: .lastTextBaseline,spacing: 0){
-                            Text("距离\(context.state.destination)")
+                            Text("距离目的地")
                                 .font(.caption)
                             Text(context.state.distance)
                                 .font(.title3)
@@ -141,7 +143,7 @@ struct hippoWidgetLiveActivity: Widget {
                             //终点图标
                             HStack {
                                 Spacer()
-                                Image(systemName: "\(context.state.iconName)")
+                                Image(systemName: "house.circle.fill")
                                 //                                .foregroundColor(.pink)//个人版
                                     .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
                                     .background(.white)
@@ -156,7 +158,80 @@ struct hippoWidgetLiveActivity: Widget {
                     .padding(15)
                 }
             }
-            
+            else {
+                ZStack(alignment: .top) {
+                    //背景
+                    HStack{
+                        Spacer()
+                        //                    Image("background")//个人版
+                        Image("ditripbackground")//线上版
+                            .frame(width: 140, height: 100) // 设置图片的框架大小为宽100点，高100点
+                            .alignmentGuide(.top) { d in d[.top] }
+                            .alignmentGuide(.trailing) { d in d[.trailing] }
+                    }
+                    VStack (alignment: .leading) {
+                        //预计时间
+                        Text("预计\(context.state.time)分钟上车")
+                            .font(.title2)
+                            .bold()
+                        HStack (alignment: .lastTextBaseline,spacing: 0){
+                            Text("距离上车点")
+                                .font(.caption)
+                            Text(context.state.distance)
+                                .font(.title3)
+                                .monospaced()
+                            Text("公里")
+                                .font(.caption)
+                        }.padding(.bottom, 12)
+                        
+                        //进度条
+                        ZStack(alignment: .leading) {
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color.secondary)
+                                .opacity(0.2) // 将这个视图的透明度设置为50%
+                                .frame(height: 6) // 进度条背景的高度
+                            
+                            GeometryReader { geometry in
+                                // 根据进度计算蓝色进度条的宽度
+                                let maxProgressBarWidth = geometry.size.width - 48 // 最大宽度为父视图宽度减去15
+                                let progressBarWidth = max(geometry.size.width * CGFloat(context.state.progress), 25) // 进度条宽度至少为25
+                                let adjustedProgressBarWidth = min(progressBarWidth, maxProgressBarWidth) // 保证进度条宽度不超过最大宽度
+                                
+                                ZStack(alignment: .leading) {
+                                    RoundedRectangle(cornerRadius: 15)
+                                    //                                          .fill(Color.blue)
+                                    //                                    .fill(Color.pink)//个人版
+                                        .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                        .frame(width: progressBarWidth, height: 6)
+                                    //                                    .opacity(0.5)//个人版才需要
+                                    
+                                    // 小汽车图标的位置也根据进度动态调整
+                                    // 确保小汽车图标不会超出父视图的范围
+                                    let carOffset = min(adjustedProgressBarWidth - 10, geometry.size.width - 20)
+                                    Image("car")
+                                        .resizable()
+                                        .frame(width: 39, height: 18)
+                                        .offset(x: carOffset) // 假设小汽车图标宽度为39
+                                }
+                            }
+                            //终点图标
+                            HStack {
+                                Spacer()
+                                Image(systemName: "figure.wave.circle.fill")
+                                //                                .foregroundColor(.pink)//个人版
+                                    .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                    .background(.white)
+                                    .clipShape(Circle())
+                            }
+                            .padding(.trailing, -2)
+                        }
+                        .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
+                        .padding(.top, 8) // 这里设置了20点的上边距
+                        .padding(.bottom, 8) // 这里设置了20点的上边距
+                    }
+                    .padding(15)
+                }
+            }
             
             // MARK: - 实时活动样式
 //            ZStack(alignment: .top) {
@@ -261,26 +336,76 @@ struct hippoWidgetLiveActivity: Widget {
                 }
                 
                 DynamicIslandExpandedRegion(.center) {
-                    ZStack(alignment: .top){
-                        //背景
-                        HStack{
-                            Spacer()
-                            //                    Image("background")//个人版
-                            Image("ditripbackground")//线上版
-                                .frame(width: 140, height: 100) // 设置图片的框架大小为宽100点，高100点
-                                .alignmentGuide(.top) { d in d[.top] }
-                                .alignmentGuide(.trailing) { d in d[.trailing] }
-                        }
-
-                        VStack (alignment: .leading) {
-                            //预计时间
-                            Text("\(context.state.title)")
-                                .font(.title2)
-                                .bold()
-                            //剩余路程,加个判断：
-                            if context.state.title != "行程查询中"{
+                    if context.state.orderStatus == "查询中"{  //等待后台返回时
+                        ZStack(alignment: .topLeading) {
+                            //背景
+                            HStack{
+                                Spacer()
+                                //                    Image("background")//个人版
+                                Image("ditripbackground")//线上版
+                                    .frame(width: 140, height: 100) // 设置图片的框架大小为宽100点，高100点
+                                    .alignmentGuide(.top) { d in d[.top] }
+                                    .alignmentGuide(.trailing) { d in d[.trailing] }
+                            }
+                            VStack (alignment: .leading) {
+                                Text("行程查询中")
+                                    .font(.title2)
+                                    .bold()
+                                
                                 HStack (alignment: .lastTextBaseline,spacing: 0){
-                                    Text("距离\(context.state.destination)")
+                                    Text("请稍等")
+                                        .font(.caption)
+                                    Text(" ")
+                                        .font(.title3)
+                                        .monospaced()
+                                }.padding(.bottom, 12)
+                            }
+                            .padding(15)
+                        }
+                    } else if context.state.orderStatus == "2"{
+                        ZStack(alignment: .topLeading) {
+                            //背景
+                            HStack{
+                                Spacer()
+                                //                    Image("background")//个人版
+                                Image("ditripdone")//线上版
+                                    .frame(width: 140, height: 100) // 设置图片的框架大小为宽100点，高100点
+                                    .alignmentGuide(.top) { d in d[.top] }
+                                    .alignmentGuide(.trailing) { d in d[.trailing] }
+                            }
+                            VStack (alignment: .leading) {
+                                Text("亲友已到达")
+                                    .font(.title2)
+                                    .bold()
+                                
+                                HStack (alignment: .lastTextBaseline,spacing: 0){
+                                    Text("稍后将自动关闭实时活动")
+                                        .font(.caption)
+                                    Text(" ")
+                                        .font(.title3)
+                                        .monospaced()
+                                }.padding(.bottom, 12)
+                            }
+                            .padding(15)
+                        }
+                    }else if context.state.orderStatus == "1"{
+                        ZStack(alignment: .top) {
+                            //背景
+                            HStack{
+                                Spacer()
+                                //                    Image("background")//个人版
+                                Image("ditripbackground")//线上版
+                                    .frame(width: 140, height: 100) // 设置图片的框架大小为宽100点，高100点
+                                    .alignmentGuide(.top) { d in d[.top] }
+                                    .alignmentGuide(.trailing) { d in d[.trailing] }
+                            }
+                            VStack (alignment: .leading) {
+                                //预计时间
+                                Text("预计\(context.state.time)分钟到达")
+                                    .font(.title2)
+                                    .bold()
+                                HStack (alignment: .lastTextBaseline,spacing: 0){
+                                    Text("距离目的地")
                                         .font(.caption)
                                     Text(context.state.distance)
                                         .font(.title3)
@@ -288,62 +413,128 @@ struct hippoWidgetLiveActivity: Widget {
                                     Text("公里")
                                         .font(.caption)
                                 }.padding(.bottom, 12)
-                            } else {
+                                
+                                //进度条
+                                ZStack(alignment: .leading) {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .fill(Color.secondary)
+                                        .opacity(0.2) // 将这个视图的透明度设置为50%
+                                        .frame(height: 6) // 进度条背景的高度
+                                    
+                                    GeometryReader { geometry in
+                                        // 根据进度计算蓝色进度条的宽度
+                                        let maxProgressBarWidth = geometry.size.width - 48 // 最大宽度为父视图宽度减去15
+                                        let progressBarWidth = max(geometry.size.width * CGFloat(context.state.progress), 25) // 进度条宽度至少为25
+                                        let adjustedProgressBarWidth = min(progressBarWidth, maxProgressBarWidth) // 保证进度条宽度不超过最大宽度
+                                        
+                                        ZStack(alignment: .leading) {
+                                            RoundedRectangle(cornerRadius: 15)
+                                            //                                          .fill(Color.blue)
+                                            //                                    .fill(Color.pink)//个人版
+                                                .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                                .frame(width: progressBarWidth, height: 6)
+                                            //                                    .opacity(0.5)//个人版才需要
+                                            
+                                            // 小汽车图标的位置也根据进度动态调整
+                                            // 确保小汽车图标不会超出父视图的范围
+                                            let carOffset = min(adjustedProgressBarWidth - 10, geometry.size.width - 20)
+                                            Image("car")
+                                                .resizable()
+                                                .frame(width: 39, height: 18)
+                                                .offset(x: carOffset) // 假设小汽车图标宽度为39
+                                        }
+                                    }
+                                    //终点图标
+                                    HStack {
+                                        Spacer()
+                                        Image(systemName: "house.circle.fill")
+                                        //                                .foregroundColor(.pink)//个人版
+                                            .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                            .background(.white)
+                                            .clipShape(Circle())
+                                    }
+                                    .padding(.trailing, -2)
+                                }
+                                .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
+                                .padding(.top, 8) // 这里设置了20点的上边距
+                                .padding(.bottom, 8) // 这里设置了20点的上边距
+                            }
+                            .padding(15)
+                        }
+                    }
+                    else {
+                        ZStack(alignment: .top) {
+                            //背景
+                            HStack{
+                                Spacer()
+                                //                    Image("background")//个人版
+                                Image("ditripbackground")//线上版
+                                    .frame(width: 140, height: 100) // 设置图片的框架大小为宽100点，高100点
+                                    .alignmentGuide(.top) { d in d[.top] }
+                                    .alignmentGuide(.trailing) { d in d[.trailing] }
+                            }
+                            VStack (alignment: .leading) {
+                                //预计时间
+                                Text("预计\(context.state.time)分钟上车")
+                                    .font(.title2)
+                                    .bold()
                                 HStack (alignment: .lastTextBaseline,spacing: 0){
-                                    Text("稍等哦")
+                                    Text("距离上车点")
                                         .font(.caption)
-                                    Text(" ")
+                                    Text(context.state.distance)
                                         .font(.title3)
                                         .monospaced()
-                                    
+                                    Text("公里")
+                                        .font(.caption)
                                 }.padding(.bottom, 12)
                                 
-                                
-                            }
-                            //进度条
-                            ZStack(alignment: .leading) {
-                                RoundedRectangle(cornerRadius: 15)
-                                    .fill(Color.secondary)
-                                    .opacity(0.2) // 将这个视图的透明度设置为50%
-                                    .frame(height: 6) // 进度条背景的高度
-                                
-                                GeometryReader { geometry in
-                                    // 根据进度计算蓝色进度条的宽度
-                                    let maxProgressBarWidth = geometry.size.width - 48 // 最大宽度为父视图宽度减去15
-                                    let progressBarWidth = max(geometry.size.width * CGFloat(context.state.progress), 25) // 进度条宽度至少为25
-                                    let adjustedProgressBarWidth = min(progressBarWidth, maxProgressBarWidth) // 保证进度条宽度不超过最大宽度
+                                //进度条
+                                ZStack(alignment: .leading) {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .fill(Color.secondary)
+                                        .opacity(0.2) // 将这个视图的透明度设置为50%
+                                        .frame(height: 6) // 进度条背景的高度
                                     
-                                    ZStack(alignment: .leading) {
-                                        RoundedRectangle(cornerRadius: 15)
-                                        //                                          .fill(Color.blue)
-                                        //                                            .fill(Color.pink)//个人版
-                                            .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
-                                            .frame(width: progressBarWidth, height: 6)
-                                            .opacity(0.5)
+                                    GeometryReader { geometry in
+                                        // 根据进度计算蓝色进度条的宽度
+                                        let maxProgressBarWidth = geometry.size.width - 48 // 最大宽度为父视图宽度减去15
+                                        let progressBarWidth = max(geometry.size.width * CGFloat(context.state.progress), 25) // 进度条宽度至少为25
+                                        let adjustedProgressBarWidth = min(progressBarWidth, maxProgressBarWidth) // 保证进度条宽度不超过最大宽度
                                         
-                                        // 小汽车图标的位置也根据进度动态调整
-                                        // 确保小汽车图标不会超出父视图的范围
-                                        let carOffset = min(adjustedProgressBarWidth - 10, geometry.size.width - 20)
-                                        Image("car")
-                                            .resizable()
-                                            .frame(width: 39, height: 18)
-                                            .offset(x: carOffset) // 假设小汽车图标宽度为39
+                                        ZStack(alignment: .leading) {
+                                            RoundedRectangle(cornerRadius: 15)
+                                            //                                          .fill(Color.blue)
+                                            //                                    .fill(Color.pink)//个人版
+                                                .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                                .frame(width: progressBarWidth, height: 6)
+                                            //                                    .opacity(0.5)//个人版才需要
+                                            
+                                            // 小汽车图标的位置也根据进度动态调整
+                                            // 确保小汽车图标不会超出父视图的范围
+                                            let carOffset = min(adjustedProgressBarWidth - 10, geometry.size.width - 20)
+                                            Image("car")
+                                                .resizable()
+                                                .frame(width: 39, height: 18)
+                                                .offset(x: carOffset) // 假设小汽车图标宽度为39
+                                        }
                                     }
+                                    //终点图标
+                                    HStack {
+                                        Spacer()
+                                        Image(systemName: "figure.wave.circle.fill")
+                                        //                                .foregroundColor(.pink)//个人版
+                                            .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                            .background(.white)
+                                            .clipShape(Circle())
+                                    }
+                                    .padding(.trailing, -2)
                                 }
-                                //终点图标
-                                HStack {
-                                    Spacer()
-                                    Image(systemName: "\(context.state.iconName)")
-                                    //                                        .foregroundColor(.pink)//个人版
-                                        .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
-                                        .background(.white)
-                                        .clipShape(Circle())
-                                }
-                                .padding(.trailing, -2)
+                                .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
+                                .padding(.top, 8) // 这里设置了20点的上边距
+                                .padding(.bottom, 8) // 这里设置了20点的上边距
                             }
-                            .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
+                            .padding(15)
                         }
-                        .padding(15)
                     }
                 }
                 
@@ -352,7 +543,7 @@ struct hippoWidgetLiveActivity: Widget {
                     //                    // more content
                 }
             } compactLeading: {
-                if context.state.title != "行程查询中"{
+                if context.state.orderStatus != "查询中"{
                     VStack{
                         Text(context.state.distance)
                             .multilineTextAlignment(.center)
@@ -374,18 +565,18 @@ struct hippoWidgetLiveActivity: Widget {
                 }
                 
             } compactTrailing: {
-                if context.state.title != "行程查询中"{
+                if context.state.orderStatus != "查询中"{
                     VStack{
                         Text(context.state.time)
                             .multilineTextAlignment(.center)
                             .frame(width: 40)
                             .font(.caption2)
-                        if context.state.destination == "上车点" {
+                        if context.state.orderStatus == "0" {
                             Text("分钟上车")
                                 .multilineTextAlignment(.center)
                                 .frame(width: 40)
                                 .font(.system(size: 8))
-                        } else if context.state.destination == "目的地" {
+                        } else if context.state.orderStatus == "1" {
                             Text("分钟到达")
                                 .multilineTextAlignment(.center)
                                 .frame(width: 40)

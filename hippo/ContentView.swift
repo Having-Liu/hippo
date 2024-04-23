@@ -233,10 +233,7 @@ struct ContentView: View {
             let initialContentState = hippoWidgetAttributes.ContentState(
                 progress: globalData.progress,
                 distance: globalData.distance ?? "0",
-                title:globalData.title ?? "行程查询中",
-                destination: globalData.destination ?? "查询中",
-                iconName:globalData.iconName ?? "heart.circle.fill",
-                time:globalData.time ?? "0"
+                time:globalData.time ?? "0", orderStatus: "查询中"
             )
             do {
                 // 创建 ActivityContent 实例
