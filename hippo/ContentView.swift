@@ -10,6 +10,8 @@ import ActivityKit
 import UIKit
 import UserNotifications
 import WebKit
+import CoreMotion
+
 
 // MARK: 全局变量
 public class GlobalData: ObservableObject {
@@ -34,15 +36,47 @@ struct ContentView: View {
     @State private var showAlert = false
     @State private var alertMessage =  "还没复制分享链接，先去复制链接吧"
     @State private var ButtomLoading = false  // 新增状态，表示是否正在加载
+    @StateObject private var motionManager = MotionManager() // 使用 StateObject 而不是 ObservedObject
     
     var body: some View {
         VStack(spacing:0) {
-//MARK: 需要切换
-                Image("ditrip")//线上版
-                //            Image("hippo") //个人版
-                    .resizable() // 如果需要的话，让图片可缩放
-                    .scaledToFill() // 保持图片的宽高比适应内容
-                    .edgesIgnoringSafeArea(.all)
+            
+            // 使用 GeometryReader 来获取当前视图的尺寸
+            GeometryReader { geometry in
+                ZStack{
+                    Image("bgback")//线上版
+                    //            Image("hippo") //个人版
+                        .resizable() // 如果需要的话，让图片可缩放
+                        .scaledToFill() // 保持图片的宽高比适应内容
+                        .edgesIgnoringSafeArea(.all)
+                    
+                    // 创建一个 ZStack 用于叠加图层
+                    ZStack {
+                        // 创建四个图层
+                        ForEach(1..<4) { index in
+                            Image("bg\(index)") // 确保你有 bg0, bg1, bg2, bg3 这四个图片资源
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: geometry.size.width, height: geometry.size.height)
+                                .clipped()
+                                .offset(x: motionManager.xTilt * CGFloat(index) * 6, // 根据陀螺仪数据调整水平偏移
+                                        y: motionManager.yTilt * CGFloat(index) * 6) // 根据陀螺仪数据调整垂直偏移
+                        }
+                    }
+                    Image("bgfront")//线上版
+                    //            Image("hippo") //个人版
+                        .resizable() // 如果需要的话，让图片可缩放
+                        .scaledToFill() // 保持图片的宽高比适应内容
+                        .edgesIgnoringSafeArea(.all)
+                }
+            }
+            
+            //MARK: 需要切换
+            //                Image("ditrip")//线上版
+//                //            Image("hippo") //个人版
+//                    .resizable() // 如果需要的话，让图片可缩放
+//                    .scaledToFill() // 保持图片的宽高比适应内容
+//                    .edgesIgnoringSafeArea(.all)
             VStack{
                 Text("粘贴分享链接\n即可在灵动岛和实时活动查看亲友行程")//线上版
 //                Text("粘贴分享链接\n即可在灵动岛和实时活动查看宝宝行程")//个人版
@@ -400,3 +434,105 @@ class NetworkService {
     }
 }
 
+class MotionManager: ObservableObject {
+    private var motionManager = CMMotionManager()
+    @Published var xTilt: CGFloat = 0
+    @Published var yTilt: CGFloat = 0
+    let maxTilt: CGFloat = 0.5 // 最大倾斜角度，可以根据需要调整
+    var lastFeedbackX: CGFloat = 0 // 上次震动时的X倾斜角度
+    var lastFeedbackY: CGFloat = 0 // 上次震动时的Y倾斜角度
+    let feedbackThreshold: CGFloat = 0.2 // 触发震动的倾斜阈值
+
+    init() {
+        motionManager.gyroUpdateInterval = 1.0 / 60.0
+        motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (motion, error) in
+            guard let motion = motion, error == nil else { return }
+            let xTilt = CGFloat(motion.attitude.roll)
+            let yTilt = CGFloat(motion.attitude.pitch)
+            self?.xTilt = min(max(xTilt, -self!.maxTilt), self!.maxTilt)
+            self?.yTilt = min(max(yTilt, -self!.maxTilt), self!.maxTilt)
+
+            // 检查是否达到触发震动的阈值
+            if abs(self!.xTilt - self!.lastFeedbackX) > self!.feedbackThreshold ||
+               abs(self!.yTilt - self!.lastFeedbackY) > self!.feedbackThreshold {
+                self?.triggerFeedback()
+                self?.lastFeedbackX = self!.xTilt // 更新上次震动时的X倾斜角度
+                self?.lastFeedbackY = self!.yTilt // 更新上次震动时的Y倾斜角度
+            }
+        }
+    }
+
+    // 触发震动反馈的方法
+    func triggerFeedback() {
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        feedbackGenerator.impactOccurred()
+    }
+}
+
+
+//class MotionManager: ObservableObject {
+//    private var motionManager = CMMotionManager()
+//    @Published var xTilt: CGFloat = 0
+//    @Published var yTilt: CGFloat = 0
+//    let maxTilt: CGFloat = 0.5 // 最大倾斜角度，可以根据需要调整
+//
+//    // 添加一个用于触发震动的方法
+//    func triggerFeedback() {
+//        let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+//        feedbackGenerator.impactOccurred()
+//    }
+//
+//    init() {
+//        motionManager.gyroUpdateInterval = 1.0 / 60.0
+//        motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (motion, error) in
+//            guard let motion = motion, error == nil else { return }
+//            let xTilt = CGFloat(motion.attitude.roll)
+//            let yTilt = CGFloat(motion.attitude.pitch)
+//            self?.xTilt = min(max(xTilt, -self!.maxTilt), self!.maxTilt)
+//            self?.yTilt = min(max(yTilt, -self!.maxTilt), self!.maxTilt)
+//
+//            // 当检测到运动时触发震动反馈
+//            self?.triggerFeedback()
+//        }
+//    }
+//}
+
+
+//class MotionManager: ObservableObject {
+//    private var motionManager = CMMotionManager()
+//    @Published var xTilt: CGFloat = 0
+//    @Published var yTilt: CGFloat = 0
+//    let maxTilt: CGFloat = 0.5 // 最大倾斜角度，可以根据需要调整
+//
+//    init() {
+//        motionManager.gyroUpdateInterval = 1.0 / 60.0
+//        motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (motion, error) in
+//            guard let motion = motion, error == nil else { return }
+//            // 使用设备的倾斜角度而不是旋转速率
+//            let xTilt = CGFloat(motion.attitude.roll)
+//            let yTilt = CGFloat(motion.attitude.pitch)
+//            // 限制倾斜角度
+//            self?.xTilt = min(max(xTilt, -self!.maxTilt), self!.maxTilt)
+//            self?.yTilt = min(max(yTilt, -self!.maxTilt), self!.maxTilt)
+//            
+//            
+//        }
+//    }
+//}
+
+
+//class MotionManager: ObservableObject {
+//    private var motionManager = CMMotionManager()
+//    @Published var xTilt: CGFloat = 0
+//    @Published var yTilt: CGFloat = 0
+//
+//    init() {
+//        motionManager.gyroUpdateInterval = 1.0 / 60.0
+//        motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (motion, error) in
+//            guard let motion = motion, error == nil else { return }
+//            // 使用设备的倾斜角度而不是旋转速率
+//            self?.xTilt = CGFloat(motion.attitude.roll)
+//            self?.yTilt = CGFloat(motion.attitude.pitch)
+//        }
+//    }
+//}
