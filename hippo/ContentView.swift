@@ -27,6 +27,10 @@ public class GlobalData: ObservableObject {
     var currentToken: String? // 存储当前活动的token
     var currentUrl: String? // 存储当前活动的token
     
+    // 使用 @Published 使属性变化时能够通知视图更新
+        @Published var babyName: String = UserDefaults.standard.string(forKey: "babyName") ?? "亲友"
+        
+    
 }
 
 struct ContentView: View {
@@ -37,6 +41,10 @@ struct ContentView: View {
     @State private var alertMessage =  "还没复制分享链接，先去复制链接吧"
     @State private var ButtomLoading = false  // 新增状态，表示是否正在加载
     @StateObject private var motionManager = MotionManager() // 使用 StateObject 而不是 ObservedObject
+    @State private var showSettings = false
+    // 从 UserDefaults 中获取 babyName 的值
+//    @State private var babyName: String = UserDefaults.standard.string(forKey: "babyName") ?? "亲友"
+
     
     var body: some View {
         VStack(spacing:0) {
@@ -78,14 +86,14 @@ struct ContentView: View {
 //                    .scaledToFill() // 保持图片的宽高比适应内容
 //                    .edgesIgnoringSafeArea(.all)
             VStack{
-                Text("粘贴分享链接\n即可在灵动岛和实时活动查看亲友行程")//线上版
+                Text("粘贴分享链接\n即可在灵动岛和实时活动查看\(globalData.babyName)行程")//线上版
 //                Text("粘贴分享链接\n即可在灵动岛和实时活动查看宝宝行程")//个人版
                     .font(
                         Font.custom("PingFang SC", size: 16)
                             .weight(.medium)
                     )
                     .multilineTextAlignment(.center)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                     .padding(.bottom,50)
 //                Spacer()
                 Button(action: {
@@ -173,6 +181,17 @@ struct ContentView: View {
                     TripView(isPresented: $showTripview,urlString: $urlString, ButtomLoading: $ButtomLoading)
                 }
                 Spacer()
+                Button("使用说明&设置") {
+                    showSettings = true
+                }
+                .padding(.bottom, 40)
+                .foregroundColor(.secondary)
+//                .sheet(isPresented:  $showSettings) {
+//                    SettingsView(isPresented: $showSettings)
+//                        }
+                .popover(isPresented: $showSettings) {
+                    SettingsView(isPresented: $showSettings)
+                }
             }
             .frame(maxWidth: .infinity)
             .edgesIgnoringSafeArea(.all)
@@ -397,11 +416,14 @@ class NetworkService {
     private init() {}
    
     func notifyServer(token: String, url: String?, type: Int, completion: @escaping (Bool) -> Void) {
-        print("构建URL失败")
-
-        // 构建请求的URL，包括url和token作为查询参数
+        // 根据 UserDefaults 中的 UseTestEnvironment 值来选择不同的 URL
+        let baseUrl = UserDefaults.standard.bool(forKey: "UseTestEnvironment") ? "https://apre-ka-new.quandashi.com" : "https://ka.quandashi.com"
+        // 根据 UserDefaults 中的 UseSandbox 值来选择不同的 sandbox 参数
+        let UseSandbox = UserDefaults.standard.bool(forKey: "UseSandbox") ? "1" : "0"
+        
+        // 构建请求的URL，包括url和token以及sandbox作为查询参数
         guard let encodedUrl = url?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let requestUrl = URL(string: "https://apre-ka-new.quandashi.com/hippo/v1/apple/apns/pushUrl?url=\(encodedUrl)&token=\(token)") else {
+              let requestUrl = URL(string: "\(baseUrl)/hippo/v1/apple/apns/pushUrl?url=\(encodedUrl)&token=\(token)&sandbox=\(UseSandbox)") else {
             print("构建URL失败")
             completion(false)
             return
@@ -431,6 +453,49 @@ class NetworkService {
     }
 }
 
+
+//class NetworkService {
+//    static let shared = NetworkService()
+//
+//    private init() {}
+//   
+//    func notifyServer(token: String, url: String?, type: Int, completion: @escaping (Bool) -> Void) {
+//        print("构建URL失败")
+//        // 根据 UserDefaults 中的 UseTestEnvironment 值来选择不同的 URL
+//           let baseUrl = UserDefaults.standard.bool(forKey: "UseTestEnvironment") ? "https://ka.quandashi.com" : "https://apre-ka-new.quandashi.com"
+//        let UseSandbox = UserDefaults.standard.bool(forKey: "UseSandbox") ? "0" : "1"
+//        // 构建请求的URL，包括url和token作为查询参数
+//        guard let encodedUrl = url?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+//              let requestUrl = URL(string: "\(baseUrl)/hippo/v1/apple/apns/pushUrl?url=\(baseUrl)&token=\(token)&sandbox=\(UseSandbox)") else {
+//            print("构建URL失败")
+//            completion(false)
+//            return
+//        }
+//
+//        var request = URLRequest(url: requestUrl)
+//        request.httpMethod = "GET"
+//        request.addValue("Apifox/1.0.0 (https://apifox.com)", forHTTPHeaderField: "User-Agent")
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//        // 发起网络请求
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//            if let error = error {
+//                // 请求失败
+//                print("请求失败: \(error.localizedDescription)")
+//                completion(false)
+//            } else if let data = data, let responseString = String(data: data, encoding: .utf8) {
+//                // 请求成功
+//                print("收到响应: \(responseString)")
+//                completion(true)
+//            } else {
+//                // 其他情况
+//                completion(false)
+//            }
+//        }
+//        task.resume()
+//    }
+//}
+
 class MotionManager: ObservableObject {
     private var motionManager = CMMotionManager()
     @Published var xTilt: CGFloat = 0
@@ -452,7 +517,10 @@ class MotionManager: ObservableObject {
             // 检查是否达到触发震动的阈值
             if abs(self!.xTilt - self!.lastFeedbackX) > self!.feedbackThreshold ||
                abs(self!.yTilt - self!.lastFeedbackY) > self!.feedbackThreshold {
-                self?.triggerFeedback()
+//                self?.triggerFeedback()
+                if UserDefaults.standard.bool(forKey: "HapticFeedback") {
+                                   self?.triggerFeedback()
+                               }
                 self?.lastFeedbackX = self!.xTilt // 更新上次震动时的X倾斜角度
                 self?.lastFeedbackY = self!.yTilt // 更新上次震动时的Y倾斜角度
             }
@@ -465,6 +533,141 @@ class MotionManager: ObservableObject {
         feedbackGenerator.impactOccurred()
     }
 }
+
+struct SettingsView: View {
+    @Binding var isPresented: Bool
+    @State private var enableVibration: Bool = UserDefaults.standard.bool(forKey: "HapticFeedback")
+    @State private var useTestEnvironment: Bool = UserDefaults.standard.bool(forKey: "UseTestEnvironment")
+    @State private var relativeName: String = UserDefaults.standard.string(forKey: "babyName") ?? ""
+    @State private var UseSandbox: Bool = UserDefaults.standard.bool(forKey: "UseSandbox")
+    @EnvironmentObject var globalData: GlobalData // 确保 GlobalData 作为环境对象传递进来
+
+    var body: some View {
+        NavigationView {
+            List {
+                Section(header: Text(" ")) {
+                    HStack {
+                        Text("亲友称呼")
+                        Spacer()
+                        TextField("输入亲友称呼", text: $relativeName)
+                            .multilineTextAlignment(.trailing) // 文本输入框内的文本右对齐
+                            .keyboardType(.default) // 默认键盘类型
+                            .submitLabel(.done) // 将键盘的回车键设置为“确定”样式
+                            .onChange(of: relativeName) { newValue in
+                                // 限制文本最多 6 个字符
+                                if newValue.count > 6 {
+                                    relativeName = String(newValue.prefix(6))
+                                }
+                            }
+                            .onSubmit {
+                                // 当用户按下键盘的“确定”键时执行
+                                UserDefaults.standard.set(relativeName, forKey: "babyName")
+                                globalData.babyName = relativeName
+                            }
+                    }
+                }
+                
+                Section() {
+                    Toggle("开启震动反馈", isOn: $enableVibration)
+                        .onChange(of: enableVibration) { newValue in
+                            UserDefaults.standard.set(newValue, forKey: "HapticFeedback")
+                        }
+                    
+                    Toggle("使用测试环境", isOn: $useTestEnvironment)
+                        .onChange(of: useTestEnvironment) { newValue in
+                            UserDefaults.standard.set(newValue, forKey: "UseTestEnvironment")
+                        }
+                    Toggle("使用沙盒环境", isOn: $UseSandbox)
+                        .onChange(of: UseSandbox) { newValue in
+                            UserDefaults.standard.set(newValue, forKey: "UseSandbox")
+                        }
+                }
+                Section(header: Text("使用说明")) {
+                    VStack{
+                        Image("tips1")
+                            .resizable() // 如果需要的话，让图片可缩放
+                            .scaledToFill() // 保持图片的宽高比适应内容
+//                            .edgesIgnoringSafeArea(.all)
+                        Image("tips2")
+                            .resizable() // 如果需要的话，让图片可缩放
+                            .scaledToFill() // 保持图片的宽高比适应内容
+//                            .edgesIgnoringSafeArea(.all)
+                    }
+                }
+            }
+//            .navigationTitle("设置")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        isPresented = false
+                    }) {
+                        Image(systemName: "xmark.circle.fill") // 使用系统提供的关闭图标
+                            .symbolRenderingMode(.hierarchical) // 设置为分层渲染模式
+                            .foregroundColor(.secondary) // 设置为二级色
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+//struct SettingsView: View {
+//    @Binding var isPresented: Bool
+//    @State private var enableVibration: Bool = UserDefaults.standard.bool(forKey: "HapticFeedback")
+//    @State private var useTestEnvironment: Bool = UserDefaults.standard.bool(forKey: "UseTestEnvironment")
+//    @State private var relativeName: String = UserDefaults.standard.string(forKey: "babyName") ?? ""
+//    @EnvironmentObject var globalData: GlobalData // 确保 GlobalData 作为环境对象传递进来
+//    
+//    var body: some View {
+//        NavigationView {
+//            List {
+//                HStack {
+//                    Text("亲友称呼")
+//                    Spacer()
+//                    TextField("输入亲友称呼", text: $relativeName)
+//                        .multilineTextAlignment(.trailing) // 文本输入框内的文本右对齐
+//                        .keyboardType(.default) // 默认键盘类型
+//                        .submitLabel(.done) // 将键盘的回车键设置为“确定”样式
+//                        .onChange(of: relativeName) { newValue in
+//                            // 限制文本最多 6 个字符
+//                            if newValue.count > 6 {
+//                                relativeName = String(newValue.prefix(6))
+//                            }
+//                        }
+//                        .onSubmit {
+//                            // 当用户按下键盘的“确定”键时执行
+//                            UserDefaults.standard.set(relativeName, forKey: "babyName")
+//                            globalData.babyName = relativeName
+//                        }
+//                }
+//                Toggle("开启震动反馈", isOn: $enableVibration)
+//                    .onChange(of: enableVibration) { newValue in
+//                        UserDefaults.standard.set(newValue, forKey: "HapticFeedback")
+//                    }
+//                
+//                Toggle("使用测试环境", isOn: $useTestEnvironment)
+//                    .onChange(of: useTestEnvironment) { newValue in
+//                        UserDefaults.standard.set(newValue, forKey: "UseTestEnvironment")
+//                    }
+//            }
+//            .navigationTitle("设置")
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarLeading) {
+//                    Button("完成") {
+//                        isPresented = false
+//                    }
+//                }
+//                
+//            }
+//        }
+//    }
+//}
+
+
+
 
 
 //class MotionManager: ObservableObject {

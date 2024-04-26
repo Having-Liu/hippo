@@ -21,6 +21,15 @@ import BackgroundTasks
 
 @main
 struct HippoApp: App {
+    init() {
+        // 在这里设置 UserDefaults 的默认值
+        UserDefaults.standard.register(defaults: [
+            "HapticFeedback": false, // 默认不开启震动反馈
+            "UseTestEnvironment": true, // 默认使用测试环境
+            "babyName": "亲友",// 默认亲友姓名为"未知"
+            "UseSandbox": false // 默认不用沙盒
+        ])
+    }
     var globalData = GlobalData()  // 创建 GlobalData 的实例
     var body: some Scene {
         WindowGroup {

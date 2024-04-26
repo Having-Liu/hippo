@@ -374,7 +374,8 @@ struct hippoWidgetLiveActivity: Widget {
                                     .alignmentGuide(.trailing) { d in d[.trailing] }
                             }
                             VStack (alignment: .leading) {
-                                Text("亲友已到达")
+                                let relativeName = UserDefaults.standard.string(forKey: "babyName") ?? "亲友姓名缺失"
+                                Text("\(relativeName)已到达")
                                     .font(.title2)
                                     .bold()
                                 
