@@ -545,9 +545,12 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text(" ")) {
+                Section(
+//                    header: Text(" "),
+                    footer: Text("您对亲友的昵称，将会在实时活动卡片上进行显示。最多支持6个字符。")
+                ) {
                     HStack {
-                        Text("亲友称呼")
+                        Text("亲友昵称")
                         Spacer()
                         TextField("输入亲友称呼", text: $relativeName)
                             .multilineTextAlignment(.trailing) // 文本输入框内的文本右对齐
@@ -566,8 +569,38 @@ struct SettingsView: View {
                             }
                     }
                 }
+                VStack{
+                    Text("按住亲友分享的链接")
+                    Image("tips1")
+                        .resizable() // 如果需要的话，让图片可缩放
+                        .scaledToFill() // 保持图片的宽高比适应内容
+                    Text("选择 拷贝")
+                    Image("tips2")
+                        .resizable() // 如果需要的话，让图片可缩放
+                        .scaledToFill() // 保持图片的宽高比适应内容
+                }
+                .background(Color.gray.opacity(0.2))
+                .listRowInsets(EdgeInsets()) // 去除内边距
                 
-                Section() {
+                Section(header: Text("使用说明")) {
+                    VStack{
+                        Text("按住亲友分享的链接")
+                        Image("tips1")
+                            .resizable() // 如果需要的话，让图片可缩放
+                            .scaledToFill() // 保持图片的宽高比适应内容
+                        Text("选择 拷贝")
+                        Image("tips2")
+                            .resizable() // 如果需要的话，让图片可缩放
+                            .scaledToFill() // 保持图片的宽高比适应内容
+                    }
+                    .listRowInsets(EdgeInsets()) // 去除内边距
+                    .background(Color.gray.opacity(0.2))
+                }
+                Section(
+                    header: Text("这几个设置基本不用改，除非您认识开发者")
+//                    ,footer: Text("这几个设置基本不用改，除非您认识开发者")
+                
+                ) {
                     Toggle("开启震动反馈", isOn: $enableVibration)
                         .onChange(of: enableVibration) { newValue in
                             UserDefaults.standard.set(newValue, forKey: "HapticFeedback")
@@ -582,22 +615,11 @@ struct SettingsView: View {
                             UserDefaults.standard.set(newValue, forKey: "UseSandbox")
                         }
                 }
-                Section(header: Text("使用说明")) {
-                    VStack{
-                        Image("tips1")
-                            .resizable() // 如果需要的话，让图片可缩放
-                            .scaledToFill() // 保持图片的宽高比适应内容
-//                            .edgesIgnoringSafeArea(.all)
-                        Image("tips2")
-                            .resizable() // 如果需要的话，让图片可缩放
-                            .scaledToFill() // 保持图片的宽高比适应内容
-//                            .edgesIgnoringSafeArea(.all)
-                    }
-                }
+
             }
 //            .navigationTitle("设置")
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         isPresented = false
                     }) {
