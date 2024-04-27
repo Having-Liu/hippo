@@ -24,10 +24,13 @@ struct hippoWidgetAttributes: ActivityAttributes {
     
     // 静态数据，不知道干啥的，一删除就报错
     var name: String
+//    var relativeName = UserDefaults.standard.string(forKey: "babyName") ?? "亲友姓名缺失"
+    
 }
 
 
 struct hippoWidgetLiveActivity: Widget {
+//    var relativeName = UserDefaults.standard.string(forKey: "babyName") ?? "姓名缺失"
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: hippoWidgetAttributes.self) { context in
             // Lock screen/banner UI goes here
@@ -374,8 +377,7 @@ struct hippoWidgetLiveActivity: Widget {
                                     .alignmentGuide(.trailing) { d in d[.trailing] }
                             }
                             VStack (alignment: .leading) {
-                                let relativeName = UserDefaults.standard.string(forKey: "babyName") ?? "亲友姓名缺失"
-                                Text("\(relativeName)已到达")
+                                Text("亲友已到达")
                                     .font(.title2)
                                     .bold()
                                 
