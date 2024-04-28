@@ -8,6 +8,14 @@
 	</array>
 	<key>CFBundleGetInfoString</key>
 	<string></string>
+	<key>INIntentsRestrictedWhileLocked</key>
+	<array>
+		<string>CreateDynamicIslandIntent</string>
+	</array>
+	<key>INIntentsSupported</key>
+	<array>
+		<string>CreateDynamicIslandIntent</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>processing</string>

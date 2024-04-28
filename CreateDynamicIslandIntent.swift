@@ -11,7 +11,7 @@ import ActivityKit
 
 @available(iOS 16.0, macOS 13.0, watchOS 9.0, tvOS 16.0, *)
 struct CreateDynamicIslandIntent: AppIntent, CustomIntentMigratedAppIntent, PredictableIntent {
-    static let intentClassName = "CreateDynamicIslandIntentIntent"
+    static let intentClassName = "CreateDynamicIslandIntent"
 
     static var title: LocalizedStringResource = "自动从短信创建实时活动"
     static var description = IntentDescription("在快捷指令里，设置为接受到滴滴分享短信，就执行这个快捷操作，就可以在不打开 app 的情况下，自动创建实时活动")
@@ -39,6 +39,8 @@ struct CreateDynamicIslandIntent: AppIntent, CustomIntentMigratedAppIntent, Pred
             throw NSError(domain: "CreateDynamicIslandIntentError", code: 0, userInfo: [NSLocalizedDescriptionKey: "缺少必要的参数。"])
         }
         
+  
+//        先不请求服务端实时
         // 创建灵动岛并获取 token
         let token = await createDynamicIsland()
         
@@ -93,7 +95,7 @@ struct CreateDynamicIslandIntent: AppIntent, CustomIntentMigratedAppIntent, Pred
     }
 
 
-    
+    //先注释
     private func notifyServer(token: String, url: String) async -> Bool {
         // 构建请求的URL，包括url和token作为查询参数
         guard let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),

@@ -86,11 +86,6 @@ struct ContentView: View {
             }
             
             //MARK: 需要切换
-            //                Image("ditrip")//线上版
-            //                //            Image("hippo") //个人版
-            //                    .resizable() // 如果需要的话，让图片可缩放
-            //                    .scaledToFill() // 保持图片的宽高比适应内容
-            //                    .edgesIgnoringSafeArea(.all)
             VStack{
                 Text("粘贴分享链接\n即可在灵动岛和实时活动查看\(globalData.babyName)行程")//线上版
                 //                Text("粘贴分享链接\n即可在灵动岛和实时活动查看宝宝行程")//个人版
@@ -103,6 +98,10 @@ struct ContentView: View {
                     .padding(.bottom,50)
                 //                Spacer()
                 Button(action: {
+                    // 触发轻微震动效果
+                       let generator = UINotificationFeedbackGenerator()
+                       generator.notificationOccurred(.success)
+                    
                     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                         if success {
                             print("消息通知权限已授予")
@@ -133,7 +132,6 @@ struct ContentView: View {
                             self.urlString = urlString
                             
                             //这里要加逻辑：把链接给后端，创建一个灵动岛，把 token 给后端，后端返回数据了，才进入tripview
-                            //                            startActivity()
                             startActivity { success in
                                 if success {
                                     self.motionManager.stopMonitoring()  // 停止监控
@@ -192,6 +190,9 @@ struct ContentView: View {
                 }
                 Spacer()
                 Button("使用说明&设置") {
+                    // 触发轻微震动效果
+                       let generator = UINotificationFeedbackGenerator()
+                       generator.notificationOccurred(.success)
                     showSettings = true
                 }
                 .padding(.bottom, 40)
@@ -373,6 +374,9 @@ struct TripView: View {
                 .padding(.leading, 24)
                 Spacer()
                 Button(action: {
+                    // 触发轻微震动效果
+                       let generator = UINotificationFeedbackGenerator()
+                       generator.notificationOccurred(.success)
                     //关闭灵动岛
                     endActivity()
                     //回到首页
@@ -736,7 +740,7 @@ struct SettingsView: View {
                     //                    ,footer: Text("这几个设置基本不用改，除非您认识开发者")
                     
                 ) {
-                    Toggle("开启震动反馈", isOn: $enableVibration)
+                    Toggle("视差效果震动反馈", isOn: $enableVibration)
                         .onChange(of: enableVibration) { newValue in
                             UserDefaults.standard.set(newValue, forKey: "HapticFeedback")
                         }

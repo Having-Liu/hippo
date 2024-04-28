@@ -16,21 +16,21 @@ struct hippoWidgetAttributes: ActivityAttributes {
         var distance: String
         var time: String
         var orderStatus:String
-//        var title: String
-//        var destination: String
-//        var iconName: String
-
+        //        var title: String
+        //        var destination: String
+        //        var iconName: String
+        
     }
     
     // 静态数据，不知道干啥的，一删除就报错
     var name: String
-//    var relativeName = UserDefaults.standard.string(forKey: "babyName") ?? "亲友姓名缺失"
+    //    var relativeName = UserDefaults.standard.string(forKey: "babyName") ?? "亲友姓名缺失"
     
 }
 
 
 struct hippoWidgetLiveActivity: Widget {
-//    var relativeName = UserDefaults.standard.string(forKey: "babyName") ?? "姓名缺失"
+    //    var relativeName = UserDefaults.standard.string(forKey: "babyName") ?? "姓名缺失"
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: hippoWidgetAttributes.self) { context in
             // Lock screen/banner UI goes here
@@ -84,6 +84,56 @@ struct hippoWidgetLiveActivity: Widget {
                                 .font(.title3)
                                 .monospaced()
                         }.padding(.bottom, 12)
+                        //MARK: 进度条升级中
+                        ZStack(alignment: .leading) {
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color.secondary)
+                                .opacity(0.2) // 将这个视图的透明度设置为50%
+                                .frame(height: 6) // 进度条背景的高度
+                            
+                            GeometryReader { geometry in
+                                // 根据进度计算蓝色进度条的宽度
+                                let maxProgressBarWidth = geometry.size.width - 48 // 最大宽度为父视图宽度减去15
+                                let progressBarWidth = max(geometry.size.width * CGFloat(context.state.progress), 25) // 进度条宽度至少为25
+                                let adjustedProgressBarWidth = min(progressBarWidth, maxProgressBarWidth) // 保证进度条宽度不超过最大宽度
+                                
+                                ZStack(alignment: .leading) {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                        .frame(width: progressBarWidth, height: 6)
+                                    //                                    .opacity(0.5)//个人版才需要
+                                    
+                                    // 小汽车图标的位置也根据进度动态调整
+                                    // 确保小汽车图标不会超出父视图的范围
+                                    let carOffset = min(adjustedProgressBarWidth - 10, geometry.size.width - 20)
+                                    Image("car")
+                                        .resizable()
+                                        .frame(width: 39, height: 18)
+                                        .offset(x: carOffset) // 假设小汽车图标宽度为39
+                                }
+                                //                            }
+                                //起点图标
+                                Image(systemName: "figure.wave.circle.fill")
+                                    .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                    .background(.white)
+                                    .clipShape(Circle())
+                                    .frame(width: geometry.size.width / 3, height: geometry.size.height / 3, alignment: .center) // 设置图片的宽度为ZStack宽度的1/3，高度自适应
+                                    .position(x: geometry.size.width / 3, y: geometry.size.height / 2) // 设置图片的位置
+                                
+                            }
+                            //终点图标
+                            HStack {
+                                Spacer()
+                                Image(systemName: "house.circle.fill")
+                                    .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                    .background(.white)
+                                    .clipShape(Circle())
+                            }
+                            .padding(.trailing, -2)
+                        }
+                        .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
+                        .padding(.top, 8) // 这里设置了20点的上边距
+                        .padding(.bottom, 8) // 这里设置了20点的上边距
                     }
                     .padding(15)
                 }
@@ -128,8 +178,6 @@ struct hippoWidgetLiveActivity: Widget {
                                 
                                 ZStack(alignment: .leading) {
                                     RoundedRectangle(cornerRadius: 15)
-                                    //                                          .fill(Color.blue)
-                                    //                                    .fill(Color.pink)//个人版
                                         .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
                                         .frame(width: progressBarWidth, height: 6)
                                     //                                    .opacity(0.5)//个人版才需要
@@ -157,6 +205,109 @@ struct hippoWidgetLiveActivity: Widget {
                         .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
                         .padding(.top, 8) // 这里设置了20点的上边距
                         .padding(.bottom, 8) // 这里设置了20点的上边距
+                        //MARK: 进度条升级中
+                        ZStack(alignment: .leading) {
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color.secondary)
+                                .opacity(0.2) // 将这个视图的透明度设置为50%
+                                .frame(height: 6) // 进度条背景的高度
+                            
+                            GeometryReader { geometry in
+                                // 根据进度计算蓝色进度条的宽度
+                                let maxProgressBarWidth = geometry.size.width - 48 // 最大宽度为父视图宽度减去15
+                                let progressBarWidth = max(geometry.size.width * CGFloat(context.state.progress), 25) // 进度条宽度至少为25
+                                let adjustedProgressBarWidth = min(progressBarWidth, maxProgressBarWidth) // 保证进度条宽度不超过最大宽度
+                                
+                                ZStack(alignment: .leading) {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                        .frame(width: progressBarWidth, height: 6)
+                                    //                                    .opacity(0.5)//个人版才需要
+                                    
+                                    // 小汽车图标的位置也根据进度动态调整
+                                    // 确保小汽车图标不会超出父视图的范围
+                                    let carOffset = min(adjustedProgressBarWidth - 10, geometry.size.width - 20)
+                                    Image("car")
+                                        .resizable()
+                                        .frame(width: 39, height: 18)
+                                        .offset(x: carOffset) // 假设小汽车图标宽度为39
+                                }
+                                //                            }
+                                //起点图标
+                                Image(systemName: "figure.wave.circle.fill")
+                                    .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                    .background(.white)
+                                    .clipShape(Circle())
+                                    .frame(width: geometry.size.width / 3, height: geometry.size.height / 3, alignment: .center) // 设置图片的宽度为ZStack宽度的1/3，高度自适应
+                                    .position(x: geometry.size.width / 3, y: geometry.size.height / 2) // 设置图片的位置
+                                
+                            }
+                            //终点图标
+                            HStack {
+                                Spacer()
+                                Image(systemName: "house.circle.fill")
+                                    .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                    .background(.white)
+                                    .clipShape(Circle())
+                            }
+                            .padding(.trailing, -2)
+                        }
+                        .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
+                        .padding(.top, 8) // 这里设置了20点的上边距
+                        .padding(.bottom, 8) // 这里设置了20点的上边距
+                        //MARK: 进度条升级中
+                        ZStack(alignment: .leading) {
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color.secondary)
+                                .opacity(0.2) // 将这个视图的透明度设置为50%
+                                .frame(height: 6) // 进度条背景的高度
+                            
+                            GeometryReader { geometry in
+                                // 根据进度计算蓝色进度条的宽度
+                                let maxProgressBarWidth = geometry.size.width - 48 // 最大宽度为父视图宽度减去15
+                                let progressBarWidth = max(geometry.size.width * (1/3 + 2/3 * CGFloat(context.state.progress)), 25)
+
+//                                let progressBarWidth = max(geometry.size.width * CGFloat(context.state.progress), 25) // 进度条宽度至少为25
+                                let adjustedProgressBarWidth = min(progressBarWidth, maxProgressBarWidth) // 保证进度条宽度不超过最大宽度
+                                
+                                ZStack(alignment: .leading) {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                        .frame(width: progressBarWidth, height: 6)
+                                    //                                    .opacity(0.5)//个人版才需要
+                                    
+                                    // 小汽车图标的位置也根据进度动态调整
+                                    // 确保小汽车图标不会超出父视图的范围
+                                    let carOffset = min(adjustedProgressBarWidth - 10, geometry.size.width - 20)
+                                    Image("car")
+                                        .resizable()
+                                        .frame(width: 39, height: 18)
+                                        .offset(x: carOffset) // 假设小汽车图标宽度为39
+                                }
+                                //                            }
+                                //起点图标
+                                Image(systemName: "figure.wave.circle.fill")
+                                    .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                    .background(.white)
+                                    .clipShape(Circle())
+                                    .frame(width: geometry.size.width / 3, height: geometry.size.height / 3, alignment: .center) // 设置图片的宽度为ZStack宽度的1/3，高度自适应
+                                    .position(x: geometry.size.width / 3, y: geometry.size.height / 2) // 设置图片的位置
+                                
+                            }
+                            //终点图标
+                            HStack {
+                                Spacer()
+                                Image(systemName: "house.circle.fill")
+                                    .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                    .background(.white)
+                                    .clipShape(Circle())
+                            }
+                            .padding(.trailing, -2)
+                        }
+                        .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
+                        .padding(.top, 8) // 这里设置了20点的上边距
+                        .padding(.bottom, 8) // 这里设置了20点的上边距
+                        
                     }
                     .padding(15)
                 }
@@ -231,99 +382,153 @@ struct hippoWidgetLiveActivity: Widget {
                         .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
                         .padding(.top, 8) // 这里设置了20点的上边距
                         .padding(.bottom, 8) // 这里设置了20点的上边距
+                        
+                        //MARK: 进度条升级中
+                        ZStack(alignment: .leading) {
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color.secondary)
+                                .opacity(0.2) // 将这个视图的透明度设置为50%
+                                .frame(height: 6) // 进度条背景的高度
+                            
+                            GeometryReader { geometry in
+                                // 根据进度计算蓝色进度条的宽度
+                                let maxProgressBarWidth = geometry.size.width - 48 // 最大宽度为父视图宽度减去15
+                                let progressBarWidth = max(geometry.size.width * (1/3 * CGFloat(context.state.progress)), 25)
+
+//                                let progressBarWidth = max(geometry.size.width * CGFloat(context.state.progress), 25) // 进度条宽度至少为25
+                                let adjustedProgressBarWidth = min(progressBarWidth, maxProgressBarWidth) // 保证进度条宽度不超过最大宽度
+                                
+                                ZStack(alignment: .leading) {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                        .frame(width: progressBarWidth, height: 6)
+                                    //                                    .opacity(0.5)//个人版才需要
+                                    
+                                    // 小汽车图标的位置也根据进度动态调整
+                                    // 确保小汽车图标不会超出父视图的范围
+                                    let carOffset = min(adjustedProgressBarWidth - 10, geometry.size.width - 20)
+                                    Image("car")
+                                        .resizable()
+                                        .frame(width: 39, height: 18)
+                                        .offset(x: carOffset) // 假设小汽车图标宽度为39
+                                }
+                                //                            }
+                                //起点图标
+                                Image(systemName: "figure.wave.circle.fill")
+                                    .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                    .background(.white)
+                                    .clipShape(Circle())
+                                    .frame(width: geometry.size.width / 3, height: geometry.size.height / 3, alignment: .center) // 设置图片的宽度为ZStack宽度的1/3，高度自适应
+                                    .position(x: geometry.size.width / 3, y: geometry.size.height / 2) // 设置图片的位置
+                                
+                            }
+                            //终点图标
+                            HStack {
+                                Spacer()
+                                Image(systemName: "house.circle.fill")
+                                    .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                    .background(.white)
+                                    .clipShape(Circle())
+                            }
+                            .padding(.trailing, -2)
+                        }
+                        .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
+                        .padding(.top, 8) // 这里设置了20点的上边距
+                        .padding(.bottom, 8) // 这里设置了20点的上边距
+                        
                     }
                     .padding(15)
                 }
             }
             
             // MARK: - 实时活动样式
-//            ZStack(alignment: .top) {
-//                //背景
-//                HStack{
-//                    Spacer()
-//                    //                    Image("background")//个人版
-//                    Image("ditripbackground")//线上版
-//                        .frame(width: 140, height: 100) // 设置图片的框架大小为宽100点，高100点
-//                        .alignmentGuide(.top) { d in d[.top] }
-//                        .alignmentGuide(.trailing) { d in d[.trailing] }
-//                }
-//                //                .border(Color.blue, width: /* 边框宽度 */ 1)
-//                //内容展示区
-//                VStack (alignment: .leading) {
-//                    //预计时间
-//                    Text("\(context.state.title)")
-//                        .font(.title2)
-//                        .bold()
-//                    //剩余路程,加个判断：
-//                    if context.state.title != "行程查询中"{
-//                        HStack (alignment: .lastTextBaseline,spacing: 0){
-//                            Text("距离\(context.state.destination)")
-//                                .font(.caption)
-//                            Text(context.state.distance)
-//                                .font(.title3)
-//                                .monospaced()
-//                            Text("公里")
-//                                .font(.caption)
-//                        }.padding(.bottom, 12)
-//                    } else {
-//                        HStack (alignment: .lastTextBaseline,spacing: 0){
-//                            Text("稍等哦")
-//                                .font(.caption)
-//                            Text(" ")
-//                                .font(.title3)
-//                                .monospaced()
-//                            
-//                        }.padding(.bottom, 12)
-//                        
-//                        
-//                    }
-//                    //进度条
-//                    ZStack(alignment: .leading) {
-//                        RoundedRectangle(cornerRadius: 15)
-//                            .fill(Color.secondary)
-//                            .opacity(0.2) // 将这个视图的透明度设置为50%
-//                            .frame(height: 6) // 进度条背景的高度
-//                        
-//                        GeometryReader { geometry in
-//                            // 根据进度计算蓝色进度条的宽度
-//                            let maxProgressBarWidth = geometry.size.width - 48 // 最大宽度为父视图宽度减去15
-//                            let progressBarWidth = max(geometry.size.width * CGFloat(context.state.progress), 25) // 进度条宽度至少为25
-//                            let adjustedProgressBarWidth = min(progressBarWidth, maxProgressBarWidth) // 保证进度条宽度不超过最大宽度
-//                            
-//                            ZStack(alignment: .leading) {
-//                                RoundedRectangle(cornerRadius: 15)
-//                                //                                          .fill(Color.blue)
-//                                //                                    .fill(Color.pink)//个人版
-//                                    .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
-//                                    .frame(width: progressBarWidth, height: 6)
-//                                //                                    .opacity(0.5)//个人版才需要
-//                                
-//                                // 小汽车图标的位置也根据进度动态调整
-//                                // 确保小汽车图标不会超出父视图的范围
-//                                let carOffset = min(adjustedProgressBarWidth - 10, geometry.size.width - 20)
-//                                Image("car")
-//                                    .resizable()
-//                                    .frame(width: 39, height: 18)
-//                                    .offset(x: carOffset) // 假设小汽车图标宽度为39
-//                            }
-//                        }
-//                        //终点图标
-//                        HStack {
-//                            Spacer()
-//                            Image(systemName: "\(context.state.iconName)")
-//                            //                                .foregroundColor(.pink)//个人版
-//                                .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
-//                                .background(.white)
-//                                .clipShape(Circle())
-//                        }
-//                        .padding(.trailing, -2)
-//                    }
-//                    .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
-//                    .padding(.top, 8) // 这里设置了20点的上边距
-//                    .padding(.bottom, 8) // 这里设置了20点的上边距
-//                }
-//                .padding(15)
-//            }
+            //            ZStack(alignment: .top) {
+            //                //背景
+            //                HStack{
+            //                    Spacer()
+            //                    //                    Image("background")//个人版
+            //                    Image("ditripbackground")//线上版
+            //                        .frame(width: 140, height: 100) // 设置图片的框架大小为宽100点，高100点
+            //                        .alignmentGuide(.top) { d in d[.top] }
+            //                        .alignmentGuide(.trailing) { d in d[.trailing] }
+            //                }
+            //                //                .border(Color.blue, width: /* 边框宽度 */ 1)
+            //                //内容展示区
+            //                VStack (alignment: .leading) {
+            //                    //预计时间
+            //                    Text("\(context.state.title)")
+            //                        .font(.title2)
+            //                        .bold()
+            //                    //剩余路程,加个判断：
+            //                    if context.state.title != "行程查询中"{
+            //                        HStack (alignment: .lastTextBaseline,spacing: 0){
+            //                            Text("距离\(context.state.destination)")
+            //                                .font(.caption)
+            //                            Text(context.state.distance)
+            //                                .font(.title3)
+            //                                .monospaced()
+            //                            Text("公里")
+            //                                .font(.caption)
+            //                        }.padding(.bottom, 12)
+            //                    } else {
+            //                        HStack (alignment: .lastTextBaseline,spacing: 0){
+            //                            Text("稍等哦")
+            //                                .font(.caption)
+            //                            Text(" ")
+            //                                .font(.title3)
+            //                                .monospaced()
+            //
+            //                        }.padding(.bottom, 12)
+            //
+            //
+            //                    }
+            //                    //进度条
+            //                    ZStack(alignment: .leading) {
+            //                        RoundedRectangle(cornerRadius: 15)
+            //                            .fill(Color.secondary)
+            //                            .opacity(0.2) // 将这个视图的透明度设置为50%
+            //                            .frame(height: 6) // 进度条背景的高度
+            //
+            //                        GeometryReader { geometry in
+            //                            // 根据进度计算蓝色进度条的宽度
+            //                            let maxProgressBarWidth = geometry.size.width - 48 // 最大宽度为父视图宽度减去15
+            //                            let progressBarWidth = max(geometry.size.width * CGFloat(context.state.progress), 25) // 进度条宽度至少为25
+            //                            let adjustedProgressBarWidth = min(progressBarWidth, maxProgressBarWidth) // 保证进度条宽度不超过最大宽度
+            //
+            //                            ZStack(alignment: .leading) {
+            //                                RoundedRectangle(cornerRadius: 15)
+            //                                //                                          .fill(Color.blue)
+            //                                //                                    .fill(Color.pink)//个人版
+            //                                    .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+            //                                    .frame(width: progressBarWidth, height: 6)
+            //                                //                                    .opacity(0.5)//个人版才需要
+            //
+            //                                // 小汽车图标的位置也根据进度动态调整
+            //                                // 确保小汽车图标不会超出父视图的范围
+            //                                let carOffset = min(adjustedProgressBarWidth - 10, geometry.size.width - 20)
+            //                                Image("car")
+            //                                    .resizable()
+            //                                    .frame(width: 39, height: 18)
+            //                                    .offset(x: carOffset) // 假设小汽车图标宽度为39
+            //                            }
+            //                        }
+            //                        //终点图标
+            //                        HStack {
+            //                            Spacer()
+            //                            Image(systemName: "\(context.state.iconName)")
+            //                            //                                .foregroundColor(.pink)//个人版
+            //                                .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+            //                                .background(.white)
+            //                                .clipShape(Circle())
+            //                        }
+            //                        .padding(.trailing, -2)
+            //                    }
+            //                    .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
+            //                    .padding(.top, 8) // 这里设置了20点的上边距
+            //                    .padding(.bottom, 8) // 这里设置了20点的上边距
+            //                }
+            //                .padding(15)
+            //            }
             
             
             // MARK: - 灵动岛样式

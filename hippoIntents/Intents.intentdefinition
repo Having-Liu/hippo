@@ -11,16 +11,14 @@
 	<key>INIntentDefinitionSystemVersion</key>
 	<string>23E224</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>15C500b</string>
+	<string>15E204a</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>15.2</string>
+	<string>15.3</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
 			<key>INIntentCategory</key>
 			<string>generic</string>
-			<key>INIntentConfigurable</key>
-			<true/>
 			<key>INIntentDefaultImageName</key>
 			<string>hippo</string>
 			<key>INIntentDescription</key>
@@ -35,20 +33,6 @@
 			<string>parameter</string>
 			<key>INIntentLastParameterTag</key>
 			<integer>2</integer>
-			<key>INIntentManagedParameterCombinations</key>
-			<dict>
-				<key>parameter</key>
-				<dict>
-					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
-					<true/>
-					<key>INIntentParameterCombinationTitle</key>
-					<string>用在行程查看</string>
-					<key>INIntentParameterCombinationTitleID</key>
-					<string>yKEddB</string>
-					<key>INIntentParameterCombinationUpdatesLinked</key>
-					<true/>
-				</dict>
-			</dict>
 			<key>INIntentName</key>
 			<string>CreateDynamicIslandIntent</string>
 			<key>INIntentParameters</key>
