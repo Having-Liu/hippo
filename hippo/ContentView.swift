@@ -698,64 +698,144 @@ struct SettingsView: View {
                                 // 当用户按下键盘的“确定”键时执行
                                 UserDefaults.standard.set(nickName, forKey: "babyName")
                                 globalData.babyName = nickName
+                                isEditingNickname = false
                             }
+                            .onTapGesture {
+                                                          isEditingNickname = true // 用户点击 TextField 时设置为 true
+                                                      }
                     }
                 }
-                
-                Section(header: Text("使用说明")) {
-                    VStack {
-                        Text("\(Image(systemName: "01.circle.fill")) 按住亲友分享的链接")
-                            .padding()
-                        HStack{
-                            Spacer()
-                            Image(colorScheme == .dark ? "darktips1" : "tips1")
+                if !isEditingNickname {
+                    Section(header: Text("使用说明")) {
+                        VStack {
+                            Text("\(Image(systemName: "01.circle.fill")) 按住亲友分享的链接")
+                                .padding()
+                            HStack{
+                                Spacer()
+                                Image(colorScheme == .dark ? "darktips1" : "tips1")
+                                    .resizable()
+                                    .scaledToFit() // 保持图片的宽高比
+                                    .frame(width: 270) // 限制图片的大小
+                                Spacer()
+                            }
+                            Text("\(Image(systemName: "02.circle.fill")) 选择[拷贝]")
+                                .padding()
+                            Image(colorScheme == .dark ? "darktips2" : "tips2")
                                 .resizable()
                                 .scaledToFit() // 保持图片的宽高比
                                 .frame(width: 270) // 限制图片的大小
-                            Spacer()
+                            Text("\(Image(systemName: "03.circle.fill")) 在app粘贴链接")
+                                .padding()
+                            
+                            Image(colorScheme == .dark ? "darktips3" : "tips3")
+                                .resizable()
+                                .scaledToFit() // 保持图片的宽高比
+                                .frame(width: 270) // 限制图片的大小
+                            
+                            
                         }
-                        Text("\(Image(systemName: "02.circle.fill")) 选择[拷贝]")
-                            .padding()
-                        Image(colorScheme == .dark ? "darktips2" : "tips2")
-                            .resizable()
-                            .scaledToFit() // 保持图片的宽高比
-                            .frame(width: 270) // 限制图片的大小
-                        Text("\(Image(systemName: "03.circle.fill")) 在app粘贴链接")
-                            .padding()
+                        .listRowInsets(EdgeInsets()) // 去除内边距
+                        .background(
+                            // 根据 colorScheme 的值选择不同的背景颜色
+                            colorScheme == .dark ?
+                            Color(red: 0.17, green: 0.17, blue: 0.18) : // 深色模式下的颜色
+                            Color(red: 0.9, green: 0.9, blue: 0.91)    // 浅色模式下的颜色
+                        )
+                    }
+                    Section(
+                        header: Text("这几个设置基本不用改，除非您认识开发者")
+                        //                    ,footer: Text("这几个设置基本不用改，除非您认识开发者")
                         
-                        Image(colorScheme == .dark ? "darktips3" : "tips3")
-                            .resizable()
-                            .scaledToFit() // 保持图片的宽高比
-                            .frame(width: 270) // 限制图片的大小
+                    ) {
+                        Toggle("视差效果震动反馈", isOn: $enableVibration)
+                            .onChange(of: enableVibration) { newValue in
+                                UserDefaults.standard.set(newValue, forKey: "HapticFeedback")
+                            }
                         
-                        
+                        Toggle("使用测试环境", isOn: $useTestEnvironment)
+                            .onChange(of: useTestEnvironment) { newValue in
+                                UserDefaults.standard.set(newValue, forKey: "UseTestEnvironment")
+                            }
+                        Toggle("使用沙盒环境", isOn: $UseSandbox)
+                            .onChange(of: UseSandbox) { newValue in
+                                UserDefaults.standard.set(newValue, forKey: "UseSandbox")
+                            }
+                    }
+                }
+                if isEditingNickname {
+                    ZStack(alignment: .top) {
+                        //背景
+                        HStack{
+                            Spacer()
+                            Image("ditripbackground")//线上版
+                                .frame(width: 140, height: 100) // 设置图片的框架大小为宽100点，高100点
+                                .alignmentGuide(.top) { d in d[.top] }
+                                .alignmentGuide(.trailing) { d in d[.trailing] }
+                        }
+                        VStack (alignment: .leading) {
+                            //预计时间
+                            Text("\(nickName)预计2分钟到达")
+                                .font(.title2)
+                                .bold()
+                            HStack (alignment: .lastTextBaseline,spacing: 0){
+                                Text("距离目的地")
+                                    .font(.caption)
+                                Text("1")
+                                    .font(.title3)
+                                    .monospaced()
+                                Text("公里")
+                                    .font(.caption)
+                            }.padding(.bottom, 12)
+                            
+                            //进度条
+                            ZStack(alignment: .leading) {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color.secondary)
+                                    .opacity(0.2) // 将这个视图的透明度设置为50%
+                                    .frame(height: 6) // 进度条背景的高度
+                                
+                                GeometryReader { geometry in
+                                    // 根据进度计算蓝色进度条的宽度
+                                    let linshiprogress = 0.8
+                                    let maxProgressBarWidth = geometry.size.width - 48 // 最大宽度为父视图宽度减去15
+                                    let progressBarWidth = max(geometry.size.width * CGFloat(linshiprogress), 25) // 进度条宽度至少为25
+                                    let adjustedProgressBarWidth = min(progressBarWidth, maxProgressBarWidth) // 保证进度条宽度不超过最大宽度
+                                    
+                                    ZStack(alignment: .leading) {
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                            .frame(width: progressBarWidth, height: 6)
+                                        //                                    .opacity(0.5)//个人版才需要
+                                        
+                                        // 小汽车图标的位置也根据进度动态调整
+                                        // 确保小汽车图标不会超出父视图的范围
+                                        let carOffset = min(adjustedProgressBarWidth - 10, geometry.size.width - 20)
+                                        Image("car")
+                                            .resizable()
+                                            .frame(width: 39, height: 18)
+                                            .offset(x: carOffset) // 假设小汽车图标宽度为39
+                                    }
+                                }
+                                //终点图标
+                                HStack {
+                                    Spacer()
+                                    Image(systemName: "house.circle.fill")
+                                    //                                .foregroundColor(.pink)//个人版
+                                        .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                        .background(.white)
+                                        .clipShape(Circle())
+                                }
+                                .padding(.trailing, -2)
+                            }
+                            .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
+                            .padding(.top, 8) // 这里设置了20点的上边距
+                            .padding(.bottom, 8) // 这里设置了20点的上边距
+                        }
+                        .padding(15)
                     }
                     .listRowInsets(EdgeInsets()) // 去除内边距
-                    .background(
-                        // 根据 colorScheme 的值选择不同的背景颜色
-                        colorScheme == .dark ?
-                        Color(red: 0.17, green: 0.17, blue: 0.18) : // 深色模式下的颜色
-                        Color(red: 0.9, green: 0.9, blue: 0.91)    // 浅色模式下的颜色
-                    )
-                }
-                Section(
-                    header: Text("这几个设置基本不用改，除非您认识开发者")
-                    //                    ,footer: Text("这几个设置基本不用改，除非您认识开发者")
+//                    .clipShape(RoundedRectangle(cornerRadius: 80)) // 裁剪 ZStack 的内容以匹配圆角
                     
-                ) {
-                    Toggle("视差效果震动反馈", isOn: $enableVibration)
-                        .onChange(of: enableVibration) { newValue in
-                            UserDefaults.standard.set(newValue, forKey: "HapticFeedback")
-                        }
-                    
-                    Toggle("使用测试环境", isOn: $useTestEnvironment)
-                        .onChange(of: useTestEnvironment) { newValue in
-                            UserDefaults.standard.set(newValue, forKey: "UseTestEnvironment")
-                        }
-                    Toggle("使用沙盒环境", isOn: $UseSandbox)
-                        .onChange(of: UseSandbox) { newValue in
-                            UserDefaults.standard.set(newValue, forKey: "UseSandbox")
-                        }
                 }
                 
             }
@@ -776,35 +856,3 @@ struct SettingsView: View {
 }
 
 
-
-struct NicknameEditView: View {
-    @Binding var nickName: String
-    @Binding var isEditingNickname: Bool
-    @State private var previewText: String = "预览内容"
-
-    var body: some View {
-        VStack {
-            TextField("输入亲友称呼", text: $nickName)
-                .multilineTextAlignment(.center)
-                .padding()
-                .onChange(of: nickName) { newValue in
-                    // 更新预览内容
-                    previewText = "昵称: \(newValue)"
-                }
-
-            Rectangle()
-                .fill(Color.secondary.opacity(0.1))
-                .frame(height: 100)
-                .overlay(
-                    Text(previewText)
-                        .foregroundColor(.primary)
-                )
-                .padding()
-
-            Spacer()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(UIColor.systemBackground).opacity(0.9))
-        .edgesIgnoringSafeArea(.all)
-    }
-}
