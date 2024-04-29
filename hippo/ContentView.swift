@@ -667,11 +667,12 @@ struct SettingsView: View {
     @Binding var isPresented: Bool
     @State private var enableVibration: Bool = UserDefaults.standard.bool(forKey: "HapticFeedback")
     @State private var useTestEnvironment: Bool = UserDefaults.standard.bool(forKey: "UseTestEnvironment")
-    @State private var nickName: String = UserDefaults.standard.string(forKey: "babyName") ?? ""
+    @State private var nickName: String = UserDefaults.standard.string(forKey: "babyName") ?? "亲友"
     @State private var UseSandbox: Bool = UserDefaults.standard.bool(forKey: "UseSandbox")
     @EnvironmentObject var globalData: GlobalData // 确保 GlobalData 作为环境对象传递进来
     // 使用 @Environment 来获取当前的颜色模式
     @Environment(\.colorScheme) var colorScheme
+    @State private var isEditingNickname: Bool = false
     
     var body: some View {
         NavigationView {
@@ -774,3 +775,36 @@ struct SettingsView: View {
     }
 }
 
+
+
+struct NicknameEditView: View {
+    @Binding var nickName: String
+    @Binding var isEditingNickname: Bool
+    @State private var previewText: String = "预览内容"
+
+    var body: some View {
+        VStack {
+            TextField("输入亲友称呼", text: $nickName)
+                .multilineTextAlignment(.center)
+                .padding()
+                .onChange(of: nickName) { newValue in
+                    // 更新预览内容
+                    previewText = "昵称: \(newValue)"
+                }
+
+            Rectangle()
+                .fill(Color.secondary.opacity(0.1))
+                .frame(height: 100)
+                .overlay(
+                    Text(previewText)
+                        .foregroundColor(.primary)
+                )
+                .padding()
+
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(UIColor.systemBackground).opacity(0.9))
+        .edgesIgnoringSafeArea(.all)
+    }
+}
