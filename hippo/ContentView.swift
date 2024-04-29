@@ -99,8 +99,8 @@ struct ContentView: View {
                 //                Spacer()
                 Button(action: {
                     // 触发轻微震动效果
-                       let generator = UINotificationFeedbackGenerator()
-                       generator.notificationOccurred(.success)
+                       let generator = UIImpactFeedbackGenerator(style: .light)
+    generator.impactOccurred()
                     
                     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                         if success {
@@ -136,6 +136,7 @@ struct ContentView: View {
                                 if success {
                                     self.motionManager.stopMonitoring()  // 停止监控
                                     self.showTripview = true
+                                    print("显示 tripview")
                                 }else {
                                     // 如果失败，显示错误信息
                                     self.alertMessage = "遇到了网络问题，请稍后重试。"
@@ -160,11 +161,11 @@ struct ContentView: View {
                         if ButtomLoading {
                             ProgressView()  // 显示加载指示器
                                 .progressViewStyle(CircularProgressViewStyle())
-                                .scaleEffect(0.5)  // 根据需要调整大小
+                                .scaleEffect(1.2)  // 根据需要调整大小
+                                .tint(Color.white)  // 将进度指示器的颜色设置为红色
                         }
                         Text(ButtomLoading ? "" : "粘贴并创建实时活动")
-                        //                            .foregroundColor(.primary)//个人版
-                            .foregroundColor(.white)//线上版
+                            .foregroundColor(.white)
                     }
                     .foregroundColor(.primary)
                     .padding(EdgeInsets(top: 16, leading: 32, bottom: 16, trailing: 32))
@@ -191,8 +192,8 @@ struct ContentView: View {
                 Spacer()
                 Button("使用说明&设置") {
                     // 触发轻微震动效果
-                       let generator = UINotificationFeedbackGenerator()
-                       generator.notificationOccurred(.success)
+                       let generator = UIImpactFeedbackGenerator(style: .light)
+    generator.impactOccurred()
                     showSettings = true
                 }
                 .padding(.bottom, 40)
@@ -375,8 +376,8 @@ struct TripView: View {
                 Spacer()
                 Button(action: {
                     // 触发轻微震动效果
-                       let generator = UINotificationFeedbackGenerator()
-                       generator.notificationOccurred(.success)
+                       let generator = UIImpactFeedbackGenerator(style: .light)
+    generator.impactOccurred()
                     //关闭灵动岛
                     endActivity()
                     //回到首页
