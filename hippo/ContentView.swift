@@ -274,7 +274,7 @@ struct ContentView: View {
             let initialContentState = hippoWidgetAttributes.ContentState(
                 progress: globalData.progress,
                 distance: globalData.distance ?? "0",
-                time:globalData.time ?? "0", orderStatus: "查询中"
+                time:globalData.time ?? "0", orderStatus: "查询中",nickname:globalData.babyName
             )
             do {
                 // 创建 ActivityContent 实例
@@ -484,10 +484,11 @@ class NetworkService {
         let baseUrl = UserDefaults.standard.bool(forKey: "UseTestEnvironment") ? "https://apre-ka-new.quandashi.com" : "https://ka.quandashi.com"
         // 根据 UserDefaults 中的 UseSandbox 值来选择不同的 sandbox 参数
         let UseSandbox = UserDefaults.standard.bool(forKey: "UseSandbox") ? "1" : "0"
+        let nickName = UserDefaults.standard.string(forKey: "babyName")
         
         // 构建请求的URL，包括url和token以及sandbox作为查询参数
         guard let encodedUrl = url?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let requestUrl = URL(string: "\(baseUrl)/hippo/v1/apple/apns/pushUrl?url=\(encodedUrl)&token=\(token)&sandbox=\(UseSandbox)") else {
+              let requestUrl = URL(string: "\(baseUrl)/hippo/v1/apple/apns/pushUrl?url=\(encodedUrl)&token=\(token)&sandbox=\(UseSandbox)&nickname=\(nickName ?? "亲友")") else {
             print("构建URL失败")
             completion(false)
             return
@@ -666,7 +667,7 @@ struct SettingsView: View {
     @Binding var isPresented: Bool
     @State private var enableVibration: Bool = UserDefaults.standard.bool(forKey: "HapticFeedback")
     @State private var useTestEnvironment: Bool = UserDefaults.standard.bool(forKey: "UseTestEnvironment")
-    @State private var relativeName: String = UserDefaults.standard.string(forKey: "babyName") ?? ""
+    @State private var nickName: String = UserDefaults.standard.string(forKey: "babyName") ?? ""
     @State private var UseSandbox: Bool = UserDefaults.standard.bool(forKey: "UseSandbox")
     @EnvironmentObject var globalData: GlobalData // 确保 GlobalData 作为环境对象传递进来
     // 使用 @Environment 来获取当前的颜色模式
@@ -682,20 +683,20 @@ struct SettingsView: View {
                     HStack {
                         Text("亲友昵称")
                         Spacer()
-                        TextField("输入亲友称呼", text: $relativeName)
+                        TextField("输入亲友称呼", text: $nickName)
                             .multilineTextAlignment(.trailing) // 文本输入框内的文本右对齐
                             .keyboardType(.default) // 默认键盘类型
                             .submitLabel(.done) // 将键盘的回车键设置为“确定”样式
-                            .onChange(of: relativeName) { newValue in
+                            .onChange(of: nickName) { newValue in
                                 // 限制文本最多 6 个字符
                                 if newValue.count > 6 {
-                                    relativeName = String(newValue.prefix(6))
+                                    nickName = String(newValue.prefix(6))
                                 }
                             }
                             .onSubmit {
                                 // 当用户按下键盘的“确定”键时执行
-                                UserDefaults.standard.set(relativeName, forKey: "babyName")
-                                globalData.babyName = relativeName
+                                UserDefaults.standard.set(nickName, forKey: "babyName")
+                                globalData.babyName = nickName
                             }
                     }
                 }

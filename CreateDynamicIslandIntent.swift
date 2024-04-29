@@ -67,7 +67,7 @@ struct CreateDynamicIslandIntent: AppIntent, CustomIntentMigratedAppIntent, Pred
             let initialContentState = hippoWidgetAttributes.ContentState(
                 progress: 0.05,
                 distance: "0",
-                time: "0", orderStatus: "查询中"
+                time: "0", orderStatus: "查询中",nickname:"亲友"
             )
             
             // 创建 ActivityContent 实例
