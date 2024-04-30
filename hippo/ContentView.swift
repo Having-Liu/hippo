@@ -752,26 +752,46 @@ struct SettingsView: View {
                             
                             
                             VStack {
-                                Text("\(Image(systemName: "01.circle.fill")) 按住亲友分享的链接")
+                                Text("\(Image(systemName: "01.circle.fill")) 亲友通过短信将行程分享给您")
                                     .padding()
                                 HStack{
                                     Spacer()
-                                    Image(colorScheme == .dark ? "darktips1" : "tips1")
+                                    Image(colorScheme == .dark ? "darktips0" : "tips0")
                                         .resizable()
                                         .scaledToFit() // 保持图片的宽高比
                                         .frame(width: 270) // 限制图片的大小
                                     Spacer()
                                 }
-                                Text("\(Image(systemName: "02.circle.fill")) 选择[拷贝]")
+                                Text("\(Image(systemName: "02.circle.fill")) 按住亲友分享的链接")
+                                    .padding()
+                                Image(colorScheme == .dark ? "darktips1" : "tips1")
+                                    .resizable()
+                                    .scaledToFit() // 保持图片的宽高比
+                                    .frame(width: 270) // 限制图片的大小
+                                Text("\(Image(systemName: "03.circle.fill")) 选择[拷贝]")
                                     .padding()
                                 Image(colorScheme == .dark ? "darktips2" : "tips2")
                                     .resizable()
                                     .scaledToFit() // 保持图片的宽高比
                                     .frame(width: 270) // 限制图片的大小
-                                Text("\(Image(systemName: "03.circle.fill")) 在app粘贴链接")
+                                Text("\(Image(systemName: "04.circle.fill")) 在app粘贴链接")
                                     .padding()
                                 
                                 Image(colorScheme == .dark ? "darktips3" : "tips3")
+                                    .resizable()
+                                    .scaledToFit() // 保持图片的宽高比
+                                    .frame(width: 270) // 限制图片的大小
+                                Text("\(Image(systemName: "05.circle.fill")) 可以在卡片查看亲友实时行程啦")
+                                    .padding()
+                                
+                                Image(colorScheme == .dark ? "darktips4" : "tips4")
+                                    .resizable()
+                                    .scaledToFit() // 保持图片的宽高比
+                                    .frame(width: 270) // 限制图片的大小
+                                Text("\(Image(systemName: "06.circle.fill")) 有灵动岛的机型可在灵动岛实时查看")
+                                    .padding()
+                                
+                                Image(colorScheme == .dark ? "darktips5" : "tips5")
                                     .resizable()
                                     .scaledToFit() // 保持图片的宽高比
                                     .frame(width: 270) // 限制图片的大小
