@@ -27,7 +27,8 @@ struct HippoApp: App {
             "HapticFeedback": false, // 默认不开启震动反馈
             "UseTestEnvironment": true, // 默认使用测试环境
             "babyName": "亲友",// 默认亲友姓名为"未知"
-            "UseSandbox": false // 默认不用沙盒
+            "UseSandbox": false ,// 默认不用沙盒
+            "developerMode": false // 默认不用开发者模式，
         ])
     }
     var globalData = GlobalData()  // 创建 GlobalData 的实例

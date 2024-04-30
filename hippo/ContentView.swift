@@ -43,6 +43,7 @@ struct ContentView: View {
     @State private var ButtomLoading = false  // 新增状态，表示是否正在加载
     @StateObject private var motionManager = MotionManager() // 使用 StateObject 而不是 ObservedObject
     @State private var showSettings = false
+    @State private var toggleDeveloperMode: Bool = UserDefaults.standard.bool(forKey: "developerMode")
     // 从 UserDefaults 中获取 babyName 的值
     //    @State private var babyName: String = UserDefaults.standard.string(forKey: "babyName") ?? "亲友"
     // 使用 @Environment 来获取当前的颜色模式
@@ -98,7 +99,12 @@ struct ContentView: View {
                     .multilineTextAlignment(.center)
                     .foregroundColor(.primary)
                     .padding(.bottom,50)
-                //                Spacer()
+                    .onLongPressGesture(minimumDuration: 10) {
+                                // 当长按文本 10 秒时，开启开发者模式
+                                toggleDeveloperMode = true
+                                UserDefaults.standard.set(toggleDeveloperMode, forKey: "developerMode")
+                                print("开发者模式已开启")
+                            }
                 Button(action: {
                     // 触发轻微震动效果
                     let generator = UIImpactFeedbackGenerator(style: .light)
@@ -363,14 +369,14 @@ struct TripView: View {
                 .edgesIgnoringSafeArea(.all)
             HStack (alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("已登陆灵动岛✨")
+                    Text("已创建实时活动卡片✨")
                         .font(
                             Font.custom("PingFang SC", size: 18)
                                 .weight(.medium)
                         )
                         .foregroundColor(.primary)
                     //                    Text("可以实时关注宝宝行程啦")//个人版
-                    Text("可以实时关注亲友行程啦")//线上版
+                    Text("可以实时关注\(globalData.babyName)行程啦")//线上版
                         .font(Font.custom("PingFang SC", size: 12))
                         .foregroundColor(.secondary)
                 }
@@ -676,6 +682,7 @@ struct SettingsView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var isEditingNickname: Bool = false
     @FocusState private var isTextFieldFocused: Bool
+    @State private var ToggledeveloperMode: Bool = UserDefaults.standard.bool(forKey: "developerMode")
     
     var body: some View {
         NavigationView {
@@ -722,7 +729,7 @@ struct SettingsView: View {
                         .cornerRadius(10) // 设置圆角半径为10
                         .padding(.horizontal)
                         VStack(alignment: .leading) {
-                            Text("您对亲友的昵称，将会在实时活动卡片上进行显示。")
+                            Text("您对亲友的昵称，将会在实时活动卡片上进行显示")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                                 .padding(.horizontal)
@@ -738,11 +745,11 @@ struct SettingsView: View {
                     
                     if !isEditingNickname {
                         VStack(alignment: .leading) {
-                                Text("使用说明")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                                    .padding(.leading)
-                                
+                            Text("使用说明")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .padding(.leading)
+                            
                             
                             VStack {
                                 Text("\(Image(systemName: "01.circle.fill")) 按住亲友分享的链接")
@@ -782,9 +789,11 @@ struct SettingsView: View {
                         }
                         .padding()
                         .transition(AnyTransition.opacity)
+                    }
+                    if !isEditingNickname  && ToggledeveloperMode  {
                         VStack{
                         VStack(alignment: .leading) {
-                            Text("以下设置一般不用调整，除非您认识开发者")
+                            Text("恭喜你捣鼓出开发者设置\n以下一般不用调整，除非已经和开发者聊了")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                                 .padding(.horizontal)
@@ -797,6 +806,13 @@ struct SettingsView: View {
                                 Rectangle()
                                     .fill(Color.clear) // 设置为透明颜色
                                     .frame(height: 1) // 设置分隔线的高度
+                                Toggle("开发者模式", isOn: $ToggledeveloperMode)
+                                    .onChange(of: ToggledeveloperMode) { newValue in
+                                        UserDefaults.standard.set(newValue, forKey: "developerMode")
+                                    }
+                                    .padding(.horizontal)
+                                Divider()
+                                    .padding(.leading) // 如果需要缩进，可以在这里设置
                                 
                                 Toggle("视差效果震动反馈", isOn: $enableVibration)
                                     .onChange(of: enableVibration) { newValue in
@@ -916,6 +932,7 @@ struct SettingsView: View {
                         )
                         .cornerRadius(20) // 设置圆角半径为10
                         .padding()
+                        .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 10)
                         
                         
                         //
@@ -935,6 +952,11 @@ struct SettingsView: View {
             .scrollIndicators(.hidden) // 隐藏滚动条
             //            .navigationTitle("设置")
             .toolbar {
+//                ToolbarItem(placement: .principal) { // 使用 .principal 尝试将 Grabber 放在中间位置
+//                       RoundedRectangle(cornerRadius: 3)
+//                           .frame(width: 36, height: 5) // 设置 Grabber 的大小
+//                           .foregroundColor(Color(UIColor.systemGray4)) // 设置 Grabber 的颜色
+//                   }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         isPresented = false
