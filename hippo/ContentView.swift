@@ -50,41 +50,43 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing:0) {
-            
             // 使用 GeometryReader 来获取当前视图的尺寸
-            GeometryReader { geometry in
-                ZStack{
-                    // 根据颜色模式动态选择背景图片
-                    let backImageName = colorScheme == .dark ? "darkbgback" : "bgback"
-                    Image(backImageName)
-                        .resizable() // 如果需要的话，让图片可缩放
-                        .scaledToFill() // 保持图片的宽高比适应内容
-                        .edgesIgnoringSafeArea(.all)
-                    
-                    // 创建一个 ZStack 用于叠加图层
-                    ZStack {
-                        // 创建四个图层
-                        ForEach(1..<4) { index in
-                            // 根据颜色模式动态构建图片名称
-                            let layerImageName = colorScheme == .dark ? "darkbg\(index)" : "bg\(index)"
-                            Image(layerImageName)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: geometry.size.width, height: geometry.size.height)
-                                .clipped()
-                                .offset(x: motionManager.xTilt * CGFloat(index) * 6, // 根据陀螺仪数据调整水平偏移
-                                        y: motionManager.yTilt * CGFloat(index) * 6) // 根据陀螺仪数据调整垂直偏移
+            VStack{
+                GeometryReader { geometry in
+                    ZStack{
+                        // 根据颜色模式动态选择背景图片
+                        let backImageName = colorScheme == .dark ? "darkbgback" : "bgback"
+                        Image(backImageName)
+                            .resizable() // 如果需要的话，让图片可缩放
+                            .scaledToFill() // 保持图片的宽高比适应内容
+                            .edgesIgnoringSafeArea(.all)
+                        
+                        // 创建一个 ZStack 用于叠加图层
+                        ZStack {
+                            // 创建四个图层
+                            ForEach(1..<4) { index in
+                                // 根据颜色模式动态构建图片名称
+                                let layerImageName = colorScheme == .dark ? "darkbg\(index)" : "bg\(index)"
+                                Image(layerImageName)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: geometry.size.width, height: geometry.size.height)
+                                    .clipped()
+                                    .offset(x: motionManager.xTilt * CGFloat(index) * 6, // 根据陀螺仪数据调整水平偏移
+                                            y: motionManager.yTilt * CGFloat(index) * 6) // 根据陀螺仪数据调整垂直偏移
+                            }
                         }
+                        // 根据颜色模式动态选择前景图片
+                        let frontImageName = colorScheme == .dark ? "darkbgfront" : "bgfront"
+                        Image(frontImageName)
+                            .resizable() // 如果需要的话，让图片可缩放
+                            .scaledToFill() // 保持图片的宽高比适应内容
+                            .edgesIgnoringSafeArea(.all)
                     }
-                    // 根据颜色模式动态选择前景图片
-                    let frontImageName = colorScheme == .dark ? "darkbgfront" : "bgfront"
-                    Image(frontImageName)
-                        .resizable() // 如果需要的话，让图片可缩放
-                        .scaledToFill() // 保持图片的宽高比适应内容
-                        .edgesIgnoringSafeArea(.all)
                 }
             }
-            
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width) // 设置宽度为屏幕宽度，高度为宽度的 1.29 倍
+    
             //MARK: 需要切换
             VStack{
                 Text("粘贴分享链接\n即可在灵动岛和实时活动查看\(globalData.babyName)行程")//线上版
