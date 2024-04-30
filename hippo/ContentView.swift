@@ -99,8 +99,8 @@ struct ContentView: View {
                 //                Spacer()
                 Button(action: {
                     // 触发轻微震动效果
-                       let generator = UIImpactFeedbackGenerator(style: .light)
-    generator.impactOccurred()
+                    let generator = UIImpactFeedbackGenerator(style: .light)
+                    generator.impactOccurred()
                     
                     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                         if success {
@@ -192,8 +192,8 @@ struct ContentView: View {
                 Spacer()
                 Button("使用说明&设置") {
                     // 触发轻微震动效果
-                       let generator = UIImpactFeedbackGenerator(style: .light)
-    generator.impactOccurred()
+                    let generator = UIImpactFeedbackGenerator(style: .light)
+                    generator.impactOccurred()
                     showSettings = true
                 }
                 .padding(.bottom, 40)
@@ -376,8 +376,8 @@ struct TripView: View {
                 Spacer()
                 Button(action: {
                     // 触发轻微震动效果
-                       let generator = UIImpactFeedbackGenerator(style: .light)
-    generator.impactOccurred()
+                    let generator = UIImpactFeedbackGenerator(style: .light)
+                    generator.impactOccurred()
                     //关闭灵动岛
                     endActivity()
                     //回到首页
@@ -408,12 +408,12 @@ struct TripView: View {
                 // 根据 colorScheme 的值选择不同的 LinearGradient
                 colorScheme == .dark ?
                 LinearGradient(
-                stops: [
-                Gradient.Stop(color: Color(red: 0.15, green: 0.2, blue: 0.42), location: 0.00),
-                Gradient.Stop(color: Color(red: 0.1, green: 0.09, blue: 0.28), location: 1.00),
-                ],
-                startPoint: UnitPoint(x: 0.5, y: 0),
-                endPoint: UnitPoint(x: 0.5, y: 1)
+                    stops: [
+                        Gradient.Stop(color: Color(red: 0.15, green: 0.2, blue: 0.42), location: 0.00),
+                        Gradient.Stop(color: Color(red: 0.1, green: 0.09, blue: 0.28), location: 1.00),
+                    ],
+                    startPoint: UnitPoint(x: 0.5, y: 0),
+                    endPoint: UnitPoint(x: 0.5, y: 1)
                 )
                 :
                     LinearGradient(
@@ -430,24 +430,24 @@ struct TripView: View {
                 
                 
             )
-//            .background(
-//                LinearGradient(
-//                    stops: [
-//                        Gradient.Stop(color: Color(red: 0.98, green: 0.98, blue: 0.98), location: 0.00),
-//                        //                        Gradient.Stop(color: Color(red: 1, green: 0.91, blue: 0.94), location: 1.00),//个人版
-//                        Gradient.Stop(color: Color(red: 1, green: 0.96, blue: 0.92), location: 1.00),//线上版
-//                    ],
-//                    startPoint: UnitPoint(x: 0.5, y: 0),
-//                    endPoint: UnitPoint(x: 0.5, y: 1)
-//                )
-//            )
+            //            .background(
+            //                LinearGradient(
+            //                    stops: [
+            //                        Gradient.Stop(color: Color(red: 0.98, green: 0.98, blue: 0.98), location: 0.00),
+            //                        //                        Gradient.Stop(color: Color(red: 1, green: 0.91, blue: 0.94), location: 1.00),//个人版
+            //                        Gradient.Stop(color: Color(red: 1, green: 0.96, blue: 0.92), location: 1.00),//线上版
+            //                    ],
+            //                    startPoint: UnitPoint(x: 0.5, y: 0),
+            //                    endPoint: UnitPoint(x: 0.5, y: 1)
+            //                )
+            //            )
         }
         .edgesIgnoringSafeArea(.all)
-//        // 从 TripView 返回时重新启动监控
-//            .onDisappear {
-//                motionManager.startMonitoring()  // 重新启动监控
-//            }
-
+        //        // 从 TripView 返回时重新启动监控
+        //            .onDisappear {
+        //                motionManager.startMonitoring()  // 重新启动监控
+        //            }
+        
     }
 }
 
@@ -569,7 +569,7 @@ class NetworkService {
 //    var lastFeedbackX: CGFloat = 0 // 上次震动时的X倾斜角度
 //    var lastFeedbackY: CGFloat = 0 // 上次震动时的Y倾斜角度
 //    let feedbackThreshold: CGFloat = 0.2 // 触发震动的倾斜阈值
-//    
+//
 //    init() {
 //        motionManager.gyroUpdateInterval = 1.0 / 60.0
 //        motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (motion, error) in
@@ -578,7 +578,7 @@ class NetworkService {
 //            let yTilt = CGFloat(motion.attitude.pitch)
 //            self?.xTilt = min(max(xTilt, -self!.maxTilt), self!.maxTilt)
 //            self?.yTilt = min(max(yTilt, -self!.maxTilt), self!.maxTilt)
-//            
+//
 //            // 检查是否达到触发震动的阈值
 //            if abs(self!.xTilt - self!.lastFeedbackX) > self!.feedbackThreshold ||
 //                abs(self!.yTilt - self!.lastFeedbackY) > self!.feedbackThreshold {
@@ -591,7 +591,7 @@ class NetworkService {
 //            }
 //        }
 //    }
-//    
+//
 //    // 触发震动反馈的方法
 //    func triggerFeedback() {
 //        let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
@@ -609,20 +609,20 @@ class MotionManager: ObservableObject {
     let feedbackThreshold: CGFloat = 0.2 // 触发震动的倾斜阈值
     
     private var settingsObserver: AnyCancellable?
-
-//    init() {
-//        startMonitoring()
-//    }
+    
+    //    init() {
+    //        startMonitoring()
+    //    }
     init() {
-            settingsObserver = GlobalData.shared.$isMonitoringEnabled.sink { [weak self] isEnabled in
-                if isEnabled {
-                    self?.startMonitoring()
-                } else {
-                    self?.stopMonitoring()
-                }
+        settingsObserver = GlobalData.shared.$isMonitoringEnabled.sink { [weak self] isEnabled in
+            if isEnabled {
+                self?.startMonitoring()
+            } else {
+                self?.stopMonitoring()
             }
         }
-
+    }
+    
     func startMonitoring() {
         if motionManager.isDeviceMotionAvailable {
             motionManager.deviceMotionUpdateInterval = 1.0 / 60.0
@@ -632,11 +632,11 @@ class MotionManager: ObservableObject {
             }
         }
     }
-
+    
     func stopMonitoring() {
         motionManager.stopDeviceMotionUpdates()
     }
-
+    
     private func updateMotionData(_ motion: CMDeviceMotion) {
         let xTilt = CGFloat(motion.attitude.roll)
         let yTilt = CGFloat(motion.attitude.pitch)
@@ -673,172 +673,264 @@ struct SettingsView: View {
     // 使用 @Environment 来获取当前的颜色模式
     @Environment(\.colorScheme) var colorScheme
     @State private var isEditingNickname: Bool = false
+    @FocusState private var isTextFieldFocused: Bool
     
     var body: some View {
         NavigationView {
-            List {
-                Section(
-                    //                    header: Text(" "),
-                    footer: Text("您对亲友的昵称，将会在实时活动卡片上进行显示。最多支持6个字符。")
-                ) {
-                    HStack {
-                        Text("亲友昵称")
-                        Spacer()
-                        TextField("输入亲友称呼", text: $nickName)
-                            .multilineTextAlignment(.trailing) // 文本输入框内的文本右对齐
-                            .keyboardType(.default) // 默认键盘类型
-                            .submitLabel(.done) // 将键盘的回车键设置为“确定”样式
-                            .onChange(of: nickName) { newValue in
-                                // 限制文本最多 6 个字符
-                                if newValue.count > 6 {
-                                    nickName = String(newValue.prefix(6))
+            ScrollView {
+                VStack {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("亲友昵称")
+                                .padding()
+                            Spacer()
+                            TextField("输入亲友称呼", text: $nickName)
+                                .focused($isTextFieldFocused)
+                                .padding()
+                                .multilineTextAlignment(.trailing) // 文本输入框内的文本右对齐
+                                .keyboardType(.default) // 默认键盘类型
+                                .submitLabel(.done) // 将键盘的回车键设置为“确定”样式
+                                .onSubmit {
+                                    
+                                    // 限制文本最多 6 个字符
+                                            if nickName.count > 6 {
+                                                nickName = String(nickName.prefix(6))
+                                            }
+                                    // 当用户按下键盘的“确定”键时执行
+                                    UserDefaults.standard.set(nickName, forKey: "babyName")
+                                    globalData.babyName = nickName
+                                    withAnimation (.spring()){
+                                        isEditingNickname = false
+                                    }
+                                   
                                 }
-                            }
-                            .onSubmit {
-                                // 当用户按下键盘的“确定”键时执行
-                                UserDefaults.standard.set(nickName, forKey: "babyName")
-                                globalData.babyName = nickName
-                                isEditingNickname = false
-                            }
-                            .onTapGesture {
-                                                          isEditingNickname = true // 用户点击 TextField 时设置为 true
-                                                      }
-                    }
-                }
-                if !isEditingNickname {
-                    Section(header: Text("使用说明")) {
-                        VStack {
-                            Text("\(Image(systemName: "01.circle.fill")) 按住亲友分享的链接")
-                                .padding()
-                            HStack{
-                                Spacer()
-                                Image(colorScheme == .dark ? "darktips1" : "tips1")
-                                    .resizable()
-                                    .scaledToFit() // 保持图片的宽高比
-                                    .frame(width: 270) // 限制图片的大小
-                                Spacer()
-                            }
-                            Text("\(Image(systemName: "02.circle.fill")) 选择[拷贝]")
-                                .padding()
-                            Image(colorScheme == .dark ? "darktips2" : "tips2")
-                                .resizable()
-                                .scaledToFit() // 保持图片的宽高比
-                                .frame(width: 270) // 限制图片的大小
-                            Text("\(Image(systemName: "03.circle.fill")) 在app粘贴链接")
-                                .padding()
-                            
-                            Image(colorScheme == .dark ? "darktips3" : "tips3")
-                                .resizable()
-                                .scaledToFit() // 保持图片的宽高比
-                                .frame(width: 270) // 限制图片的大小
-                            
-                            
+                                .onTapGesture {
+                                    withAnimation(.spring()) {
+                                        isEditingNickname = true // 用户点击 TextField 时设置为 true
+                                        isTextFieldFocused = true
+                                    }
+                                }
                         }
-                        .listRowInsets(EdgeInsets()) // 去除内边距
                         .background(
                             // 根据 colorScheme 的值选择不同的背景颜色
                             colorScheme == .dark ?
-                            Color(red: 0.17, green: 0.17, blue: 0.18) : // 深色模式下的颜色
-                            Color(red: 0.9, green: 0.9, blue: 0.91)    // 浅色模式下的颜色
+                            Color(.systemGray5) : // 深色模式下的颜色
+                            Color(.white)    // 浅色模式下的颜色
                         )
-                    }
-                    Section(
-                        header: Text("这几个设置基本不用改，除非您认识开发者")
-                        //                    ,footer: Text("这几个设置基本不用改，除非您认识开发者")
-                        
-                    ) {
-                        Toggle("视差效果震动反馈", isOn: $enableVibration)
-                            .onChange(of: enableVibration) { newValue in
-                                UserDefaults.standard.set(newValue, forKey: "HapticFeedback")
-                            }
-                        
-                        Toggle("使用测试环境", isOn: $useTestEnvironment)
-                            .onChange(of: useTestEnvironment) { newValue in
-                                UserDefaults.standard.set(newValue, forKey: "UseTestEnvironment")
-                            }
-                        Toggle("使用沙盒环境", isOn: $UseSandbox)
-                            .onChange(of: UseSandbox) { newValue in
-                                UserDefaults.standard.set(newValue, forKey: "UseSandbox")
-                            }
-                    }
-                }
-                if isEditingNickname {
-                    ZStack(alignment: .top) {
-                        //背景
-                        HStack{
-                            Spacer()
-                            Image("ditripbackground")//线上版
-                                .frame(width: 140, height: 100) // 设置图片的框架大小为宽100点，高100点
-                                .alignmentGuide(.top) { d in d[.top] }
-                                .alignmentGuide(.trailing) { d in d[.trailing] }
-                        }
-                        VStack (alignment: .leading) {
-                            //预计时间
-                            Text("\(nickName)预计2分钟到达")
-                                .font(.title2)
-                                .bold()
-                            HStack (alignment: .lastTextBaseline,spacing: 0){
-                                Text("距离目的地")
-                                    .font(.caption)
-                                Text("1")
-                                    .font(.title3)
-                                    .monospaced()
-                                Text("公里")
-                                    .font(.caption)
-                            }.padding(.bottom, 12)
+                        .cornerRadius(10) // 设置圆角半径为10
+                        .padding(.horizontal)
+                        VStack(alignment: .leading) {
+                            Text("您对亲友的昵称，将会在实时活动卡片上进行显示。")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .padding(.horizontal)
+                            Text("最多6个字符")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .padding(.horizontal)
                             
-                            //进度条
-                            ZStack(alignment: .leading) {
-                                RoundedRectangle(cornerRadius: 15)
-                                    .fill(Color.secondary)
-                                    .opacity(0.2) // 将这个视图的透明度设置为50%
-                                    .frame(height: 6) // 进度条背景的高度
-                                
-                                GeometryReader { geometry in
-                                    // 根据进度计算蓝色进度条的宽度
-                                    let linshiprogress = 0.8
-                                    let maxProgressBarWidth = geometry.size.width - 48 // 最大宽度为父视图宽度减去15
-                                    let progressBarWidth = max(geometry.size.width * CGFloat(linshiprogress), 25) // 进度条宽度至少为25
-                                    let adjustedProgressBarWidth = min(progressBarWidth, maxProgressBarWidth) // 保证进度条宽度不超过最大宽度
-                                    
-                                    ZStack(alignment: .leading) {
-                                        RoundedRectangle(cornerRadius: 15)
-                                            .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
-                                            .frame(width: progressBarWidth, height: 6)
-                                        //                                    .opacity(0.5)//个人版才需要
-                                        
-                                        // 小汽车图标的位置也根据进度动态调整
-                                        // 确保小汽车图标不会超出父视图的范围
-                                        let carOffset = min(adjustedProgressBarWidth - 10, geometry.size.width - 20)
-                                        Image("car")
-                                            .resizable()
-                                            .frame(width: 39, height: 18)
-                                            .offset(x: carOffset) // 假设小汽车图标宽度为39
-                                    }
-                                }
-                                //终点图标
-                                HStack {
-                                    Spacer()
-                                    Image(systemName: "house.circle.fill")
-                                    //                                .foregroundColor(.pink)//个人版
-                                        .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
-                                        .background(.white)
-                                        .clipShape(Circle())
-                                }
-                                .padding(.trailing, -2)
-                            }
-                            .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
-                            .padding(.top, 8) // 这里设置了20点的上边距
-                            .padding(.bottom, 8) // 这里设置了20点的上边距
                         }
-                        .padding(15)
+                        .padding(.horizontal)
+                        .frame(maxWidth: .infinity, alignment: .leading) // 设置 VStack 的最大宽度并左对齐
                     }
-                    .listRowInsets(EdgeInsets()) // 去除内边距
-//                    .clipShape(RoundedRectangle(cornerRadius: 80)) // 裁剪 ZStack 的内容以匹配圆角
+                    
+                    if !isEditingNickname {
+                        VStack(alignment: .leading) {
+                                Text("使用说明")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                    .padding(.leading)
+                                
+                            
+                            VStack {
+                                Text("\(Image(systemName: "01.circle.fill")) 按住亲友分享的链接")
+                                    .padding()
+                                HStack{
+                                    Spacer()
+                                    Image(colorScheme == .dark ? "darktips1" : "tips1")
+                                        .resizable()
+                                        .scaledToFit() // 保持图片的宽高比
+                                        .frame(width: 270) // 限制图片的大小
+                                    Spacer()
+                                }
+                                Text("\(Image(systemName: "02.circle.fill")) 选择[拷贝]")
+                                    .padding()
+                                Image(colorScheme == .dark ? "darktips2" : "tips2")
+                                    .resizable()
+                                    .scaledToFit() // 保持图片的宽高比
+                                    .frame(width: 270) // 限制图片的大小
+                                Text("\(Image(systemName: "03.circle.fill")) 在app粘贴链接")
+                                    .padding()
+                                
+                                Image(colorScheme == .dark ? "darktips3" : "tips3")
+                                    .resizable()
+                                    .scaledToFit() // 保持图片的宽高比
+                                    .frame(width: 270) // 限制图片的大小
+                                
+                                
+                            }
+                            //                            .listRowInsets(EdgeInsets()) // 去除内边距
+                            .background(
+                                // 根据 colorScheme 的值选择不同的背景颜色
+                                colorScheme == .dark ?
+                                Color(red: 0.17, green: 0.17, blue: 0.18) : // 深色模式下的颜色
+                                Color(red: 0.9, green: 0.9, blue: 0.91)    // 浅色模式下的颜色
+                            )
+                            .cornerRadius(10) // 设置圆角半径为10
+                        }
+                        .padding()
+                        .transition(AnyTransition.opacity)
+                        VStack{
+                        VStack(alignment: .leading) {
+                            Text("以下设置一般不用调整，除非您认识开发者")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .padding(.horizontal)
+                            
+                        }
+                        .padding(.horizontal)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                            VStack(alignment: .leading) {
+                                
+                                Rectangle()
+                                    .fill(Color.clear) // 设置为透明颜色
+                                    .frame(height: 1) // 设置分隔线的高度
+                                
+                                Toggle("视差效果震动反馈", isOn: $enableVibration)
+                                    .onChange(of: enableVibration) { newValue in
+                                        UserDefaults.standard.set(newValue, forKey: "HapticFeedback")
+                                    }
+                                    .padding(.horizontal)
+                                Divider()
+                                    .padding(.leading) // 如果需要缩进，可以在这里设置
+                                Toggle("使用测试环境", isOn: $useTestEnvironment)
+                                    .onChange(of: useTestEnvironment) { newValue in
+                                        UserDefaults.standard.set(newValue, forKey: "UseTestEnvironment")
+                                    }
+                                    .padding(.horizontal)
+                                Divider()
+                                    .padding(.leading) // 如果需要缩进，可以在这里设置
+                                
+                                Toggle("使用沙盒环境", isOn: $UseSandbox)
+                                    .onChange(of: UseSandbox) { newValue in
+                                        UserDefaults.standard.set(newValue, forKey: "UseSandbox")
+                                    }
+                                    .padding(.horizontal)
+                                Rectangle()
+                                    .fill(Color.clear) // 设置为透明颜色
+                                    .frame(height: 1) // 设置分隔线的高度
+                                
+                            }
+                            .background(
+                                // 根据 colorScheme 的值选择不同的背景颜色
+                                colorScheme == .dark ?
+                                Color(.systemGray5) : // 深色模式下的颜色
+                                Color(.white)    // 浅色模式下的颜色
+                            )
+                            .cornerRadius(10) // 设置圆角半径为10
+                            .padding(.horizontal)
+                        }
+                        .transition(AnyTransition.opacity)
+                        
+                        
+                        
+                    }
+                    if isEditingNickname {
+                        ZStack(alignment: .top) {
+                            //背景
+                            HStack{
+                                Spacer()
+                                Image("ditripbackground")//线上版
+                                    .frame(width: 140, height: 100) // 设置图片的框架大小为宽100点，高100点
+                                    .alignmentGuide(.top) { d in d[.top] }
+                                    .alignmentGuide(.trailing) { d in d[.trailing] }
+                            }
+                            VStack (alignment: .leading) {
+                                //预计时间
+                                Text("\(nickName)预计2分钟到达")
+                                    .font(.title2)
+                                    .bold()
+                                HStack (alignment: .lastTextBaseline,spacing: 0){
+                                    Text("距离目的地")
+                                        .font(.caption)
+                                    Text("1")
+                                        .font(.title3)
+                                        .monospaced()
+                                    Text("公里")
+                                        .font(.caption)
+                                }.padding(.bottom, 12)
+                                
+                                //进度条
+                                ZStack(alignment: .leading) {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .fill(Color.secondary)
+                                        .opacity(0.2) // 将这个视图的透明度设置为50%
+                                        .frame(height: 6) // 进度条背景的高度
+                                    
+                                    GeometryReader { geometry in
+                                        // 根据进度计算蓝色进度条的宽度
+                                        let linshiprogress = 0.8
+                                        let maxProgressBarWidth = geometry.size.width - 48 // 最大宽度为父视图宽度减去15
+                                        let progressBarWidth = max(geometry.size.width * CGFloat(linshiprogress), 25) // 进度条宽度至少为25
+                                        let adjustedProgressBarWidth = min(progressBarWidth, maxProgressBarWidth) // 保证进度条宽度不超过最大宽度
+                                        
+                                        ZStack(alignment: .leading) {
+                                            RoundedRectangle(cornerRadius: 15)
+                                                .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                                .frame(width: progressBarWidth, height: 6)
+                                            //                                    .opacity(0.5)//个人版才需要
+                                            
+                                            // 小汽车图标的位置也根据进度动态调整
+                                            // 确保小汽车图标不会超出父视图的范围
+                                            let carOffset = min(adjustedProgressBarWidth - 10, geometry.size.width - 20)
+                                            Image("car")
+                                                .resizable()
+                                                .frame(width: 39, height: 18)
+                                                .offset(x: carOffset) // 假设小汽车图标宽度为39
+                                        }
+                                    }
+                                    //终点图标
+                                    HStack {
+                                        Spacer()
+                                        Image(systemName: "house.circle.fill")
+                                        //                                .foregroundColor(.pink)//个人版
+                                            .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+                                            .background(.white)
+                                            .clipShape(Circle())
+                                    }
+                                    .padding(.trailing, -2)
+                                }
+                                .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
+                                .padding(.top, 8) // 这里设置了20点的上边距
+                                .padding(.bottom, 8) // 这里设置了20点的上边距
+                            }
+                            .padding(15)
+                        }
+                        .background(
+                            // 根据 colorScheme 的值选择不同的背景颜色
+                            colorScheme == .dark ?
+                            Color(.black) : // 深色模式下的颜色
+                            Color(.white)    // 浅色模式下的颜色
+                        )
+                        .cornerRadius(20) // 设置圆角半径为10
+                        .padding()
+                        
+                        
+                        //
+//                        .transition(AnyTransition.opacity.combined(with: .scale))
+                        .transition(.asymmetric(
+                            insertion: AnyTransition.opacity.combined(with: .move(edge: .bottom)),
+                            removal: AnyTransition.opacity.combined(with: .move(edge: .bottom))
+                        ))
+                        
+                        
+                    }
                     
                 }
                 
             }
+            .background(Color(.systemGray6) )
+            .scrollIndicators(.hidden) // 隐藏滚动条
             //            .navigationTitle("设置")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -856,3 +948,210 @@ struct SettingsView: View {
 }
 
 
+
+//备份一下
+//struct SettingsView: View {
+//    @Binding var isPresented: Bool
+//    @State private var enableVibration: Bool = UserDefaults.standard.bool(forKey: "HapticFeedback")
+//    @State private var useTestEnvironment: Bool = UserDefaults.standard.bool(forKey: "UseTestEnvironment")
+//    @State private var nickName: String = UserDefaults.standard.string(forKey: "babyName") ?? "亲友"
+//    @State private var UseSandbox: Bool = UserDefaults.standard.bool(forKey: "UseSandbox")
+//    @EnvironmentObject var globalData: GlobalData // 确保 GlobalData 作为环境对象传递进来
+//    // 使用 @Environment 来获取当前的颜色模式
+//    @Environment(\.colorScheme) var colorScheme
+//    @State private var isEditingNickname: Bool = false
+//
+//    var body: some View {
+//        NavigationView {
+//            List {
+//                Section(
+//                    //                    header: Text(" "),
+//                    footer: Text("您对亲友的昵称，将会在实时活动卡片上进行显示。最多支持6个字符。")
+//                ) {
+//                    HStack {
+//                        Text("亲友昵称")
+//                        Spacer()
+//                        TextField("输入亲友称呼", text: $nickName)
+//                            .multilineTextAlignment(.trailing) // 文本输入框内的文本右对齐
+//                            .keyboardType(.default) // 默认键盘类型
+//                            .submitLabel(.done) // 将键盘的回车键设置为“确定”样式
+//                            .onChange(of: nickName) { newValue in
+//                                // 限制文本最多 6 个字符
+//                                if newValue.count > 6 {
+//                                    nickName = String(newValue.prefix(6))
+//                                }
+//                            }
+//                            .onSubmit {
+//                                // 当用户按下键盘的“确定”键时执行
+//                                UserDefaults.standard.set(nickName, forKey: "babyName")
+//                                globalData.babyName = nickName
+//                                isEditingNickname = false
+//                            }
+//                            .onTapGesture {
+//                                withAnimation {
+//                                    isEditingNickname.toggle()
+////                                    isEditingNickname = true // 用户点击 TextField 时设置为 true
+//                                }
+//                                }
+//                    }
+//                }
+//                if !isEditingNickname {
+//                    Section(header: Text("使用说明")) {
+//                        VStack {
+//                            Text("\(Image(systemName: "01.circle.fill")) 按住亲友分享的链接")
+//                                .padding()
+//                            HStack{
+//                                Spacer()
+//                                Image(colorScheme == .dark ? "darktips1" : "tips1")
+//                                    .resizable()
+//                                    .scaledToFit() // 保持图片的宽高比
+//                                    .frame(width: 270) // 限制图片的大小
+//                                Spacer()
+//                            }
+//                            Text("\(Image(systemName: "02.circle.fill")) 选择[拷贝]")
+//                                .padding()
+//                            Image(colorScheme == .dark ? "darktips2" : "tips2")
+//                                .resizable()
+//                                .scaledToFit() // 保持图片的宽高比
+//                                .frame(width: 270) // 限制图片的大小
+//                            Text("\(Image(systemName: "03.circle.fill")) 在app粘贴链接")
+//                                .padding()
+//
+//                            Image(colorScheme == .dark ? "darktips3" : "tips3")
+//                                .resizable()
+//                                .scaledToFit() // 保持图片的宽高比
+//                                .frame(width: 270) // 限制图片的大小
+//
+//
+//                        }
+//                        .listRowInsets(EdgeInsets()) // 去除内边距
+//                        .background(
+//                            // 根据 colorScheme 的值选择不同的背景颜色
+//                            colorScheme == .dark ?
+//                            Color(red: 0.17, green: 0.17, blue: 0.18) : // 深色模式下的颜色
+//                            Color(red: 0.9, green: 0.9, blue: 0.91)    // 浅色模式下的颜色
+//                        )
+//                    }
+//                    .transition(AnyTransition.opacity.combined(with: .scale))
+//
+//
+//                    Section(
+//                        header: Text("这几个设置基本不用改，除非您认识开发者")
+//                        //                    ,footer: Text("这几个设置基本不用改，除非您认识开发者")
+//
+//                    ) {
+//                        Toggle("视差效果震动反馈", isOn: $enableVibration)
+//                            .onChange(of: enableVibration) { newValue in
+//                                UserDefaults.standard.set(newValue, forKey: "HapticFeedback")
+//                            }
+//
+//                        Toggle("使用测试环境", isOn: $useTestEnvironment)
+//                            .onChange(of: useTestEnvironment) { newValue in
+//                                UserDefaults.standard.set(newValue, forKey: "UseTestEnvironment")
+//                            }
+//                        Toggle("使用沙盒环境", isOn: $UseSandbox)
+//                            .onChange(of: UseSandbox) { newValue in
+//                                UserDefaults.standard.set(newValue, forKey: "UseSandbox")
+//                            }
+//                    }
+//                    .transition(AnyTransition.opacity.combined(with: .scale))
+//
+//
+//
+//                }
+//                if isEditingNickname {
+//                    ZStack(alignment: .top) {
+//                        //背景
+//                        HStack{
+//                            Spacer()
+//                            Image("ditripbackground")//线上版
+//                                .frame(width: 140, height: 100) // 设置图片的框架大小为宽100点，高100点
+//                                .alignmentGuide(.top) { d in d[.top] }
+//                                .alignmentGuide(.trailing) { d in d[.trailing] }
+//                        }
+//                        VStack (alignment: .leading) {
+//                            //预计时间
+//                            Text("\(nickName)预计2分钟到达")
+//                                .font(.title2)
+//                                .bold()
+//                            HStack (alignment: .lastTextBaseline,spacing: 0){
+//                                Text("距离目的地")
+//                                    .font(.caption)
+//                                Text("1")
+//                                    .font(.title3)
+//                                    .monospaced()
+//                                Text("公里")
+//                                    .font(.caption)
+//                            }.padding(.bottom, 12)
+//
+//                            //进度条
+//                            ZStack(alignment: .leading) {
+//                                RoundedRectangle(cornerRadius: 15)
+//                                    .fill(Color.secondary)
+//                                    .opacity(0.2) // 将这个视图的透明度设置为50%
+//                                    .frame(height: 6) // 进度条背景的高度
+//
+//                                GeometryReader { geometry in
+//                                    // 根据进度计算蓝色进度条的宽度
+//                                    let linshiprogress = 0.8
+//                                    let maxProgressBarWidth = geometry.size.width - 48 // 最大宽度为父视图宽度减去15
+//                                    let progressBarWidth = max(geometry.size.width * CGFloat(linshiprogress), 25) // 进度条宽度至少为25
+//                                    let adjustedProgressBarWidth = min(progressBarWidth, maxProgressBarWidth) // 保证进度条宽度不超过最大宽度
+//
+//                                    ZStack(alignment: .leading) {
+//                                        RoundedRectangle(cornerRadius: 15)
+//                                            .fill(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+//                                            .frame(width: progressBarWidth, height: 6)
+//                                        //                                    .opacity(0.5)//个人版才需要
+//
+//                                        // 小汽车图标的位置也根据进度动态调整
+//                                        // 确保小汽车图标不会超出父视图的范围
+//                                        let carOffset = min(adjustedProgressBarWidth - 10, geometry.size.width - 20)
+//                                        Image("car")
+//                                            .resizable()
+//                                            .frame(width: 39, height: 18)
+//                                            .offset(x: carOffset) // 假设小汽车图标宽度为39
+//                                    }
+//                                }
+//                                //终点图标
+//                                HStack {
+//                                    Spacer()
+//                                    Image(systemName: "house.circle.fill")
+//                                    //                                .foregroundColor(.pink)//个人版
+//                                        .foregroundColor(Color(red: 0.98, green: 0.39, blue: 0.2))//线上版
+//                                        .background(.white)
+//                                        .clipShape(Circle())
+//                                }
+//                                .padding(.trailing, -2)
+//                            }
+//                            .frame(height: 12) // 设定 GeometryReader 的高度，确保它不会占据整个屏幕
+//                            .padding(.top, 8) // 这里设置了20点的上边距
+//                            .padding(.bottom, 8) // 这里设置了20点的上边距
+//                        }
+//                        .padding(15)
+//                    }
+//                    .listRowInsets(EdgeInsets()) // 去除内边距
+////                    .transition(AnyTransition.opacity.combined(with: .scale))
+//                    .transition(.asymmetric(
+//                        insertion: AnyTransition.opacity.combined(with: .move(edge: .bottom)),
+//                        removal: AnyTransition.opacity.combined(with: .move(edge: .bottom))
+//                    ))
+//
+//                }
+//
+//            }
+//            //            .navigationTitle("设置")
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    Button(action: {
+//                        isPresented = false
+//                    }) {
+//                        Image(systemName: "xmark.circle.fill") // 使用系统提供的关闭图标
+//                            .symbolRenderingMode(.hierarchical) // 设置为分层渲染模式
+//                            .foregroundColor(.secondary) // 设置为二级色
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
