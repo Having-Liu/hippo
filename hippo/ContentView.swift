@@ -792,28 +792,19 @@ struct SettingsView: View {
                     }
                     if !isEditingNickname  && ToggledeveloperMode  {
                         VStack{
-                        VStack(alignment: .leading) {
-                            Text("恭喜你捣鼓出开发者设置\n以下一般不用调整，除非已经和开发者聊了")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                                .padding(.horizontal)
-                            
-                        }
-                        .padding(.horizontal)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                             VStack(alignment: .leading) {
+                                Text("恭喜你捣鼓出开发者设置\n以下一般不用调整，除非已经和开发者聊了")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                    .padding(.horizontal)
                                 
+                            }
+                            .padding(.horizontal)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            VStack(alignment: .leading) {
                                 Rectangle()
                                     .fill(Color.clear) // 设置为透明颜色
                                     .frame(height: 1) // 设置分隔线的高度
-                                Toggle("开发者模式", isOn: $ToggledeveloperMode)
-                                    .onChange(of: ToggledeveloperMode) { newValue in
-                                        UserDefaults.standard.set(newValue, forKey: "developerMode")
-                                    }
-                                    .padding(.horizontal)
-                                Divider()
-                                    .padding(.leading) // 如果需要缩进，可以在这里设置
-                                
                                 Toggle("视差效果震动反馈", isOn: $enableVibration)
                                     .onChange(of: enableVibration) { newValue in
                                         UserDefaults.standard.set(newValue, forKey: "HapticFeedback")
@@ -847,6 +838,24 @@ struct SettingsView: View {
                             )
                             .cornerRadius(10) // 设置圆角半径为10
                             .padding(.horizontal)
+                            
+                            VStack(alignment: .leading) {
+                                Text("\n\(Image(systemName: "figure.table.tennis"))关闭开发者模式  \n\n")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                    .padding(.horizontal)
+                                    .onTapGesture {
+                                                // 点击文本时执行的操作
+                                                let suibian = false
+                                                UserDefaults.standard.set(suibian, forKey: "developerMode")
+                                                // 打印日志以确认操作
+                                                print("开发者模式已关闭")
+                                        ToggledeveloperMode = false // 更新 @State 变量
+                                            }
+                                
+                            }
+                            .padding(.horizontal)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         .transition(AnyTransition.opacity)
                         
