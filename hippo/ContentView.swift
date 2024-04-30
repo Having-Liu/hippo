@@ -708,12 +708,20 @@ struct SettingsView: View {
                                     // 当用户按下键盘的“确定”键时执行
                                     UserDefaults.standard.set(nickName, forKey: "babyName")
                                     globalData.babyName = nickName
+//                                    let successGenerator = UINotificationFeedbackGenerator()
+//                                    successGenerator.notificationOccurred(.success)
+                                    // 触发轻微震动效果
+                                    let generator = UIImpactFeedbackGenerator(style: .light)
+                                    generator.impactOccurred()
                                     withAnimation (.spring()){
                                         isEditingNickname = false
                                     }
                                    
                                 }
                                 .onTapGesture {
+                                    // 触发轻微震动效果
+                                    let generator = UIImpactFeedbackGenerator(style: .light)
+                                    generator.impactOccurred()
                                     withAnimation(.spring()) {
                                         isEditingNickname = true // 用户点击 TextField 时设置为 true
                                         isTextFieldFocused = true
