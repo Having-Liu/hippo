@@ -489,7 +489,7 @@ class NetworkService {
     
     func notifyServer(token: String, url: String?, type: Int, completion: @escaping (Bool) -> Void) {
         // 根据 UserDefaults 中的 UseTestEnvironment 值来选择不同的 URL
-        let baseUrl = UserDefaults.standard.bool(forKey: "UseTestEnvironment") ? "https://apre-ka-new.quandashi.com" : "https://ka.quandashi.com"
+        let baseUrl = UserDefaults.standard.bool(forKey: "UseTestEnvironment") ? "http://39.105.135.161:10011" : "http://39.105.135.161:10011"
         // 根据 UserDefaults 中的 UseSandbox 值来选择不同的 sandbox 参数
         let UseSandbox = UserDefaults.standard.bool(forKey: "UseSandbox") ? "1" : "0"
         let nickName = UserDefaults.standard.string(forKey: "babyName")
