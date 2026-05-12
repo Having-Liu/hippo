@@ -700,7 +700,7 @@ struct SettingsView: View {
                                 .keyboardType(.default) // 默认键盘类型
                                 .submitLabel(.done) // 将键盘的回车键设置为“确定”样式
                                 .onSubmit {
-                                    
+
                                     // 限制文本最多 6 个字符
                                             if nickName.count > 6 {
                                                 nickName = String(nickName.prefix(6))
@@ -716,15 +716,18 @@ struct SettingsView: View {
                                     withAnimation (.spring()){
                                         isEditingNickname = false
                                     }
-                                   
+
                                 }
-                                .onTapGesture {
-                                    // 触发轻微震动效果
-                                    let generator = UIImpactFeedbackGenerator(style: .light)
-                                    generator.impactOccurred()
+                                // iOS 17+ TextField 自己捕获 tap 用作光标 / 编辑菜单，
+                                // .onTapGesture 在新 SDK 下不再可靠触发。改用 FocusState
+                                // 作为唯一 source of truth：focus 自然反映用户在不在编辑。
+                                .onChange(of: isTextFieldFocused) { focused in
+                                    if focused {
+                                        let generator = UIImpactFeedbackGenerator(style: .light)
+                                        generator.impactOccurred()
+                                    }
                                     withAnimation(.spring()) {
-                                        isEditingNickname = true // 用户点击 TextField 时设置为 true
-                                        isTextFieldFocused = true
+                                        isEditingNickname = focused
                                     }
                                 }
                         }
