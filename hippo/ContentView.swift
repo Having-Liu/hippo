@@ -272,13 +272,38 @@ struct ContentView: View {
                 }
             }
         }
+        // 启动后自动恢复详情页：
+        // 1) 同步快照先查一次（粘贴-杀-重开 这种本进程创建的 activity 走这条）
+        // 2) 订阅 activityUpdates 流（Shortcut/LiveActivityIntent 跨进程创建的，
+        //    冷启动瞬间 .activities 可能空，靠流补齐）
+        // 多个活跃时按 createdAt 降序取最新。
+        .task {
+            jumpToLatestActivityIfAny()
+            for await activity in Activity<hippoWidgetAttributes>.activityUpdates {
+                guard !showTripview,
+                      activity.activityState == .active,
+                      !activity.attributes.tripUrl.isEmpty else { continue }
+                jumpToLatestActivityIfAny()
+            }
+        }
+    }
+
+    private func jumpToLatestActivityIfAny() {
+        guard !showTripview else { return }
+        let active = Activity<hippoWidgetAttributes>.activities
+            .filter { $0.activityState == .active && !$0.attributes.tripUrl.isEmpty }
+            .sorted { $0.attributes.createdAt > $1.attributes.createdAt }
+        guard let latest = active.first else { return }
+        self.urlString = latest.attributes.tripUrl
+        self.motionManager.stopMonitoring()
+        self.showTripview = true
     }
     // MARK: 灵动岛相关的所有方法
     //开启灵动岛显示功能
     func startActivity(completion: @escaping (Bool) -> Void){
         Task{
             print("NetworkService开启灵动岛--------------------")
-            let attributes = hippoWidgetAttributes(name:"不知道干啥的")
+            let attributes = hippoWidgetAttributes(name:"不知道干啥的", tripUrl: urlString, createdAt: Date().timeIntervalSince1970)
             let initialContentState = hippoWidgetAttributes.ContentState(
                 progress: globalData.progress,
                 distance: globalData.distance ?? "0",
@@ -366,8 +391,7 @@ struct TripView: View {
         VStack(spacing:0) {
             WebView(urlString: urlString)
                 .frame(maxWidth: .infinity, maxHeight: .infinity) // 设置 WebView 尽可能大
-                .edgesIgnoringSafeArea(.all)
-            HStack (alignment: .top) {
+            HStack (alignment: .center) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("已创建实时活动卡片✨")
                         .font(
@@ -450,7 +474,6 @@ struct TripView: View {
             //                )
             //            )
         }
-        .edgesIgnoringSafeArea(.all)
         //        // 从 TripView 返回时重新启动监控
         //            .onDisappear {
         //                motionManager.startMonitoring()  // 重新启动监控
@@ -488,8 +511,9 @@ class NetworkService {
     private init() {}
     
     func notifyServer(token: String, url: String?, type: Int, completion: @escaping (Bool) -> Void) {
-        // 根据 UserDefaults 中的 UseTestEnvironment 值来选择不同的 URL
-        let baseUrl = UserDefaults.standard.bool(forKey: "UseTestEnvironment") ? "http://39.105.135.161:10011" : "http://39.105.135.161:10011"
+        // 后端已迁移到 Cloudflare Worker（astrocean.love，HTTPS）。
+        // UseTestEnvironment 这个开关暂时两边接同一个生产环境，保留以便将来分流。
+        let baseUrl = UserDefaults.standard.bool(forKey: "UseTestEnvironment") ? "https://api.astrocean.love" : "https://api.astrocean.love"
         // 根据 UserDefaults 中的 UseSandbox 值来选择不同的 sandbox 参数
         let UseSandbox = UserDefaults.standard.bool(forKey: "UseSandbox") ? "1" : "0"
         let nickName = UserDefaults.standard.string(forKey: "babyName")
