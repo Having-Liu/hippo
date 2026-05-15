@@ -27,6 +27,7 @@ public class GlobalData: ObservableObject {
     var sentTokens = Set<String>() // 用于存储已发送的Token
     var currentToken: String? // 存储当前活动的token
     var currentUrl: String? // 存储当前活动的token
+    var observedActivityIDs = Set<String>() // 已挂 pushTokenUpdates 监听的 activity id，避免重复 Task
     
     // 使用 @Published 使属性变化时能够通知视图更新
     @Published var babyName: String = UserDefaults.standard.string(forKey: "babyName") ?? "亲友"
@@ -279,11 +280,44 @@ struct ContentView: View {
         // 多个活跃时按 createdAt 降序取最新。
         .task {
             jumpToLatestActivityIfAny()
+            // 冷启动: 已存在的活跃 activity 也挂 pushTokenUpdates 监听
+            // （解决跨进程接管时 iOS 重新签发 token 的场景：短信 intent 创建后,
+            //  主 app 启动接管，token 会从 A 轮换到 B，必须续订才能继续推送）
+            for activity in Activity<hippoWidgetAttributes>.activities
+                where activity.activityState == .active {
+                observePushTokens(for: activity)
+            }
             for await activity in Activity<hippoWidgetAttributes>.activityUpdates {
+                observePushTokens(for: activity)
                 guard !showTripview,
                       activity.activityState == .active,
                       !activity.attributes.tripUrl.isEmpty else { continue }
                 jumpToLatestActivityIfAny()
+            }
+        }
+    }
+
+    // 给一个 activity 挂 pushTokenUpdates 长流监听，新 token 立刻同步到服务端。
+    // 同一个 activity.id 只挂一次（observedActivityIDs 去重）。
+    private func observePushTokens(for activity: Activity<hippoWidgetAttributes>) {
+        let aid = activity.id
+        guard !GlobalData.shared.observedActivityIDs.contains(aid) else { return }
+        GlobalData.shared.observedActivityIDs.insert(aid)
+        Task {
+            for await tokenData in activity.pushTokenUpdates {
+                let token = tokenData.map { String(format: "%02x", $0) }.joined()
+                guard !GlobalData.shared.sentTokens.contains(token) else {
+                    print("接管路径 token 已发送，跳过：\(token)")
+                    continue
+                }
+                print("接管路径拿到新 token: \(token)")
+                NetworkService.shared.notifyServer(
+                    token: token,
+                    url: activity.attributes.tripUrl,
+                    type: 0
+                ) { _ in }
+                GlobalData.shared.sentTokens.insert(token)
+                GlobalData.shared.currentToken = token
             }
         }
     }
